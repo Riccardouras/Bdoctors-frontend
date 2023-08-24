@@ -8,7 +8,7 @@ export default {
     <h3>dottori</h3>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @use '../style.scss' as *;
 
 h3 {
