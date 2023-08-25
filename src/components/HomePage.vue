@@ -34,12 +34,12 @@ export default {
 <template>
   <!-- NAVBAR -->
   <header>
-    <div class="container-1">
-      <div class="container-1">
+    <div class="background">
+      <div class="container navbar ">
         <Motion :initial="{ x: -1000 }" :animate="{ x: 0 }" :transition="{ type: 'spring', stiffness: 100 }">
           <div class="nav-left">
             <img id="logo" src="../img/LogoPiccolo.png" alt="">
-            <h1>B-Doctors</h1>
+            <h1 class="text-white">B-Doctors</h1>
           </div>
         </Motion>
         <Motion :initial="{ x: 1000 }" :animate="{ x: 0 }" :transition="{ type: 'spring', stiffness: 100 }">
@@ -50,36 +50,40 @@ export default {
         </Motion>
 
       </div>
+      <div class="container">
+
+        <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5 ">
+          <h2>Cerca il tuo dottore!</h2>
+          <h4>Cerca tra 100 000 Specialisti e Medici di Medicina Generale.</h4>
+        </div>
+        <form>
+          <div class="form-row d-flex align-items-center">
+            <div class="col me-3">
+              <label class="text-white" for="specialization">Specializzazione:</label>
+              <input type="text" class="form form-control" id="specialization"
+                placeholder="es. Cardiologo, Dentista, Ginecologo">
+            </div>
+            <div class="col me-3">
+              <label class="text-white" for="location">Luogo:</label>
+              <input type="text" class="form form-control" id="location" placeholder="es. Roma, Milano, Firenze">
+            </div>
+            <button type="submit" class="button text-center mt-4">Cerca</button>
+          </div>
+        </form>
+      </div>
 
     </div>
   </header>
   <main>
     <!-- FORM SPECIALIZZAZIONE -->
-    <div class="container-2">
 
-      <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5">
-        <h2>Cerca il tuo dottore!</h2>
-        <h4>Cerca tra 100 000 Specialisti e Medici di Medicina Generale.</h4>
-      </div>
-      <form>
-        <div class="form-row d-flex align-items-center">
-          <div class="col me-3">
-            <label for="specialization">Specializzazione:</label>
-            <input type="text" class="form form-control" id="specialization"
-              placeholder="es. Cardiologo, Dentista, Ginecologo">
-          </div>
-          <div class="col me-3">
-            <label for="location">Luogo:</label>
-            <input type="text" class="form form-control" id="location" placeholder="es. Roma, Milano, Firenze">
-          </div>
-          <button type="submit" class="button text-center mt-4">Cerca</button>
-        </div>
-      </form>
-    </div>
+
+
+
     <!-- MEDICI IN EVIDENZA -->
     <div class="container">
       <div class="row">
-        <h2 class="text-center">Dottori in evidenza</h2>
+        <h2 class="text-center mt-4 mb-4">Dottori in evidenza</h2>
         <div class="col-sm-3 mt-2" v-for="doctor in doctors" :key="doctor.id">
           <div class="card">
             <img class="card-img-top" :src="doctor.image" :alt="doctor.name">
@@ -97,9 +101,9 @@ export default {
 <style lang="scss">
 @use '../style.scss' as *;
 
-.container-1 {
+.navbar {
   height: 100px;
-  background-color: #17a5f5;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -118,9 +122,12 @@ header {
   width: 330px;
   justify-content: space-between;
 
-  h1 {
-    font-family: cursive;
-  }
+
+}
+
+h1,
+h2 {
+  font-family: cursive;
 }
 
 #logo {
@@ -135,17 +142,18 @@ header {
 
 div a {
   text-decoration: none;
-  color: black;
-}
-
-a:hover {
   color: white;
 }
 
-.container-2 {
-  background-color: #17a5f5;
-  background-image: url(../img/Dottori3png.png);
+a:hover {
+  color: black;
+}
 
+
+.background {
+  background-image: url(../img/Dottori4.png);
+  background-size: cover;
+  background-position: center;
 }
 
 .titleDoctor {
