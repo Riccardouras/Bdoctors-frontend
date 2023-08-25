@@ -23,22 +23,27 @@ export default {
 </script>
 
 <template>
+  <!-- NAVBAR -->
   <header>
-    <div class="container">
+    <div class="container-1">
       <div class="nav-left">
-        <img id="logo" src="../" alt="">
+        <img id="logo" src="../img/LogoPiccolo.png" alt="">
         <h1>B-Doctors</h1>
       </div>
       <div class="nav-right">
         <a href="">Registrati</a>
         <a href="">Accedi</a>
       </div>
-
     </div>
-
   </header>
+  <!-- NAVBAR -->
+
 
   <main>
+
+
+
+    <!-- MEDICI IN EVIDENZA -->
     <div class="container-fluid">
       <div class="row">
         <div class="col-7 bg-light pt-4 d-flex flex-column align-items-center border-end">
@@ -72,13 +77,14 @@ export default {
         </div>
       </div>
     </div>
+    <!-- MEDICI IN EVIDENZA -->
   </main>
 </template>
 
 <style lang="scss">
 @use '../style.scss' as *;
 
-.container {
+.container-1 {
   height: 100px;
   background-color: #17a5f5;
   display: flex;
@@ -107,7 +113,7 @@ export default {
   justify-content: space-between;
 }
 
-a {
+div a {
   text-decoration: none;
   color: black;
 }
