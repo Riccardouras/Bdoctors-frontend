@@ -24,7 +24,7 @@ export default {
 <template>
   <!-- NAVBAR -->
   <header>
-    <div class="container-1">
+    <div class="container-1 ">
       <div class="nav-left">
         <img id="logo" src="../img/LogoPiccolo.png" alt="">
         <h1>B-Doctors</h1>
@@ -37,23 +37,27 @@ export default {
   </header>
   <main>
     <!-- FORM SPECIALIZZAZIONE -->
-    <div class="titleDoctor d-flex flex-column justify-content-around">
-      <h2>Cerca il tuo dottore</h2>
-      <h4>Cerca tra 100 000 Specialisti e Medici di Medicina Generale.</h4>
-    </div>
-    <form>
-      <div class="form-row d-flex align-items-center">
-        <div class="col me-3">
-          <label for="specialization">Specializzazione:</label>
-          <input type="text" class="form-control" id="specialization" placeholder="es. Cardiologo, Dentista, Ginecologo">
-        </div>
-        <div class="col me-3">
-          <label for="location">Luogo:</label>
-          <input type="text" class="form-control" id="location" placeholder="es. Roma, Milano, Firenze">
-        </div>
-        <button type="submit" class="text-center btn btn-primary mt-4">Cerca</button>
+    <div class="container-2">
+
+      <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5">
+        <h2>Cerca il tuo dottore!</h2>
+        <h4>Cerca tra 100 000 Specialisti e Medici di Medicina Generale.</h4>
       </div>
-    </form>
+      <form>
+        <div class="form-row d-flex align-items-center">
+          <div class="col me-3">
+            <label for="specialization">Specializzazione:</label>
+            <input type="text" class="form form-control" id="specialization"
+              placeholder="es. Cardiologo, Dentista, Ginecologo">
+          </div>
+          <div class="col me-3">
+            <label for="location">Luogo:</label>
+            <input type="text" class="form form-control" id="location" placeholder="es. Roma, Milano, Firenze">
+          </div>
+          <button type="submit" class="button text-center mt-4">Cerca</button>
+        </div>
+      </form>
+    </div>
     <!-- MEDICI IN EVIDENZA -->
     <div class="container-fluid">
       <div class="row">
@@ -94,15 +98,22 @@ export default {
   height: 100px;
   background-color: #17a5f5;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  width: 75%;
+  margin: auto;
+
+}
+
+header {
+  background-color: #17a5f5;
 }
 
 .nav-left {
   display: flex;
   align-items: center;
-  width: 400px;
-  justify-content: space-around;
+  width: 330px;
+  justify-content: space-between;
 
   h1 {
     font-family: cursive;
@@ -128,17 +139,39 @@ a:hover {
   color: white;
 }
 
+.container-2 {
+  background-color: #17a5f5;
+  background-image: url(../img/Dottori3png.png);
+
+}
+
 .titleDoctor {
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 180px;
+}
+
+.titleDoctor h2,
+h4 {
+  font-family: cursive;
 }
 
 .form-row {
-  max-width: 1000px;
-  height: 200px;
-  margin-left: 200px;
+  width: 75%;
+  height: 180px;
+  margin: auto;
+}
+
+.button {
+  background-color: white;
+  width: 100px;
+  height: 50px;
+  border: none;
+  border-radius: 6px;
+  color: #17a5f5;
+}
+
+.form {
+  height: 50px;
+  border-radius: 2px
 }
 
 .sponsorDoctors {
