@@ -21,7 +21,6 @@ export default {
   }
 }
 </script>
-
 <template>
   <!-- NAVBAR -->
   <header>
@@ -36,16 +35,31 @@ export default {
       </div>
     </div>
   </header>
-  <!-- NAVBAR -->
-
-
   <main>
-
-
-
+    <!-- FORM SPECIALIZZAZIONE -->
+    <div class="titleDoctor d-flex flex-column justify-content-around">
+      <h2>Cerca il tuo dottore</h2>
+      <h4>Cerca tra 100 000 Specialisti e Medici di Medicina Generale.</h4>
+    </div>
+    <form>
+      <div class="form-row d-flex align-items-center">
+        <div class="col me-3">
+          <label for="specialization">Specializzazione:</label>
+          <input type="text" class="form-control" id="specialization" placeholder="es. Cardiologo, Dentista, Ginecologo">
+        </div>
+        <div class="col me-3">
+          <label for="location">Luogo:</label>
+          <input type="text" class="form-control" id="location" placeholder="es. Roma, Milano, Firenze">
+        </div>
+        <button type="submit" class="text-center btn btn-primary mt-4">Cerca</button>
+      </div>
+    </form>
     <!-- MEDICI IN EVIDENZA -->
     <div class="container-fluid">
       <div class="row">
+        <div class="sponsorDoctors">
+          <h2>Dottori in evidenza</h2>
+        </div>
         <div class="col-7 bg-light pt-4 d-flex flex-column align-items-center border-end">
           <Motion :initial="{ x: -1000 }" :animate="{ x: 0 }" :transition="{ type: 'spring', stiffness: 100 }">
             <div class="cardImages" style="height: 700px">
@@ -57,21 +71,13 @@ export default {
             </div>
           </Motion>
         </div>
-        <div class="col-5 bg-light p-4 text-center ">
+        <div class="col-5 bg-light p-4 text-center d-flex justify-content-around flex-column">
           <Motion :initial="{ x: 1000 }" :animate="{ x: 0 }" :transition="{ type: 'spring', stiffness: 100 }">
             <h2 class="text-primary">Descrizione Dottore</h2>
-            <div class="text-primary description d-flex justify-content-around flex-column h-100">
+            <div class="text-primary description d-flex justify-content-around flex-column">
               <span>Nome:</span>
               <span>Cognome:</span>
-              <span>Indirizzo:</span>
-              <span>Numero di telefono:</span>
-              <span>Email:</span>
               <span>Specializzazione:</span>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias incidunt porro sapiente sit officiis odio
-                ex
-                eum repellendus quo sunt soluta ea cupiditate animi nihil, corporis iusto ab, saepe praesentium.
-              </p>
             </div>
           </Motion>
         </div>
@@ -95,7 +101,7 @@ export default {
 .nav-left {
   display: flex;
   align-items: center;
-  width: 300px;
+  width: 400px;
   justify-content: space-around;
 
   h1 {
@@ -120,5 +126,25 @@ div a {
 
 a:hover {
   color: white;
+}
+
+.titleDoctor {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-row {
+  max-width: 1000px;
+  height: 200px;
+  margin-left: 200px;
+}
+
+.sponsorDoctors {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
