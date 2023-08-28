@@ -167,7 +167,7 @@ export default {
 
 
 
-    <div class=" my-5">
+    <div class=" mt-5">
 
       <div class="bg-dark text-center text-white">
         <div class="container p-4 pb-0">
@@ -225,10 +225,7 @@ header {
 
 }
 
-h1,
-h2 {
-  font-family: cursive;
-}
+
 
 #logo {
   width: 110px;
@@ -260,10 +257,7 @@ a:hover {
   height: 180px;
 }
 
-.titleDoctor h2,
-h4 {
-  font-family: cursive;
-}
+
 
 .form-row {
   width: 75%;
