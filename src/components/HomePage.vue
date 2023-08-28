@@ -63,10 +63,6 @@ export default {
               <input type="text" class="form form-control" id="specialization"
                 placeholder="es. Cardiologo, Dentista, Ginecologo">
             </div>
-            <div class="col me-3">
-              <label class="text-white" for="location">Luogo:</label>
-              <input type="text" class="form form-control" id="location" placeholder="es. Roma, Milano, Firenze">
-            </div>
             <button type="submit" class="button text-center mt-4">Cerca</button>
           </div>
         </form>
@@ -162,6 +158,7 @@ export default {
         </div>
       </div>
     </div>
+<<<<<<< HEAD
 
 
 
@@ -169,6 +166,10 @@ export default {
 
     <div class=" mt-5">
 
+=======
+    <!-- LINK SOCIAL -->
+    <div class=" mt-5">
+>>>>>>> Advanced-Page
       <div class="bg-dark text-center text-white">
         <div class="container p-4 pb-0">
           <section class="mb-4">
@@ -187,14 +188,7 @@ export default {
           <a class="text-white" href="https://mdbootstrap.com/">BooleanProject</a>
         </div>
       </div>
-
-
     </div>
-
-
-
-
-
   </footer>
 </template>
 
@@ -203,13 +197,11 @@ export default {
 
 .navbar {
   height: 100px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 75%;
   margin: auto;
-
 }
 
 header {
@@ -221,11 +213,15 @@ header {
   align-items: center;
   width: 330px;
   justify-content: space-between;
+<<<<<<< HEAD
 
 
 }
 
 
+=======
+}
+>>>>>>> Advanced-Page
 
 #logo {
   width: 110px;
@@ -245,7 +241,6 @@ div a {
 a:hover {
   color: black;
 }
-
 
 .background {
   background-image: url(../img/Dottori4.png);
