@@ -27,6 +27,9 @@ export default {
     },
     prevImage() {
       this.currentImage = (this.currentImage - 1 + this.images.length) % this.images.length;
+    },
+    submitForm() {
+      this.$router.push('/advancedsearch');
     }
   }
 }
@@ -56,7 +59,7 @@ export default {
           <h2>Cerca il tuo dottore!</h2>
           <h4>Cerca tra 100 000 Specialisti e Medici di Medicina Generale.</h4>
         </div>
-        <form>
+        <form @submit.prevent="submitForm">
           <div class="form-row d-flex align-items-center">
             <div class="col me-3">
               <label class="text-white" for="specialization">Specializzazione:</label>
@@ -64,6 +67,7 @@ export default {
                 placeholder="es. Cardiologo, Dentista, Ginecologo">
             </div>
             <button type="submit" class="button text-center mt-4">Cerca</button>
+            <router-view></router-view>
           </div>
         </form>
       </div>
@@ -158,6 +162,7 @@ export default {
         </div>
       </div>
     </div>
+
     <div class=" mt-5">
       <!-- LINK SOCIAL -->
       <div class=" mt-5">
@@ -237,8 +242,6 @@ a:hover {
 .titleDoctor {
   height: 180px;
 }
-
-
 
 .form-row {
   width: 75%;
