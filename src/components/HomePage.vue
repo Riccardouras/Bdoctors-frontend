@@ -27,6 +27,9 @@ export default {
     },
     prevImage() {
       this.currentImage = (this.currentImage - 1 + this.images.length) % this.images.length;
+    },
+    submitForm() {
+      this.$router.push('/advancedsearch');
     }
   }
 }
@@ -56,7 +59,7 @@ export default {
           <h2>Cerca il tuo dottore!</h2>
           <h4>Cerca tra 100 000 Specialisti e Medici di Medicina Generale.</h4>
         </div>
-        <form>
+        <form @submit.prevent="submitForm">
           <div class="form-row d-flex align-items-center">
             <div class="col me-3">
               <label class="text-white" for="specialization">Specializzazione:</label>
@@ -64,6 +67,7 @@ export default {
                 placeholder="es. Cardiologo, Dentista, Ginecologo">
             </div>
             <button type="submit" class="button text-center mt-4">Cerca</button>
+            <router-view></router-view>
           </div>
         </form>
       </div>
@@ -158,34 +162,28 @@ export default {
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-
-
-
-
 
     <div class=" mt-5">
-
-=======
-    <!-- LINK SOCIAL -->
-    <div class=" mt-5">
->>>>>>> Advanced-Page
-      <div class="bg-dark text-center text-white">
-        <div class="container p-4 pb-0">
-          <section class="mb-4">
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                class="fab fa-facebook-f"></i></a>
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a>
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                class="fab fa-linkedin-in"></i></a>
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-github"></i></a>
-          </section>
-        </div>
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-          © 2023 Copyright:
-          <a class="text-white" href="https://mdbootstrap.com/">BooleanProject</a>
+      <!-- LINK SOCIAL -->
+      <div class=" mt-5">
+        <div class="bg-dark text-center text-white">
+          <div class="container p-4 pb-0">
+            <section class="mb-4">
+              <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                  class="fab fa-facebook-f"></i></a>
+              <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+              <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
+              <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                  class="fab fa-instagram"></i></a>
+              <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                  class="fab fa-linkedin-in"></i></a>
+              <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-github"></i></a>
+            </section>
+          </div>
+          <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">BooleanProject</a>
+          </div>
         </div>
       </div>
     </div>
@@ -213,15 +211,8 @@ header {
   align-items: center;
   width: 330px;
   justify-content: space-between;
-<<<<<<< HEAD
-
-
 }
 
-
-=======
-}
->>>>>>> Advanced-Page
 
 #logo {
   width: 110px;
@@ -251,8 +242,6 @@ a:hover {
 .titleDoctor {
   height: 180px;
 }
-
-
 
 .form-row {
   width: 75%;
