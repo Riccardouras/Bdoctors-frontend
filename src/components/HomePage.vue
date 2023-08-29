@@ -190,7 +190,7 @@ export default {
   </footer>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 @use '../style.scss' as *;
 
 .navbar {
