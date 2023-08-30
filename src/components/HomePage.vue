@@ -82,12 +82,11 @@ export default {
           </div>
         </form>
       </div>
-
     </div>
   </header>
 
   <main>
-    <!-- MEDICI IN EVIDENZA -->
+    <!-- MEDICI IN EVIDENZAA-->
     <div class="container">
       <div class="row">
         <h2 class="text-center mt-4 mb-4">Dottori in evidenza</h2>
