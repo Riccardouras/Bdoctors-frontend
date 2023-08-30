@@ -1,7 +1,58 @@
 <script>
 import { RouterLink } from 'vue-router'
+import { store } from '../store/store';
+import axios from 'axios';
+
 export default {
-    name: 'AdvancedSearch'
+    name: 'AdvancedSearch',
+    data(){
+        return {
+            store
+        }
+    },
+    methods:{
+        searchPerSpecialty(specialtyID){
+            let config = {
+                params: {
+                    specialty: specialtyID
+                }
+            };
+            axios.get('http://localhost:8000/api/searchPerSpecialty', config)
+                .then(response => {
+                    this.store.doctors = response.data.results;
+                    console.log( 'SEARCH PER SPECIALTY' , this.store.doctors);
+                })
+        },
+        searchWithFilter(specialtyID, minVote, minReview){
+            let config = {
+                params: {
+                    specialty: specialtyID,
+                    minAvgVote: minVote,
+                    minNumOfReviews: minReview
+                }
+            };
+            axios.get('http://localhost:8000/api/searchWithFilter', config)
+                .then(response => {
+                    this.doctors = response.data.results;
+                    console.log(this.doctors);
+                })
+        },
+        saveMinAvgVote(event){
+            this.store.minAvgVote = event.target.value;
+            console.log(this.store.minAvgVote);
+        },
+        saveMinNumOfReviews(event){
+            this.store.minNumOfReviews = event.target.value;
+            console.log(this.store.minNumOfReviews);
+        }
+
+    },
+    mounted(){
+        this.store.minAvgVote = 0;
+        this.store.minNumOfReviews = 0;
+        this.searchPerSpecialty(this.store.specialtyID);
+        console.log( 'LOG AL MOUNTED' , this.store.doctors);
+    }
 }
 </script>
 
@@ -10,19 +61,15 @@ export default {
     <header>
         <div class="background">
             <div class="container navbar ">
-                <Motion :initial="{ x: -1000 }" :animate="{ x: 0 }" :transition="{ type: 'spring', stiffness: 100 }">
-                    <div class="nav-left">
-                        <img id="logo" src="../img/LogoPiccolo.png" alt="">
-                        <h1 class="text-white">B-Doctors</h1>
-                    </div>
-                </Motion>
-                <Motion :initial="{ x: 1000 }" :animate="{ x: 0 }" :transition="{ type: 'spring', stiffness: 100 }">
-                    <div class="nav-right">
-                        <router-link to="/">Torna alla Home</router-link>
-                        <a href="">Registrati</a>
-                        <a href="">Accedi</a>
-                    </div>
-                </Motion>
+                <div class="nav-left">
+                    <img id="logo" src="../img/LogoPiccolo.png" alt="">
+                    <h1 class="text-white">B-Doctors</h1>
+                </div>
+                <div class="nav-right">
+                    <router-link to="/">Torna alla Home</router-link>
+                    <a href="">Registrati</a>
+                    <a href="">Accedi</a>
+                </div>
             </div>
 
             <!-- FORM RICERCA -->
@@ -30,32 +77,45 @@ export default {
                 <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5">
                     <h2>Filtra per numero di recensioni e numero di stelle</h2>
                 </div>
-                <form>
+                <div>
                     <div class="form-row d-flex align-items-center">
                         <div class="col me-3">
-                            <select class="form-select p-2" aria-label="Default select example">
-                                <option selected>Numero di stelle:</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="3">4</option>
-                                <option value="3">5</option>
+                            <select @change="saveMinAvgVote($event)" class="form-select p-2" name="minAvgVote" id="minAvgVote">
+                                <option :value="0" :key="0" selected>Numero di stelle:</option>
+                                <option v-for="n in 5" :value="n" :key="n">{{ n }}</option>
                             </select>
                         </div>
                         <div class="col me-3">
-                            <select class="form-select p-2" aria-label="Default select example">
-                                <option selected>Numero di recensioni</option>
-                                <option value="1">0-5</option>
-                                <option value="2">5-10</option>
-                                <option value="3">Più di 10</option>
+                            <select @change="saveMinNumOfReviews($event)" class="form-select p-2" name="minNumOfReviews" id="minNumOfReviews">
+                                <option value="0" :key="0" selected>Nessun minimo</option>
+                                <option v-for="n in 10" :value="n">{{ n }}</option>
                             </select>
                         </div>
-                        <button type="submit" class="button text-center">Cerca</button>
+                        <button :disabled="(store.minAvgVote !=0 || store.minNumOfReviews != 0) ? false : true" @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)" class="button text-center">Cerca</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </header>
+
+    <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <h2 class="text-center mt-4 mb-4">Dottori</h2>
+                <div class="col-sm-3 mt-2" v-for="doctor in store.doctors" :key="doctor.id">
+                    <div class="card">
+                        <img class="card-img-top" :src="doctor.doctorImage" :alt="doctor.doctorName">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ doctor.doctorName }}</h5>
+                            <p class="card-text" v-for="specialty in doctor.doctorSpecialtiesArray">{{ specialty }}</p>
+                            <p class="card-text">Voto medio: {{ doctor.averageVote }}</p>
+                            <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </template>
 
 <style scoped lang="scss">
@@ -99,7 +159,7 @@ a:hover {
 }
 
 .background {
-    background-image: url(../img/dottore.jpg);
+    // background-image: url(../img/dottore.jpg);
     background-size: cover;
     background-repeat: no-repeat;
 

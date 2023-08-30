@@ -1,12 +1,15 @@
 <script>
 import { Motion } from "motion/vue";
 import axios from 'axios';
+import { store } from '../store/store';
+
 export default {
   components: { Motion },
   data() {
     return {
       currentImage: 0,
       results: [],
+      specialties: [],
       images: [
         'src/img/logo.png',
         'src/img/programmazione.webp'
@@ -21,6 +24,7 @@ export default {
         { id: 7, name: 'Nome', surname: 'Cognome', specialization: 'Specializzazione', image: 'src/img/logo.png' },
         { id: 8, name: 'Nome', surname: 'Cognome', specialization: 'Specializzazione', image: 'src/img/programmazione.webp' },
       ],
+      store
     }
   },
   methods: {
@@ -34,14 +38,28 @@ export default {
       this.$router.push('/advancedsearch');
     },
     subscribersDoctors() {
-      axios.get('')
+      axios.get('http://localhost:8000/api/sponsoredDoctors')
         .then(response => {
-          this.results = response.data;
+          this.results = response.data.results;
+          // console.log(this.results);
         });
+    },
+    getSpecialties(){
+      axios.get('http://localhost:8000/api/allSpecialties')
+        .then(response => {
+          this.specialties = response.data.results;
+          // console.log(this.specialties);
+        })
+    },
+    saveSpecialtyID(event){
+      this.store.specialtyID = event.target.value;
+      // console.log(this.store.specialtyID);
     }
   },
   mounted() {
+    this.store.specialtyID = 0;
     this.subscribersDoctors();
+    this.getSpecialties();
   },
 }
 </script>
@@ -70,24 +88,29 @@ export default {
           <h2>Cerca il tuo dottore!</h2>
           <h4>Cerca tra 100 000 Specialisti e Medici di Medicina Generale.</h4>
         </div>
-        <form @submit.prevent="submitForm">
+        
+        <div>
           <div class="form-row d-flex align-items-center">
             <div class="col me-3">
               <label class="text-white" for="specialization">Specializzazione:</label>
-              <input type="text" class="form form-control" id="specialization"
-                placeholder="es. Cardiologo, Dentista, Ginecologo">
+              <!-- <input type="text" class="form form-control" id="specialization"
+                placeholder="es. Cardiologo, Dentista, Ginecologo"> -->
+                <select @change="saveSpecialtyID($event)" class="form-control" name="specialty" id="specialty">
+                  <option value="0" selected>Seleziona una specializzazione</option>
+                  <option v-for="specialty in specialties" :value="specialty.id" :key="specialty.id">{{ specialty.name }}</option>
+                </select>
             </div>
-            <button type="submit" class="button text-center mt-4">Cerca</button>
-            <router-view></router-view>
+            <button :disabled="store.specialtyID!=0 ? false : true" @click="submitForm" class="button text-center mt-4">Cerca</button>
+            <!-- <router-view></router-view> -->
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </header>
 
   <main>
     <!-- MEDICI IN EVIDENZAA-->
-    <div class="container">
+    <!-- <div class="container">
       <div class="row">
         <h2 class="text-center mt-4 mb-4">Dottori in evidenza</h2>
         <div class="col-sm-3 mt-2" v-for="doctor in doctors" :key="doctor.id">
@@ -96,6 +119,21 @@ export default {
             <div class="card-body">
               <h5 class="card-title">{{ doctor.name }} {{ doctor.surname }}</h5>
               <p class="card-text">{{ doctor.specialization }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <h2 class="text-center mt-4 mb-4">Dottori in evidenza</h2>
+        <div class="col-sm-3 mt-2" v-for="doctor in results" :key="doctor.id">
+          <div class="card">
+            <img class="card-img-top" :src="doctor.doctorImage" :alt="doctor.doctorName">
+            <div class="card-body">
+              <h5 class="card-title">{{ doctor.doctorName }}</h5>
+              <p class="card-text" v-for="specialty in doctor.doctorSpecialtiesArray">{{ specialty }}</p>
             </div>
           </div>
         </div>
