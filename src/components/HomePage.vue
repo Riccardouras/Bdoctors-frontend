@@ -1,10 +1,12 @@
 <script>
 import { Motion } from "motion/vue";
+import axios from 'axios';
 export default {
   components: { Motion },
   data() {
     return {
       currentImage: 0,
+      results: [],
       images: [
         'src/img/logo.png',
         'src/img/programmazione.webp'
@@ -30,8 +32,17 @@ export default {
     },
     submitForm() {
       this.$router.push('/advancedsearch');
+    },
+    subscribersDoctors() {
+      axios.get('')
+        .then(response => {
+          this.results = response.data;
+        });
     }
-  }
+  },
+  mounted() {
+    this.subscribersDoctors();
+  },
 }
 </script>
 <template>
