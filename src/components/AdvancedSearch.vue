@@ -80,18 +80,20 @@ export default {
                 <div>
                     <div class="form-row d-flex align-items-center">
                         <div class="col me-3">
-                            <select @change="saveMinAvgVote($event)" class="form-select p-2" name="minAvgVote" id="minAvgVote">
-                                <option :value="0" :key="0" selected>Numero di stelle:</option>
+                            <label for="minAvgVote">Voto minimo</label>
+                            <select @change="saveMinAvgVote($event)" class="form-control p-2" name="minAvgVote" id="minAvgVote">
+                                <option :value="0" :key="0" selected>Nessun minimo</option>
                                 <option v-for="n in 5" :value="n" :key="n">{{ n }}</option>
                             </select>
                         </div>
                         <div class="col me-3">
-                            <select @change="saveMinNumOfReviews($event)" class="form-select p-2" name="minNumOfReviews" id="minNumOfReviews">
+                            <label for="minNumOfReviews">Numero minimo di recensioni</label>
+                            <select @change="saveMinNumOfReviews($event)" class="form-control p-2" name="minNumOfReviews" id="minNumOfReviews">
                                 <option value="0" :key="0" selected>Nessun minimo</option>
                                 <option v-for="n in 10" :value="n">{{ n }}</option>
                             </select>
                         </div>
-                        <button :disabled="(store.minAvgVote !=0 || store.minNumOfReviews != 0) ? false : true" @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)" class="button text-center">Cerca</button>
+                        <button :disabled="(store.minAvgVote !=0 || store.minNumOfReviews != 0) ? false : true" @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)" class="button text-center ">Cerca</button>
                     </div>
                 </div>
             </div>
