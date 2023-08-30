@@ -8,21 +8,10 @@ export default {
   data() {
     return {
       currentImage: 0,
-      results: [],
       specialties: [],
       images: [
         'src/img/logo.png',
         'src/img/programmazione.webp'
-      ],
-      doctors: [
-        { id: 1, name: 'Nome', surname: 'Cognome', specialization: 'Specializzazione', image: 'src/img/logo.png' },
-        { id: 2, name: 'Nome', surname: 'Cognome', specialization: 'Specializzazione', image: 'src/img/programmazione.webp' },
-        { id: 3, name: 'Nome', surname: 'Cognome', specialization: 'Specializzazione', image: 'src/img/programmazione.webp' },
-        { id: 4, name: 'Nome', surname: 'Cognome', specialization: 'Specializzazione', image: 'src/img/programmazione.webp' },
-        { id: 5, name: 'Nome', surname: 'Cognome', specialization: 'Specializzazione', image: 'src/img/programmazione.webp' },
-        { id: 6, name: 'Nome', surname: 'Cognome', specialization: 'Specializzazione', image: 'src/img/programmazione.webp' },
-        { id: 7, name: 'Nome', surname: 'Cognome', specialization: 'Specializzazione', image: 'src/img/logo.png' },
-        { id: 8, name: 'Nome', surname: 'Cognome', specialization: 'Specializzazione', image: 'src/img/programmazione.webp' },
       ],
       store
     }
@@ -40,7 +29,7 @@ export default {
     subscribersDoctors() {
       axios.get('http://localhost:8000/api/sponsoredDoctors')
         .then(response => {
-          this.results = response.data.results;
+          this.store.sponsoredDoctors = response.data.results;
           // console.log(this.results);
         });
     },
@@ -76,8 +65,8 @@ export default {
         </Motion>
         <Motion :initial="{ x: 1000 }" :animate="{ x: 0 }" :transition="{ type: 'spring', stiffness: 100 }">
           <div class="nav-right">
-            <a href="">Registrati</a>
-            <a href="">Accedi</a>
+            <a href="http://localhost:8000/register">Registrati</a>
+            <a href="http://localhost:8000/login">Accedi</a>
           </div>
         </Motion>
       </div>
@@ -128,7 +117,7 @@ export default {
     <div class="container">
       <div class="row justify-content-center">
         <h2 class="text-center mt-4 mb-4">Dottori in evidenza</h2>
-        <div class="col-sm-3 mt-2" v-for="doctor in results" :key="doctor.id">
+        <div class="col-sm-3 mt-2" v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
           <div class="card">
             <img class="card-img-top" :src="doctor.doctorImage" :alt="doctor.doctorName">
             <div class="card-body">

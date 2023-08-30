@@ -33,8 +33,8 @@ export default {
             };
             axios.get('http://localhost:8000/api/searchWithFilter', config)
                 .then(response => {
-                    this.doctors = response.data.results;
-                    console.log(this.doctors);
+                    this.store.doctors = response.data.results;
+                    console.log('SEARCH WITH FILTER' , this.store.doctors);
                 })
         },
         saveMinAvgVote(event){
@@ -67,8 +67,8 @@ export default {
                 </div>
                 <div class="nav-right">
                     <router-link to="/">Torna alla Home</router-link>
-                    <a href="">Registrati</a>
-                    <a href="">Accedi</a>
+                    <a href="http://localhost:8000/register">Registrati</a>
+                    <a href="http://localhost:8000/login">Accedi</a>
                 </div>
             </div>
 
