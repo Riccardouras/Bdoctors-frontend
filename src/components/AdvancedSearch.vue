@@ -44,8 +44,7 @@ export default {
         saveMinNumOfReviews(event) {
             this.store.minNumOfReviews = event.target.value;
             console.log(this.store.minNumOfReviews);
-        }
-
+        },
     },
     mounted() {
         this.store.minAvgVote = 0;
@@ -73,32 +72,29 @@ export default {
             </div>
 
             <!-- FORM RICERCA -->
-            <div class="container m-auto">
+            <div class="container">
                 <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5">
                     <h2>Filtra per numero di recensioni e numero di stelle</h2>
                 </div>
-                <div>
-                    <div class="form-row d-flex align-items-center">
-                        <div class="col me-3">
-                            <label for="minAvgVote">Voto minimo</label>
-                            <select @change="saveMinAvgVote($event)" class="form-control p-2" name="minAvgVote"
-                                id="minAvgVote">
-                                <option :value="0" :key="0" selected>Nessun minimo</option>
-                                <option v-for="n in 5" :value="n" :key="n">{{ n }}</option>
-                            </select>
-                        </div>
-                        <div class="col me-3">
-                            <label for="minNumOfReviews">Numero minimo di recensioni</label>
-                            <select @change="saveMinNumOfReviews($event)" class="form-control p-2" name="minNumOfReviews"
-                                id="minNumOfReviews">
-                                <option value="0" :key="0" selected>Nessun minimo</option>
-                                <option v-for="n in 10" :value="n">{{ n }}</option>
-                            </select>
-                        </div>
-                        <button :disabled="(store.minAvgVote != 0 || store.minNumOfReviews != 0) ? false : true"
-                            @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
-                            class="button text-center mt-4">Cerca</button>
+                <div class="form-row d-flex align-items-center">
+                    <div class="col me-3">
+                        <label for="minAvgVote">Voto minimo</label>
+                        <select @change="saveMinAvgVote($event)" class="form-control p-2" name="minAvgVote" id="minAvgVote">
+                            <option :value="0" :key="0" selected>Nessun minimo</option>
+                            <option v-for="n in 5" :value="n" :key="n">{{ n }}</option>
+                        </select>
                     </div>
+                    <div class="col me-3">
+                        <label for="minNumOfReviews">Numero minimo di recensioni</label>
+                        <select @change="saveMinNumOfReviews($event)" class="form-control p-2" name="minNumOfReviews"
+                            id="minNumOfReviews">
+                            <option value="0" :key="0" selected>Nessun minimo</option>
+                            <option v-for="n in 10" :value="n">{{ n }}</option>
+                        </select>
+                    </div>
+                    <button :disabled="(store.minAvgVote != 0 || store.minNumOfReviews != 0) ? false : true"
+                        @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
+                        class="button text-center mt-4">Cerca</button>
                 </div>
             </div>
         </div>
@@ -106,8 +102,9 @@ export default {
 
     <main>
         <div class="container m-auto">
-            <div class="row justify-content-center  ">
-                <h2 class="text-center mt-4 mb-4">Dottori</h2>
+            <div class="row justify-content-center">
+                <h2 class="text-center mt-4 mb-4">Specializzazione selezionata: {{
+                    store.doctors[0].doctorSpecialtiesArray[0] }}</h2>
                 <div class="col-sm-3 mt-2" v-for="doctor in store.doctors" :key="doctor.id">
                     <div class="card">
                         <img class="card-img-top" style="height: 200px;" :src="doctor.doctorImage" :alt="doctor.doctorName">
