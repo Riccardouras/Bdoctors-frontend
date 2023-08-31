@@ -97,7 +97,7 @@ export default {
                         </div>
                         <button :disabled="(store.minAvgVote != 0 || store.minNumOfReviews != 0) ? false : true"
                             @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
-                            class="button text-center mt-4 ">Cerca</button>
+                            class="button text-center mt-4">Cerca</button>
                     </div>
                 </div>
             </div>
