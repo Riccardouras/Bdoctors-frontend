@@ -106,7 +106,7 @@ export default {
 
     <main>
         <div class="container m-auto">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center  ">
                 <h2 class="text-center mt-4 mb-4">Dottori</h2>
                 <div class="col-sm-3 mt-2" v-for="doctor in store.doctors" :key="doctor.id">
                     <div class="card">
