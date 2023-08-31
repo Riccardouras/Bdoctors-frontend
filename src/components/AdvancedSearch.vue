@@ -5,13 +5,13 @@ import axios from 'axios';
 
 export default {
     name: 'AdvancedSearch',
-    data(){
+    data() {
         return {
             store
         }
     },
-    methods:{
-        searchPerSpecialty(specialtyID){
+    methods: {
+        searchPerSpecialty(specialtyID) {
             let config = {
                 params: {
                     specialty: specialtyID
@@ -20,10 +20,10 @@ export default {
             axios.get('http://localhost:8000/api/searchPerSpecialty', config)
                 .then(response => {
                     this.store.doctors = response.data.results;
-                    console.log( 'SEARCH PER SPECIALTY' , this.store.doctors);
+                    console.log('SEARCH PER SPECIALTY', this.store.doctors);
                 })
         },
-        searchWithFilter(specialtyID, minVote, minReview){
+        searchWithFilter(specialtyID, minVote, minReview) {
             let config = {
                 params: {
                     specialty: specialtyID,
@@ -34,24 +34,24 @@ export default {
             axios.get('http://localhost:8000/api/searchWithFilter', config)
                 .then(response => {
                     this.store.doctors = response.data.results;
-                    console.log('SEARCH WITH FILTER' , this.store.doctors);
+                    console.log('SEARCH WITH FILTER', this.store.doctors);
                 })
         },
-        saveMinAvgVote(event){
+        saveMinAvgVote(event) {
             this.store.minAvgVote = event.target.value;
             console.log(this.store.minAvgVote);
         },
-        saveMinNumOfReviews(event){
+        saveMinNumOfReviews(event) {
             this.store.minNumOfReviews = event.target.value;
             console.log(this.store.minNumOfReviews);
         }
 
     },
-    mounted(){
+    mounted() {
         this.store.minAvgVote = 0;
         this.store.minNumOfReviews = 0;
         this.searchPerSpecialty(this.store.specialtyID);
-        console.log( 'LOG AL MOUNTED' , this.store.doctors);
+        console.log('LOG AL MOUNTED', this.store.doctors);
     }
 }
 </script>
@@ -81,19 +81,23 @@ export default {
                     <div class="form-row d-flex align-items-center">
                         <div class="col me-3">
                             <label for="minAvgVote">Voto minimo</label>
-                            <select @change="saveMinAvgVote($event)" class="form-control p-2" name="minAvgVote" id="minAvgVote">
+                            <select @change="saveMinAvgVote($event)" class="form-control p-2" name="minAvgVote"
+                                id="minAvgVote">
                                 <option :value="0" :key="0" selected>Nessun minimo</option>
                                 <option v-for="n in 5" :value="n" :key="n">{{ n }}</option>
                             </select>
                         </div>
                         <div class="col me-3">
                             <label for="minNumOfReviews">Numero minimo di recensioni</label>
-                            <select @change="saveMinNumOfReviews($event)" class="form-control p-2" name="minNumOfReviews" id="minNumOfReviews">
+                            <select @change="saveMinNumOfReviews($event)" class="form-control p-2" name="minNumOfReviews"
+                                id="minNumOfReviews">
                                 <option value="0" :key="0" selected>Nessun minimo</option>
                                 <option v-for="n in 10" :value="n">{{ n }}</option>
                             </select>
                         </div>
-                        <button :disabled="(store.minAvgVote !=0 || store.minNumOfReviews != 0) ? false : true" @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)" class="button text-center ">Cerca</button>
+                        <button :disabled="(store.minAvgVote != 0 || store.minNumOfReviews != 0) ? false : true"
+                            @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
+                            class="button text-center mt-4 ">Cerca</button>
                     </div>
                 </div>
             </div>
@@ -101,13 +105,13 @@ export default {
     </header>
 
     <main>
-        <div class="container">
+        <div class="container m-auto">
             <div class="row justify-content-center">
                 <h2 class="text-center mt-4 mb-4">Dottori</h2>
                 <div class="col-sm-3 mt-2" v-for="doctor in store.doctors" :key="doctor.id">
                     <div class="card">
-                        <img class="card-img-top" :src="doctor.doctorImage" :alt="doctor.doctorName">
-                        <div class="card-body">
+                        <img class="card-img-top" style="height: 200px;" :src="doctor.doctorImage" :alt="doctor.doctorName">
+                        <div class="card-body" style="min-height: 300px;">
                             <h5 class="card-title">{{ doctor.doctorName }}</h5>
                             <p class="card-text" v-for="specialty in doctor.doctorSpecialtiesArray">{{ specialty }}</p>
                             <p class="card-text">Voto medio: {{ doctor.averageVote }}</p>
@@ -120,7 +124,7 @@ export default {
     </main>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use '../style.scss' as *;
 
 .navbar {

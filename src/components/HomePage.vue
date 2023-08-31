@@ -33,14 +33,14 @@ export default {
           // console.log(this.results);
         });
     },
-    getSpecialties(){
+    getSpecialties() {
       axios.get('http://localhost:8000/api/allSpecialties')
         .then(response => {
           this.specialties = response.data.results;
           // console.log(this.specialties);
         })
     },
-    saveSpecialtyID(event){
+    saveSpecialtyID(event) {
       this.store.specialtyID = event.target.value;
       // console.log(this.store.specialtyID);
     }
@@ -77,19 +77,21 @@ export default {
           <h2>Cerca il tuo dottore!</h2>
           <h4>Cerca tra 100 000 Specialisti e Medici di Medicina Generale.</h4>
         </div>
-        
+
         <div>
           <div class="form-row d-flex align-items-center">
             <div class="col me-3">
               <label class="text-white" for="specialization">Specializzazione:</label>
               <!-- <input type="text" class="form form-control" id="specialization"
                 placeholder="es. Cardiologo, Dentista, Ginecologo"> -->
-                <select @change="saveSpecialtyID($event)" class="form-control" name="specialty" id="specialty">
-                  <option value="0" selected>Seleziona una specializzazione</option>
-                  <option v-for="specialty in specialties" :value="specialty.id" :key="specialty.id">{{ specialty.name }}</option>
-                </select>
+              <select @change="saveSpecialtyID($event)" class="form-control" name="specialty" id="specialty">
+                <option value="0" selected>Seleziona una specializzazione</option>
+                <option v-for="specialty in specialties" :value="specialty.id" :key="specialty.id">{{ specialty.name }}
+                </option>
+              </select>
             </div>
-            <button :disabled="store.specialtyID!=0 ? false : true" @click="submitForm" class="button text-center mt-4">Cerca</button>
+            <button :disabled="store.specialtyID != 0 ? false : true" @click="submitForm"
+              class="button text-center mt-4">Cerca</button>
             <!-- <router-view></router-view> -->
           </div>
         </div>
@@ -119,8 +121,8 @@ export default {
         <h2 class="text-center mt-4 mb-4">Dottori in evidenza</h2>
         <div class="col-sm-3 mt-2" v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
           <div class="card">
-            <img class="card-img-top" :src="doctor.doctorImage" :alt="doctor.doctorName">
-            <div class="card-body">
+            <img class="card-img-top " style="height: 200px;" :src="doctor.doctorImage" :alt="doctor.doctorName">
+            <div class="card-body" style="min-height: 200px;">
               <h5 class="card-title">{{ doctor.doctorName }}</h5>
               <p class="card-text" v-for="specialty in doctor.doctorSpecialtiesArray">{{ specialty }}</p>
             </div>
