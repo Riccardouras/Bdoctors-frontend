@@ -17,4 +17,5 @@ export const backendPaths = reactive({
     getDoctorReviewsURL: baseApiURL + 'getDoctorReviews',
     storeMessageURL: baseApiURL + 'storeMessage',
     storeReviewURL: baseApiURL + 'storeReview',
+    storeVoteURL: baseApiURL + 'storeVote'
 });
