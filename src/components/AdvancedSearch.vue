@@ -103,8 +103,9 @@ export default {
     <main>
         <div class="container m-auto">
             <div class="row justify-content-center">
-                <h2 class="text-center mt-4 mb-4">Specializzazione selezionata: {{
-                    store.doctors[0].doctorSpecialtiesArray[0] }}</h2>
+                <div class="col-12 text-center mt-4 mb-4">
+                    <h2>Specializzazione selezionata: {{ store.doctors[0].doctorSpecialtiesArray[0] }}</h2>
+                </div>
                 <div class="col-sm-3 mt-2" v-for="doctor in store.doctors" :key="doctor.id">
                     <div class="card">
                         <img class="card-img-top" style="height: 200px;" :src="doctor.doctorImage" :alt="doctor.doctorName">
