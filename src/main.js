@@ -13,7 +13,7 @@ import DoctorPage from './components/DoctorPage.vue'
 const routes = [
     { path: '/', component: HomePage },
     { path: '/advancedsearch', component: AdvancedSearch },
-    { path: '/doctorpage', component: DoctorPage }
+    { path: '/doctorpage/:doctorId', component: DoctorPage }
 ]
 
 const router = createRouter({

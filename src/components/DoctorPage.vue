@@ -1,42 +1,47 @@
 <script>
 import { store } from '../store/store';
 
-
 export default {
     name: 'DoctorPage',
     data() {
         return {
             store
         }
+    },
+    computed: {
 
+    },
+    methods: {
+        doctors() {
+            return this.$route.params.doctorId;
+        }
+    },
+    mounted() {
+        console.log(this.store.doctors);
     }
 }
 </script>
 
 <template>
-    <header>
+    <!-- <header>
         <div class="background">
             <div class="container navbar ">
-                <Motion :initial="{ x: -1000 }" :animate="{ x: 0 }" :transition="{ type: 'spring', stiffness: 100 }">
-                    <div class="nav-left">
-                        <img id="logo" src="../img/LogoPiccolo.png" alt="">
-                        <h1 class="text-white">B-Doctors</h1>
-                    </div>
-                </Motion>
-                <Motion :initial="{ x: 1000 }" :animate="{ x: 0 }" :transition="{ type: 'spring', stiffness: 100 }">
-                    <div class="nav-right">
-                        <a href="http://localhost:8000/register">Registrati</a>
-                        <a href="http://localhost:8000/login">Accedi</a>
-                    </div>
-                </Motion>
+                <div class="nav-left">
+                    <img id="logo" src="../img/LogoPiccolo.png" alt="">
+                    <h1 class="text-white">B-Doctors</h1>
+                </div>
+                <div class="nav-right">
+                    <a href="http://localhost:8000/register">Registrati</a>
+                    <a href="http://localhost:8000/login">Accedi</a>
+                </div>
             </div>
-        </div>
-    </header>
+        </div> -->
+    <!-- </header> -->
 
 
     <!-- Dottore -->
-    <main>
-        <!-- <div class="container m-auto">
+    <!-- <main> -->
+    <!-- <div class="container m-auto">
             <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5 ">
                 <h2 class="m-auto">Ecco il tuo dottore</h2>
             </div>
@@ -59,10 +64,14 @@ export default {
 
 
 
+    <div>
+        <h2></h2>
+    </div>
 
 
-        <div class="profile-container mt-5">
-            <h1>Dr. Giovanni Rossi</h1>
+
+    <!-- <div class="profile-container mt-5" v-for="doctor in store.doctors">
+            <h1>{{ doctor.name }}</h1>
             <p class="specialization">Specializzazione: ...</p>
 
             <div class="rating">
@@ -83,10 +92,10 @@ export default {
             <div class="rating">
                 <span class="rating-label"> Telefono:</span>
                 <span></span>
-            </div>
+            </div> -->
 
 
-            <!-- 
+    <!-- 
                 <div class="review-section">
                     <h2>Recensioni</h2>
                     <div class="user-review">
@@ -102,8 +111,8 @@ export default {
                     </div>
                 </div> -->
 
-            <!-- Aggiungere un modulo per inserire una nuova recensione -->
-            <h3>Scrivi una recensione</h3>
+    <!-- Aggiungere un modulo per inserire una nuova recensione -->
+    <!-- <h3>Scrivi una recensione</h3>
             <form>
                 <div>
                     <label for="user-name">Nome:</label>
@@ -131,7 +140,7 @@ export default {
 
 
 
-    </main>
+    </main> -->
 </template>
 
 <style scoped lang="scss">

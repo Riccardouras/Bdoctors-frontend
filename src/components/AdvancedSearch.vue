@@ -148,7 +148,7 @@ export default {
                             <p class="card-text" v-for="specialty in doctor.doctorSpecialtiesArray">{{ specialty }}</p>
                             <p class="card-text">Voto medio: {{ doctor.averageVote }}</p>
                             <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
-                            <p><a href="/doctorpage" class="card-link">Vai</a></p>
+                            <router-link :to="`/doctorpage/${doctor.doctorId}`">Vai alla pagina del dottore</router-link>
                         </div>
                     </div>
                 </div>
