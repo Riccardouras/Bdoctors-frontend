@@ -1,8 +1,9 @@
 <script>
 import { Motion } from "motion/vue";
 import axios from 'axios';
-import { store } from '../store/store';
-import { RouterLink } from 'vue-router'
+import { store } from '../data/store';
+import { apiPaths } from '../data/apiPaths';
+import { RouterLink } from 'vue-router';
 
 export default {
   components: { Motion },
@@ -14,22 +15,23 @@ export default {
         'src/img/logo.png',
         'src/img/programmazione.webp'
       ],
-      store
+      store,
+      apiPaths
     }
   },
   methods: {
     submitForm() {
       this.$router.push('/advancedsearch');
     },
-    subscribersDoctors() {
-      axios.get('http://localhost:8000/api/sponsoredDoctors')
+    sponsoredDoctors() {
+      axios.get(this.apiPaths.sponsoredURL)
         .then(response => {
           this.store.sponsoredDoctors = response.data.results;
           // console.log(this.results);
         });
     },
     getSpecialties() {
-      axios.get('http://localhost:8000/api/allSpecialties')
+      axios.get(this.apiPaths.allSpecialtiesURL)
         .then(response => {
           this.specialties = response.data.results;
           // console.log(this.specialties);
@@ -43,7 +45,7 @@ export default {
   },
   mounted() {
     this.store.specialtyID = 0;
-    this.subscribersDoctors();
+    this.sponsoredDoctors();
     this.getSpecialties();
   },
 }

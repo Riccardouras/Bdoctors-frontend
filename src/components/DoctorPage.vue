@@ -1,12 +1,15 @@
 <script>
 import axios from 'axios';
-import { store } from '../store/store';
+import { store } from '../data/store';
+import { apiPaths } from '../data/apiPaths';
+
 
 export default {
     name: 'DoctorPage',
     data() {
         return {
             store,
+            apiPaths,
             doctor: ''
         }
     },
@@ -24,7 +27,7 @@ export default {
                     doctor_id: this.$route.params.doctorId
                 }
             }
-            axios.get('http://localhost:8000/api/doctorDetails', config)
+            axios.get(this.apiPaths.doctorDetailsURL, config)
                 .then(response => {
                     this.doctor = response.data.results.doctor;
                     console.log( 'DOCTOR LOG' , this.doctor);

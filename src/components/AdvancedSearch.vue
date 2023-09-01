@@ -1,6 +1,8 @@
 <script>
 import { RouterLink } from 'vue-router'
-import { store } from '../store/store';
+import { store } from '../data/store';
+import { apiPaths } from '../data/apiPaths';
+
 import axios from 'axios';
 
 export default {
@@ -8,6 +10,7 @@ export default {
     data() {
         return {
             store,
+            apiPaths,
             specialties: [],
         }
     },
@@ -18,7 +21,7 @@ export default {
                     specialty: specialtyID
                 }
             };
-            axios.get('http://localhost:8000/api/searchPerSpecialty', config)
+            axios.get(this.apiPaths.searchPerSpecialtyURL, config)
                 .then(response => {
                     this.store.doctors = response.data.results;
                     console.log('SEARCH PER SPECIALTY', this.store.doctors);
@@ -32,7 +35,7 @@ export default {
                     minNumOfReviews: minReview
                 }
             };
-            axios.get('http://localhost:8000/api/searchWithFilter', config)
+            axios.get(this.apiPaths.searchWithFilterURL, config)
                 .then(response => {
                     this.store.doctors = response.data.results;
                     console.log('SEARCH WITH FILTER', this.store.doctors);
@@ -48,7 +51,7 @@ export default {
             console.log(this.store.minNumOfReviews);
         },
         getSpecialties() {
-            axios.get('http://localhost:8000/api/allSpecialties')
+            axios.get(this.apiPaths.allSpecialtiesURL)
                 .then(response => {
                     this.specialties = response.data.results;
                     // console.log(this.specialties);
