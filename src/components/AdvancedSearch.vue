@@ -7,7 +7,8 @@ export default {
     name: 'AdvancedSearch',
     data() {
         return {
-            store
+            store,
+            specialties: [],
         }
     },
     methods: {
@@ -45,14 +46,28 @@ export default {
         saveMinNumOfReviews(event) {
             this.store.minNumOfReviews = event.target.value;
             console.log(this.store.minNumOfReviews);
-        }
-
+        },
+        getSpecialties() {
+            axios.get('http://localhost:8000/api/allSpecialties')
+                .then(response => {
+                    this.specialties = response.data.results;
+                    // console.log(this.specialties);
+                })
+        },
+        saveSpecialtyID(event) {
+            this.store.specialtyID = event.target.value;
+            // console.log(this.store.specialtyID);
+        },
+        submitForm() {
+            this.$router.push('/advancedsearch');
+        },
     },
     mounted() {
         this.store.minAvgVote = 0;
         this.store.minNumOfReviews = 0;
         this.searchPerSpecialty(this.store.specialtyID);
         console.log('LOG AL MOUNTED', this.store.doctors);
+        this.getSpecialties();
     }
 }
 </script>
@@ -74,41 +89,57 @@ export default {
             </div>
 
             <!-- FORM RICERCA -->
-            <div class="container m-auto">
+            <div class="container">
                 <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5">
                     <h2>Filtra per numero di recensioni e numero di stelle</h2>
                 </div>
-                <div>
-                    <div class="form-row d-flex align-items-center">
-                        <div class="col me-3">
-                            <label for="minAvgVote">Voto minimo</label>
-                            <select @change="saveMinAvgVote($event)" class="form-control p-2" name="minAvgVote"
-                                id="minAvgVote">
-                                <option :value="0" :key="0" selected>Nessun minimo</option>
-                                <option v-for="n in 5" :value="n" :key="n">{{ n }}</option>
-                            </select>
-                        </div>
-                        <div class="col me-3">
-                            <label for="minNumOfReviews">Numero minimo di recensioni</label>
-                            <select @change="saveMinNumOfReviews($event)" class="form-control p-2" name="minNumOfReviews"
-                                id="minNumOfReviews">
-                                <option value="0" :key="0" selected>Nessun minimo</option>
-                                <option v-for="n in 10" :value="n">{{ n }}</option>
-                            </select>
-                        </div>
-                        <button :disabled="(store.minAvgVote != 0 || store.minNumOfReviews != 0) ? false : true"
-                            @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
-                            class="button text-center mt-4">Cerca</button>
+                <div class="form-row d-flex align-items-center">
+                    <div class="col me-3">
+                        <label for="minAvgVote">Voto minimo</label>
+                        <select @change="saveMinAvgVote($event)" class="form-control p-2" name="minAvgVote" id="minAvgVote">
+                            <option :value="0" :key="0" selected>Nessun minimo</option>
+                            <option v-for="n in 5" :value="n" :key="n">{{ n }}</option>
+                        </select>
                     </div>
+                    <div class="col me-3">
+                        <label for="minNumOfReviews">Numero minimo di recensioni</label>
+                        <select @change="saveMinNumOfReviews($event)" class="form-control p-2" name="minNumOfReviews"
+                            id="minNumOfReviews">
+                            <option value="0" :key="0" selected>Nessun minimo</option>
+                            <option v-for="n in 10" :value="n">{{ n }}</option>
+                        </select>
+                    </div>
+                    <div class="col me-3">
+                        <label for="specialization">Specializzazione:</label>
+                        <select @change="saveSpecialtyID($event)" class="form-control" name="specialty" id="specialty">
+                            <option value="0" selected>Seleziona una specializzazione</option>
+                            <option v-for="specialty in specialties" :value="specialty.id" :key="specialty.id">{{
+                                specialty.name
+                            }}
+                            </option>
+                        </select>
+                    </div>
+                    <button @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
+                        class="button text-center mt-4">Cerca</button>
+                </div>
+                <div class="form-row d-flex align-items-center">
+
+                    <!-- <button :disabled="store.specialtyID != 0 ? false : true" @click="submitForm"
+                        class="button text-center mt-4">Cerca</button> -->
                 </div>
             </div>
+
+
         </div>
     </header>
 
     <main>
         <div class="container m-auto">
-            <div class="row justify-content-center  ">
-                <h2 class="text-center mt-4 mb-4">Dottori</h2>
+            <div class="row justify-content-center">
+                <div class="col-12 text-center mt-4 mb-4">
+                    <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{
+                        store.doctors[0].doctorSpecialtiesArray[0] }}</h2>
+                </div>
                 <div class="col-sm-3 mt-2" v-for="doctor in store.doctors" :key="doctor.id">
                     <div class="card">
                         <img class="card-img-top" style="height: 200px;" :src="doctor.doctorImage" :alt="doctor.doctorName">

@@ -82,8 +82,6 @@ export default {
           <div class="form-row d-flex align-items-center">
             <div class="col me-3">
               <label class="text-white" for="specialization">Specializzazione:</label>
-              <!-- <input type="text" class="form form-control" id="specialization"
-                placeholder="es. Cardiologo, Dentista, Ginecologo"> -->
               <select @change="saveSpecialtyID($event)" class="form-control" name="specialty" id="specialty">
                 <option value="0" selected>Seleziona una specializzazione</option>
                 <option v-for="specialty in specialties" :value="specialty.id" :key="specialty.id">{{ specialty.name }}
@@ -92,7 +90,6 @@ export default {
             </div>
             <button :disabled="store.specialtyID != 0 ? false : true" @click="submitForm"
               class="button text-center mt-4">Cerca</button>
-            <!-- <router-view></router-view> -->
           </div>
         </div>
       </div>
@@ -100,28 +97,14 @@ export default {
   </header>
 
   <main>
-    <!-- MEDICI IN EVIDENZAA-->
-    <!-- <div class="container">
-      <div class="row">
-        <h2 class="text-center mt-4 mb-4">Dottori in evidenza</h2>
-        <div class="col-sm-3 mt-2" v-for="doctor in doctors" :key="doctor.id">
-          <div class="card">
-            <img class="card-img-top" :src="doctor.image" :alt="doctor.name">
-            <div class="card-body">
-              <h5 class="card-title">{{ doctor.name }} {{ doctor.surname }}</h5>
-              <p class="card-text">{{ doctor.specialization }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
+    <!-- MEDICI IN EVIDENZA-->
     <div class="container">
       <div class="row justify-content-center">
         <h2 class="text-center mt-4 mb-4">Dottori in evidenza</h2>
         <div class="col-sm-3 mt-2" v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
           <div class="card">
-            <img class="card-img-top " style="height: 200px;" :src="doctor.doctorImage" :alt="doctor.doctorName">
+            <img class="card-img-top " style="height: 200px; object-fit: contain;" :src="doctor.doctorImage"
+              :alt="doctor.doctorName">
             <div class="card-body" style="min-height: 200px;">
               <h5 class="card-title">{{ doctor.doctorName }}</h5>
               <p class="card-text" v-for="specialty in doctor.doctorSpecialtiesArray">{{ specialty }}</p>
@@ -241,9 +224,6 @@ export default {
   margin: auto;
 }
 
-header {
-  background-color: #17a5f5;
-}
 
 .nav-left {
   display: flex;
