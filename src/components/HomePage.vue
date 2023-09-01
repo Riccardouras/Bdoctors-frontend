@@ -2,6 +2,7 @@
 import { Motion } from "motion/vue";
 import axios from 'axios';
 import { store } from '../store/store';
+import { RouterLink } from 'vue-router'
 
 export default {
   components: { Motion },
@@ -108,6 +109,7 @@ export default {
             <div class="card-body" style="min-height: 200px;">
               <h5 class="card-title">{{ doctor.doctorName }}</h5>
               <p class="card-text" v-for="specialty in doctor.doctorSpecialtiesArray">{{ specialty }}</p>
+              <router-link :to="`/doctorpage/${doctor.doctorId}`">Vai alla pagina del dottore</router-link>
             </div>
           </div>
         </div>
