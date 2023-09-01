@@ -65,8 +65,8 @@ export default {
         </Motion>
         <Motion :initial="{ x: 1000 }" :animate="{ x: 0 }" :transition="{ type: 'spring', stiffness: 100 }">
           <div class="nav-right">
-            <a href="http://localhost:8000/register">Registrati</a>
-            <a href="http://localhost:8000/login">Accedi</a>
+            <a class="link-header" href="http://localhost:8000/register">Registrati</a>
+            <a class="link-header" href="http://localhost:8000/login">Accedi</a>
           </div>
         </Motion>
       </div>
@@ -263,12 +263,12 @@ header {
   justify-content: space-between;
 }
 
-div a {
+header a {
   text-decoration: none;
   color: white;
 }
 
-a:hover {
+.link-header:hover {
   color: black;
 }
 

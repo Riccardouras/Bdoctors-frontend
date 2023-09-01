@@ -37,6 +37,7 @@ export default {
                     console.log('SEARCH WITH FILTER', this.store.doctors);
                 })
         },
+
         saveMinAvgVote(event) {
             this.store.minAvgVote = event.target.value;
             console.log(this.store.minAvgVote);
@@ -67,8 +68,8 @@ export default {
                 </div>
                 <div class="nav-right">
                     <router-link to="/">Torna alla Home</router-link>
-                    <a href="http://localhost:8000/register">Registrati</a>
-                    <a href="http://localhost:8000/login">Accedi</a>
+                    <a class="link-header" href="http://localhost:8000/register">Registrati</a>
+                    <a class="link-header" href="http://localhost:8000/login">Accedi</a>
                 </div>
             </div>
 
@@ -116,6 +117,7 @@ export default {
                             <p class="card-text" v-for="specialty in doctor.doctorSpecialtiesArray">{{ specialty }}</p>
                             <p class="card-text">Voto medio: {{ doctor.averageVote }}</p>
                             <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
+                            <p><a href="/doctorpage" class="card-link">Vai</a></p>
                         </div>
                     </div>
                 </div>
@@ -155,14 +157,18 @@ export default {
     justify-content: space-between;
 }
 
-div a {
+header a {
     text-decoration: none;
     color: white;
+
+
 }
 
-a:hover {
+.link-header:hover {
     color: black;
 }
+
+
 
 .background {
     // background-image: url(../img/dottore.jpg);
