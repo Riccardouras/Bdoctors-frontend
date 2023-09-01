@@ -5,5 +5,6 @@ export const store = reactive({
     minAvgVote: '0',
     minNumOfReviews: '0',
     doctors: [],
-    sponsoredDoctors: []
+    sponsoredDoctors: [],
+    specialties: []
 });
