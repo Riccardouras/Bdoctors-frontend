@@ -1,11 +1,13 @@
 <script>
+import axios from 'axios';
 import { store } from '../store/store';
 
 export default {
     name: 'DoctorPage',
     data() {
         return {
-            store
+            store,
+            doctor: ''
         }
     },
     computed: {
@@ -14,10 +16,23 @@ export default {
     methods: {
         doctors() {
             return this.$route.params.doctorId;
+        },
+        getDoctorDetails(){
+
+            let config= {
+                params: {
+                    doctor_id: this.$route.params.doctorId
+                }
+            }
+            axios.get('http://localhost:8000/api/doctorDetails', config)
+                .then(response => {
+                    this.doctor = response.data.results.doctor;
+                    console.log( 'DOCTOR LOG' , this.doctor);
+                })
         }
     },
     mounted() {
-        console.log(this.store.doctors);
+        this.getDoctorDetails();
     }
 }
 </script>
@@ -42,10 +57,10 @@ export default {
 
     <main>
         <!-- PROFILO DOTTORE -->
-        <div class="profile-container mt-5" v-for="doctor in store.doctors">
-            <h1>{{ doctor.doctorName }}</h1>
-            <img :src='doctor.doctorImage' class="img-thumbnail" style="max-width: 40%;" :alt="doctor.doctorName">
-            <p class="specialization" v-for="specialty in doctor.doctorSpecialtiesArray">Specializzato in: {{ specialty }}
+        <div class="profile-container mt-5">
+            <h1>{{ doctor.name }}</h1>
+            <img :src='doctor.image' class="img-thumbnail" style="max-width: 40%;" :alt="doctor.doctorName">
+            <p class="specialization" v-for="specialty in doctor.specialties">Specializzato in: {{ specialty }}
             </p>
 
             <div class="rating">
@@ -61,16 +76,21 @@ export default {
             </div>
 
             <div class="rating">
-                <span class="rating-label"> Indirizzo:</span>
+                <span class="rating-label"> Indirizzo: {{ doctor.address }} </span>
                 <span></span>
             </div>
 
             <div class="rating">
-                <span class="rating-label"> Telefono:</span>
+                <span class="rating-label"> Servizi: {{ doctor.service }} </span>
+                <span></span>
+            </div>
+
+            <div class="rating">
+                <span class="rating-label"> Telefono: {{ doctor.phone_number }} </span>
                 <span></span>
             </div>
             <div class="rating">
-                <a href="" target="_blank">Clicca qui per aprire il CV</a>
+                <a :href="doctor.curriculum" target="_blank">Clicca qui per aprire il CV</a>
             </div>
             <!-- RECENSIONE -->
             <div class="container mt-4">

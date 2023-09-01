@@ -18,12 +18,6 @@ export default {
     }
   },
   methods: {
-    nextImage() {
-      this.currentImage = (this.currentImage + 1) % this.images.length;
-    },
-    prevImage() {
-      this.currentImage = (this.currentImage - 1 + this.images.length) % this.images.length;
-    },
     submitForm() {
       this.$router.push('/advancedsearch');
     },
@@ -45,6 +39,7 @@ export default {
       this.store.specialtyID = event.target.value;
       // console.log(this.store.specialtyID);
     }
+
   },
   mounted() {
     this.store.specialtyID = 0;
