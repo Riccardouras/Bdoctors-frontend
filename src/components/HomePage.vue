@@ -103,7 +103,8 @@ export default {
         <h2 class="text-center mt-4 mb-4">Dottori in evidenza</h2>
         <div class="col-sm-3 mt-2" v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
           <div class="card">
-            <img class="card-img-top " style="height: 200px;" :src="doctor.doctorImage" :alt="doctor.doctorName">
+            <img class="card-img-top " style="height: 200px; object-fit: contain;" :src="doctor.doctorImage"
+              :alt="doctor.doctorName">
             <div class="card-body" style="min-height: 200px;">
               <h5 class="card-title">{{ doctor.doctorName }}</h5>
               <p class="card-text" v-for="specialty in doctor.doctorSpecialtiesArray">{{ specialty }}</p>

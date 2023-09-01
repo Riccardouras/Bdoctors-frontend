@@ -7,7 +7,8 @@ export default {
     name: 'AdvancedSearch',
     data() {
         return {
-            store
+            store,
+            specialties: [],
         }
     },
     methods: {
@@ -45,12 +46,27 @@ export default {
             this.store.minNumOfReviews = event.target.value;
             console.log(this.store.minNumOfReviews);
         },
+        getSpecialties() {
+            axios.get('http://localhost:8000/api/allSpecialties')
+                .then(response => {
+                    this.specialties = response.data.results;
+                    // console.log(this.specialties);
+                })
+        },
+        saveSpecialtyID(event) {
+            this.store.specialtyID = event.target.value;
+            // console.log(this.store.specialtyID);
+        },
+        submitForm() {
+            this.$router.push('/advancedsearch');
+        },
     },
     mounted() {
         this.store.minAvgVote = 0;
         this.store.minNumOfReviews = 0;
         this.searchPerSpecialty(this.store.specialtyID);
         console.log('LOG AL MOUNTED', this.store.doctors);
+        this.getSpecialties();
     }
 }
 </script>
@@ -92,11 +108,27 @@ export default {
                             <option v-for="n in 10" :value="n">{{ n }}</option>
                         </select>
                     </div>
-                    <button :disabled="(store.minAvgVote != 0 || store.minNumOfReviews != 0) ? false : true"
-                        @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
+                    <div class="col me-3">
+                        <label for="specialization">Specializzazione:</label>
+                        <select @change="saveSpecialtyID($event)" class="form-control" name="specialty" id="specialty">
+                            <option value="0" selected>Seleziona una specializzazione</option>
+                            <option v-for="specialty in specialties" :value="specialty.id" :key="specialty.id">{{
+                                specialty.name
+                            }}
+                            </option>
+                        </select>
+                    </div>
+                    <button @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
                         class="button text-center mt-4">Cerca</button>
                 </div>
+                <div class="form-row d-flex align-items-center">
+
+                    <!-- <button :disabled="store.specialtyID != 0 ? false : true" @click="submitForm"
+                        class="button text-center mt-4">Cerca</button> -->
+                </div>
             </div>
+
+
         </div>
     </header>
 
@@ -104,7 +136,8 @@ export default {
         <div class="container m-auto">
             <div class="row justify-content-center">
                 <div class="col-12 text-center mt-4 mb-4">
-                    <h2>Specializzazione selezionata: {{ store.doctors[0].doctorSpecialtiesArray[0] }}</h2>
+                    <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{
+                        store.doctors[0].doctorSpecialtiesArray[0] }}</h2>
                 </div>
                 <div class="col-sm-3 mt-2" v-for="doctor in store.doctors" :key="doctor.id">
                     <div class="card">
