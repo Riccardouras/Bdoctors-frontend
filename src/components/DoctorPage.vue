@@ -100,45 +100,53 @@ export default {
 
 <template>
     <main>
-        <!-- PROFILO DOTTORE -->
-        <div class="profile-container mt-5">
-            <h1>{{ doctor.name }}</h1>
-            <img :src='doctor.image' class="img-thumbnail" style="max-width: 40%;" :alt="doctor.doctorName">
-            <p class="specialization" v-for="specialty in doctor.specialties">Specializzato in: {{ specialty }}
-            </p>
+        <div class="container d-flex">
 
-            <div class="rating">
-                <span class="rating-label">Valutazione media:
-                </span>
-                <span>{{ doctor.averageVote }}</span>
+            <!-- PROFILO DOTTORE -->
+            <div class="container">
+                <div class="profile-container mt-5 d-flex flex-column align-items-center">
+                    <h1>{{ doctor.name }}</h1>
+                    <img :src='doctor.image' class="img-thumbnail" style="max-width: 70%;" :alt="doctor.doctorName">
+                    <span><strong>Specializzato in:</strong></span>
+                    <ul class="list-unstyled">
+                        <li class="specialization text-center" v-for="specialty in doctor.specialties">{{ specialty }}</li>
+                    </ul>
+
+                    <div class="rating d-flex flex-column align-items-center">
+                        <span class="rating-label"><strong>Valutazione media:</strong>
+                        </span>
+                        <span>{{ doctor.averageVote }}</span>
+                    </div>
+
+                    <div class="rating d-flex flex-column align-items-center">
+                        <span class="rating-label"><strong>Numero di recensioni:</strong>
+                        </span>
+                        <span>{{ doctor.numberOfReviews }}</span>
+                    </div>
+
+                    <div class="rating d-flex flex-column align-items-center">
+                        <span class="rating-label"><strong>Indirizzo:</strong> </span>
+                        <span> {{ doctor.address }} </span>
+                    </div>
+
+                    <div class="rating d-flex flex-column align-items-center">
+                        <span class="rating-label"><strong>Servizi:</strong> </span>
+                        <span class="text-center">{{ doctor.service }}</span>
+                    </div>
+
+                    <div class="rating d-flex flex-column align-items-center">
+                        <span class="rating-label"><strong>Telefono:</strong> </span>
+                        <span>{{ doctor.phone_number }}</span>
+                    </div>
+                    <div class="rating d-flex flex-column align-items-center">
+                        <a :href="doctor.curriculum" target="_blank">Clicca qui per aprire il CV</a>
+                    </div>
+                </div>
             </div>
 
-            <div class="rating">
-                <span class="rating-label">Numero di recensioni:
-                </span>
-                <span>{{ doctor.numberOfReviews }}</span>
-            </div>
-
-            <div class="rating">
-                <span class="rating-label"> Indirizzo: {{ doctor.address }} </span>
-                <span></span>
-            </div>
-
-            <div class="rating">
-                <span class="rating-label"> Servizi: {{ doctor.service }} </span>
-                <span></span>
-            </div>
-
-            <div class="rating">
-                <span class="rating-label"> Telefono: {{ doctor.phone_number }} </span>
-                <span></span>
-            </div>
-            <div class="rating">
-                <a :href="doctor.curriculum" target="_blank">Clicca qui per aprire il CV</a>
-            </div>
             <!-- RECENSIONE -->
-            <div class="container mt-4">
-                <h3>Scrivi una recensione</h3>
+            <div class="container mt-5 d-flex flex-column justify-content-around">
+                <h3 class="text-center">Scrivi una recensione</h3>
                 <form @submit.prevent="sendReviewData()">
                     <div class="form-group">
                         <label for="name">Nome:</label>
@@ -159,49 +167,51 @@ export default {
                         <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Recensione</button>
                     </div>
                 </form>
-            </div>
 
-            <div>
-                <form @submit.prevent="sendVoteData()">
-                    <div class="form-group">
-                        <label for="user-rating" class="mt-2 mb-2">Valutazione:</label>
-                        <select v-model="vote" id="user-rating" name="user-rating" class="form-control">
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
-                        </select>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Voto</button>
+
+                <div>
+                    <h3 class="text-center">Invia un voto</h3>
+                    <form @submit.prevent="sendVoteData()">
+                        <div class="form-group">
+                            <label for="user-rating" class="mt-2 mb-2">Valutazione:</label>
+                            <select v-model="vote" id="user-rating" name="user-rating" class="form-control">
+                                <option value="5">5</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                            </select>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Voto</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
 
-            <!-- INVIA MESSAGGIO AL DOTTORE -->
-            <div class="card-footer">
-                <h3>Invia un messaggio al dottore</h3>
-                <form @submit.prevent="sendMsgData()">
-                    <div class="form-group">
-                        <label for="full_name">Nome:</label>
-                        <input v-model="full_name" type="text" id="full_name" class="form-control"
-                            placeholder="Il tuo nome">
-                    </div>
-                    <div class="form-group">
-                        <label class="mt-2 mb-2" for="mail">Email</label>
-                        <input v-model="mail" type="email" class="form-control" id="mail"
-                            placeholder="Inserisci qui la tua email">
-                    </div>
-                    <div class="form-group">
-                        <label class="mt-2 mb-2" for="text">Messaggio:</label>
-                        <textarea v-model="text" id="text" class="form-control" rows="4"
-                            placeholder="Il tuo messaggio"></textarea>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary mt-3 mb-4">Invia messaggio</button>
-                    </div>
-                </form>
+                <!-- INVIA MESSAGGIO AL DOTTORE -->
+                <div class="card-footer">
+                    <h3 class="text-center">Invia un messaggio al dottore</h3>
+                    <form @submit.prevent="sendMsgData()">
+                        <div class="form-group">
+                            <label for="full_name">Nome:</label>
+                            <input v-model="full_name" type="text" id="full_name" class="form-control"
+                                placeholder="Il tuo nome">
+                        </div>
+                        <div class="form-group">
+                            <label class="mt-2 mb-2" for="mail">Email</label>
+                            <input v-model="mail" type="email" class="form-control" id="mail"
+                                placeholder="Inserisci qui la tua email">
+                        </div>
+                        <div class="form-group">
+                            <label class="mt-2 mb-2" for="text">Messaggio:</label>
+                            <textarea v-model="text" id="text" class="form-control" rows="4"
+                                placeholder="Il tuo messaggio"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary mt-3 mb-4">Invia messaggio</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </main>
@@ -283,37 +293,10 @@ export default {
             </div>
         </div>
 
-        <div class=" mt-5">
-            <!-- LINK SOCIAL -->
-            <div class=" mt-5">
-                <div class="bg-dark text-center text-white">
-                    <div class="container p-4 pb-0">
-                        <section class="mb-4">
-                            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                                    class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                                    class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                                    class="fab fa-google"></i></a>
-                            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                                    class="fab fa-instagram"></i></a>
-                            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                                    class="fab fa-linkedin-in"></i></a>
-                            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                                    class="fab fa-github"></i></a>
-                        </section>
-                    </div>
-                    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-                        © 2023 Copyright:
-                        <a class="text-white" href="https://mdbootstrap.com/">BooleanProject</a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </footer>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .navbar {
     height: 150px;
     margin: auto;
@@ -337,6 +320,7 @@ body {
 
 h1 {
     color: #333;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .specialization {
