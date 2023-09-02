@@ -13,7 +13,11 @@ export default {
             doctor: '',
             full_name: '',
             mail: '',
-            text: ''
+            text: '',
+            name: '',
+            title: '',
+            comment: '',
+            vote: ''
         }
     },
     computed: {
@@ -38,19 +42,12 @@ export default {
                 })
         },
 
-        currentDate() {
-            const current = new Date();
-            const date = `${current.getFullYear()}/${current.getMonth() + 1}/${current.getDate()}`;
-            return date;
-        },
-
         sendMsgData() {
             let config = {
                 full_name: this.full_name,
                 mail: this.mail,
                 text: this.text,
                 doctor_id: this.$route.params.doctorId,
-                date: this.currentDate(),
             }
 
             axios.post(this.backendPaths.storeMessageURL, config).then(response => {
@@ -62,6 +59,38 @@ export default {
             this.mail = '';
             this.text = '';
         },
+
+        sendReviewData() {
+            let dataMsg = {
+                name: this.name,
+                title: this.title,
+                comment: this.comment,
+                doctor_id: this.$route.params.doctorId,
+            };
+
+            axios.post(this.backendPaths.storeReviewURL, dataMsg).then(response => {
+                console.log(response, 'La recensione è stata inviata correttamente');
+            }).catch(err => {
+                console.log(err.message, 'ops, qualcosa è andato storto')
+            });
+            this.name = '';
+            this.title = '';
+            this.comment = '';
+        },
+
+        sendVoteData() {
+            let dataVote = {
+                vote_id: this.vote,
+                doctor_id: this.$route.params.doctorId,
+            };
+
+            axios.post(this.backendPaths.storeVoteURL, dataVote).then(response => {
+                console.log(response, 'Il voto è stato inviato correttamente');
+            }).catch(err => {
+                console.log(err.message, 'ops, qualcosa è andato storto')
+            });
+            this.vote = '0'
+        }
     },
     mounted() {
         this.getDoctorDetails();
@@ -110,31 +139,46 @@ export default {
             <!-- RECENSIONE -->
             <div class="container mt-4">
                 <h3>Scrivi una recensione</h3>
-                <form>
+                <form @submit.prevent="sendReviewData()">
                     <div class="form-group">
-                        <label for="user-name">Nome:</label>
-                        <input type="text" id="user-name" name="user-name" class="form-control" placeholder="Il tuo nome">
+                        <label for="name">Nome:</label>
+                        <input v-model="name" type="text" id="name" name="name" class="form-control"
+                            placeholder="Il tuo nome">
                     </div>
                     <div class="form-group">
-                        <label for="user-rating" class="mt-2 mb-2">Valutazione:</label>
-                        <select id="user-rating" name="user-rating" class="form-control">
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
-                        </select>
+                        <label for="title">Titolo:</label>
+                        <input v-model="title" type="text" id="title" name="title" class="form-control"
+                            placeholder="Il tuo nome">
                     </div>
                     <div class="form-group">
-                        <label for="user-review" class="mb-2 mt-2">Recensione:</label>
-                        <textarea id="user-review" name="user-review" rows="4" class="form-control"
-                            placeholder="Scrivi una recensione"></textarea>
+                        <label for="comment">Commento:</label>
+                        <textarea v-model="comment" id="comment" name="title" class="form-control"
+                            placeholder="Il tuo nome"></textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Recensione</button>
                     </div>
                 </form>
             </div>
+
+            <div>
+                <form @submit.prevent="sendVoteData()">
+                    <div class="form-group">
+                        <label for="user-rating" class="mt-2 mb-2">Valutazione:</label>
+                        <select v-model="vote" id="user-rating" name="user-rating" class="form-control">
+                            <option value="5">5</option>
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="2">2</option>
+                            <option value="1">1</option>
+                        </select>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Voto</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
             <!-- INVIA MESSAGGIO AL DOTTORE -->
             <div class="card-footer">
                 <h3>Invia un messaggio al dottore</h3>
