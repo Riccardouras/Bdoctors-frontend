@@ -20,9 +20,9 @@ export default {
         doctors() {
             return this.$route.params.doctorId;
         },
-        getDoctorDetails(){
+        getDoctorDetails() {
 
-            let config= {
+            let config = {
                 params: {
                     doctor_id: this.$route.params.doctorId
                 }
@@ -30,7 +30,7 @@ export default {
             axios.get(this.backendPaths.doctorDetailsURL, config)
                 .then(response => {
                     this.doctor = response.data.results.doctor;
-                    console.log( 'DOCTOR LOG' , this.doctor);
+                    console.log('DOCTOR LOG', this.doctor);
                 })
         }
     },
@@ -42,87 +42,104 @@ export default {
 
 <template>
     <main>
-        <!-- PROFILO DOTTORE -->
-        <div class="profile-container mt-5">
-            <h1>{{ doctor.name }}</h1>
-            <img :src='doctor.image' class="img-thumbnail" style="max-width: 40%;" :alt="doctor.doctorName">
-            <p class="specialization" v-for="specialty in doctor.specialties">Specializzato in: {{ specialty }}
-            </p>
+        <div class="container d-flex">
+            <!-- PROFILO DOTTORE -->
+            <div class="profile-container mt-5 border-3">
+                <div class="d-flex flex-column align-items-center">
+                    <h1>{{ doctor.name }}</h1>
+                    <img :src='doctor.image' class="img-thumbnail" style="max-width: 70%;" :alt="doctor.doctorName">
+                    <span><strong>Specializzato in:</strong></span>
+                    <ul class="list-unstyled">
+                        <li class="specialization text-center" v-for="specialty in doctor.specialties">{{ specialty }}</li>
+                    </ul>
 
-            <div class="rating">
-                <span class="rating-label">Valutazione media:
-                </span>
-                <span>{{ doctor.averageVote }}</span>
+                    <div class="rating d-flex flex-column align-items-center">
+                        <span class="rating-label text-center"><strong>Valutazione media:</strong>
+                        </span>
+                        <span>{{ doctor.averageVote }}</span>
+                    </div>
+
+                    <div class="rating d-flex flex-column align-items-center">
+                        <span class="rating-label text-center"><strong>Numero di recensioni:</strong>
+                        </span>
+                        <span>{{ doctor.numberOfReviews }}</span>
+                    </div>
+
+                    <div class="rating d-flex flex-column align-items-center">
+                        <span class="rating-label text-center"> <strong>Indirizzo:</strong> </span>
+                        <span>{{ doctor.address }} </span>
+                    </div>
+
+                    <div class="rating d-flex flex-column align-items-center">
+                        <span class="rating-label"> <strong>Servizi:</strong></span>
+                        <span class="text-center">{{ doctor.service }}</span>
+                    </div>
+
+                    <div class="rating d-flex flex-column align-items-center">
+                        <span class="rating-label text-center"><strong>Telefono:</strong> </span>
+                        <span> {{ doctor.phone_number }} </span>
+                    </div>
+                    <div class="rating d-flex flex-column align-items-center">
+                        <a :href="doctor.curriculum" target="_blank">Clicca qui per aprire il CV</a>
+                    </div>
+                </div>
+
+
             </div>
 
-            <div class="rating">
-                <span class="rating-label">Numero di recensioni:
-                </span>
-                <span>{{ doctor.numberOfReviews }}</span>
+            <div class="container border-3 d-flex flex-column justify-content-around">
+
+                <!-- RECENSIONE -->
+                <div class="container mt-5 d-flex flex-column align-items-center">
+                    <h3>Scrivi una recensione</h3>
+                    <form class="w-100">
+                        <div class="form-group">
+                            <label for="user-name">Nome:</label>
+                            <input type="text" id="user-name" name="user-name" class="form-control"
+                                placeholder="Il tuo nome">
+                        </div>
+                        <div class="form-group">
+                            <label for="user-rating" class="mt-2 mb-2">Valutazione:</label>
+                            <select id="user-rating" name="user-rating" class="form-control">
+                                <option value="5">5</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-review" class="mb-2 mt-2">Recensione:</label>
+                            <textarea id="user-review" name="user-review" rows="4" class="form-control"
+                                placeholder="Scrivi una recensione"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Recensione</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- INVIA MESSAGGIO AL DOTTORE -->
+
+                <div class="card-footer d-flex flex-column align-items-center">
+                    <h3>Invia un messaggio al dottore</h3>
+                    <form class="w-100">
+                        <div class="form-group">
+                            <label for="user-name">Nome:</label>
+                            <input type="text" id="user-name" class="form-control" placeholder="Il tuo nome">
+                        </div>
+                        <div class="form-group">
+                            <label class="mt-2 mb-2" for="user-message">Messaggio:</label>
+                            <textarea id="user-message" class="form-control" rows="4"
+                                placeholder="Il tuo messaggio"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary mt-3 mb-4">Invia messaggio</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
-            <div class="rating">
-                <span class="rating-label"> Indirizzo: {{ doctor.address }} </span>
-                <span></span>
-            </div>
-
-            <div class="rating">
-                <span class="rating-label"> Servizi: {{ doctor.service }} </span>
-                <span></span>
-            </div>
-
-            <div class="rating">
-                <span class="rating-label"> Telefono: {{ doctor.phone_number }} </span>
-                <span></span>
-            </div>
-            <div class="rating">
-                <a :href="doctor.curriculum" target="_blank">Clicca qui per aprire il CV</a>
-            </div>
-            <!-- RECENSIONE -->
-            <div class="container mt-4">
-                <h3>Scrivi una recensione</h3>
-                <form>
-                    <div class="form-group">
-                        <label for="user-name">Nome:</label>
-                        <input type="text" id="user-name" name="user-name" class="form-control" placeholder="Il tuo nome">
-                    </div>
-                    <div class="form-group">
-                        <label for="user-rating" class="mt-2 mb-2">Valutazione:</label>
-                        <select id="user-rating" name="user-rating" class="form-control">
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="user-review" class="mb-2 mt-2">Recensione:</label>
-                        <textarea id="user-review" name="user-review" rows="4" class="form-control"
-                            placeholder="Scrivi una recensione"></textarea>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Recensione</button>
-                    </div>
-                </form>
-            </div>
-            <!-- INVIA MESSAGGIO AL DOTTORE -->
-            <div class="card-footer">
-                <h3>Invia un messaggio al dottore</h3>
-                <form>
-                    <div class="form-group">
-                        <label for="user-name">Nome:</label>
-                        <input type="text" id="user-name" class="form-control" placeholder="Il tuo nome">
-                    </div>
-                    <div class="form-group">
-                        <label class="mt-2 mb-2" for="user-message">Messaggio:</label>
-                        <textarea id="user-message" class="form-control" rows="4" placeholder="Il tuo messaggio"></textarea>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary mt-3 mb-4">Invia messaggio</button>
-                    </div>
-                </form>
-            </div>
         </div>
     </main>
 
@@ -233,10 +250,7 @@ export default {
     </footer>
 </template>
 
-<style lang="scss">
-
-
-
+<style scoped lang="scss">
 .navbar {
     height: 150px;
     margin: auto;
@@ -260,6 +274,7 @@ body {
 
 h1 {
     color: #333;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .specialization {
