@@ -16,8 +16,8 @@
 <template>
 
     <header>
-        <div class="header-wrapper container">
-            <nav class="navbar navbar-expand justify-content-between">
+        <div class="header-wrapper container-lg">
+            <nav class="navbar navbar-expand justify-content-between w-100">
                 <a href="/" class="navbar-brand textColorDark fw-bold p-0 h-100">
                     <img id="navbarIcon" class="h-100" src="../img/logoNoBackground.png" alt="site icon">
                 </a>
