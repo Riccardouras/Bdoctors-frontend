@@ -1,4 +1,5 @@
 <script>
+import AppFooter from './components/AppFooter.vue';
 import AppHeader from './components/AppHeader.vue';
 import HomePage from './components/HomePage.vue';
 import { RouterView } from 'vue-router'
@@ -7,7 +8,8 @@ export default {
     components: {
     HomePage,
     RouterView,
-    AppHeader
+    AppHeader,
+    AppFooter
 }
 }
 </script>
@@ -15,6 +17,7 @@ export default {
 <template>
     <AppHeader />
     <router-view></router-view>
+    <AppFooter />
 </template>
 
 <style lang="scss">
