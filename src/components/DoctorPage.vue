@@ -7,19 +7,23 @@ export default {
     data() {
         return {
             store,
-            doctor: ''
+            doctor: '',
+            full_name: '',
+            mail: '',
+            text: ''
         }
     },
     computed: {
 
     },
     methods: {
+
         doctors() {
             return this.$route.params.doctorId;
         },
-        getDoctorDetails(){
 
-            let config= {
+        getDoctorDetails() {
+            let config = {
                 params: {
                     doctor_id: this.$route.params.doctorId
                 }
@@ -27,9 +31,34 @@ export default {
             axios.get('http://localhost:8000/api/doctorDetails', config)
                 .then(response => {
                     this.doctor = response.data.results.doctor;
-                    console.log( 'DOCTOR LOG' , this.doctor);
+                    console.log('DOCTOR LOG', this.doctor);
                 })
-        }
+        },
+
+        currentDate() {
+            const current = new Date();
+            const date = `${current.getFullYear()}/${current.getMonth() + 1}/${current.getDate()}`;
+            return date;
+        },
+
+        sendMsgData() {
+            let config = {
+                full_name: this.full_name,
+                mail: this.mail,
+                text: this.text,
+                doctor_id: this.$route.params.doctorId,
+                date: this.currentDate(),
+            }
+
+            axios.post('http://localhost:8000/api/message', config).then(response => {
+                console.log(response, 'I dati del form sono stati inviati correttamaente');
+            }).catch(err => {
+                console.log(err.message, 'ops, qualcosa è andato storto')
+            });
+            this.full_name = '';
+            this.mail = '';
+            this.text = '';
+        },
     },
     mounted() {
         this.getDoctorDetails();
@@ -123,14 +152,21 @@ export default {
             <!-- INVIA MESSAGGIO AL DOTTORE -->
             <div class="card-footer">
                 <h3>Invia un messaggio al dottore</h3>
-                <form>
+                <form @submit.prevent="sendMsgData()">
                     <div class="form-group">
-                        <label for="user-name">Nome:</label>
-                        <input type="text" id="user-name" class="form-control" placeholder="Il tuo nome">
+                        <label for="full_name">Nome:</label>
+                        <input v-model="full_name" type="text" id="full_name" class="form-control"
+                            placeholder="Il tuo nome">
                     </div>
                     <div class="form-group">
-                        <label class="mt-2 mb-2" for="user-message">Messaggio:</label>
-                        <textarea id="user-message" class="form-control" rows="4" placeholder="Il tuo messaggio"></textarea>
+                        <label class="mt-2 mb-2" for="mail">Email</label>
+                        <input v-model="mail" type="email" class="form-control" id="mail"
+                            placeholder="Inserisci qui la tua email">
+                    </div>
+                    <div class="form-group">
+                        <label class="mt-2 mb-2" for="text">Messaggio:</label>
+                        <textarea v-model="text" id="text" class="form-control" rows="4"
+                            placeholder="Il tuo messaggio"></textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary mt-3 mb-4">Invia messaggio</button>
