@@ -53,7 +53,7 @@ export default {
                 date: this.currentDate(),
             }
 
-            axios.post('http://localhost:8000/api/message', config).then(response => {
+            axios.post(this.backendPaths.storeMessageURL, config).then(response => {
                 console.log(response, 'I dati del form sono stati inviati correttamaente');
             }).catch(err => {
                 console.log(err.message, 'ops, qualcosa è andato storto')
