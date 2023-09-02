@@ -1,6 +1,8 @@
 <script>
 import { RouterLink } from 'vue-router'
-import { store } from '../store/store';
+import { store } from '../data/store';
+import { backendPaths } from '../data/backendPaths';
+
 import axios from 'axios';
 
 export default {
@@ -8,7 +10,7 @@ export default {
     data() {
         return {
             store,
-            specialties: [],
+            backendPaths
         }
     },
     methods: {
@@ -18,7 +20,7 @@ export default {
                     specialty: specialtyID
                 }
             };
-            axios.get('http://localhost:8000/api/searchPerSpecialty', config)
+            axios.get(this.backendPaths.searchPerSpecialtyURL, config)
                 .then(response => {
                     this.store.doctors = response.data.results;
                     console.log('SEARCH PER SPECIALTY', this.store.doctors);
@@ -32,7 +34,7 @@ export default {
                     minNumOfReviews: minReview
                 }
             };
-            axios.get('http://localhost:8000/api/searchWithFilter', config)
+            axios.get(this.backendPaths.searchWithFilterURL, config)
                 .then(response => {
                     this.store.doctors = response.data.results;
                     console.log('SEARCH WITH FILTER', this.store.doctors);
@@ -47,13 +49,6 @@ export default {
             this.store.minNumOfReviews = event.target.value;
             console.log(this.store.minNumOfReviews);
         },
-        getSpecialties() {
-            axios.get('http://localhost:8000/api/allSpecialties')
-                .then(response => {
-                    this.specialties = response.data.results;
-                    // console.log(this.specialties);
-                })
-        },
         saveSpecialtyID(event) {
             this.store.specialtyID = event.target.value;
             // console.log(this.store.specialtyID);
@@ -67,7 +62,6 @@ export default {
         this.store.minNumOfReviews = 0;
         this.searchPerSpecialty(this.store.specialtyID);
         console.log('LOG AL MOUNTED', this.store.doctors);
-        this.getSpecialties();
     }
 }
 </script>
@@ -76,17 +70,6 @@ export default {
     <!-- NAVBAR -->
     <header>
         <div class="background">
-            <div class="container navbar ">
-                <div class="nav-left">
-                    <img id="logo" src="../img/LogoPiccolo.png" alt="">
-                    <h1 class="text-white">B-Doctors</h1>
-                </div>
-                <div class="nav-right">
-                    <router-link to="/">Torna alla Home</router-link>
-                    <a class="link-header" href="http://localhost:8000/register">Registrati</a>
-                    <a class="link-header" href="http://localhost:8000/login">Accedi</a>
-                </div>
-            </div>
 
             <!-- FORM RICERCA -->
             <div class="container">
@@ -112,10 +95,8 @@ export default {
                     <div class="col me-3">
                         <label for="specialization">Specializzazione:</label>
                         <select @change="saveSpecialtyID($event)" class="form-control" name="specialty" id="specialty">
-                            <option value="0" selected>Seleziona una specializzazione</option>
-                            <option v-for="specialty in specialties" :value="specialty.id" :key="specialty.id">{{
-                                specialty.name
-                            }}
+                            <option v-for="specialty in store.specialties" :value="specialty.id" :key="specialty.id" :selected="store.specialtyID == specialty.id">
+                            {{ specialty.name }}
                             </option>
                         </select>
                     </div>
@@ -158,7 +139,6 @@ export default {
 </template>
 
 <style lang="scss">
-@use '../style.scss' as *;
 
 .navbar {
     height: 100px;

@@ -1,37 +1,37 @@
 <script>
 import { Motion } from "motion/vue";
 import axios from 'axios';
-import { store } from '../store/store';
-import { RouterLink } from 'vue-router'
+import { store } from '../data/store';
+import { backendPaths } from '../data/backendPaths';
+import { RouterLink } from 'vue-router';
 
 export default {
   components: { Motion },
   data() {
     return {
-      currentImage: 0,
-      specialties: [],
       images: [
         'src/img/logo.png',
         'src/img/programmazione.webp'
       ],
-      store
+      store,
+      backendPaths
     }
   },
   methods: {
     submitForm() {
       this.$router.push('/advancedsearch');
     },
-    subscribersDoctors() {
-      axios.get('http://localhost:8000/api/sponsoredDoctors')
+    sponsoredDoctors() {
+      axios.get(this.backendPaths.sponsoredURL)
         .then(response => {
           this.store.sponsoredDoctors = response.data.results;
           // console.log(this.results);
         });
     },
     getSpecialties() {
-      axios.get('http://localhost:8000/api/allSpecialties')
+      axios.get(this.backendPaths.allSpecialtiesURL)
         .then(response => {
-          this.specialties = response.data.results;
+          this.store.specialties = response.data.results;
           // console.log(this.specialties);
         })
     },
@@ -43,7 +43,7 @@ export default {
   },
   mounted() {
     this.store.specialtyID = 0;
-    this.subscribersDoctors();
+    this.sponsoredDoctors();
     this.getSpecialties();
   },
 }
@@ -52,20 +52,6 @@ export default {
   <!-- NAVBAR -->
   <header>
     <div class="background">
-      <div class="container navbar ">
-        <Motion :initial="{ x: -1000 }" :animate="{ x: 0 }" :transition="{ type: 'spring', stiffness: 100 }">
-          <div class="nav-left">
-            <img id="logo" src="../img/LogoPiccolo.png" alt="">
-            <h1 class="text-white">B-Doctors</h1>
-          </div>
-        </Motion>
-        <Motion :initial="{ x: 1000 }" :animate="{ x: 0 }" :transition="{ type: 'spring', stiffness: 100 }">
-          <div class="nav-right">
-            <a class="link-header" href="http://localhost:8000/register">Registrati</a>
-            <a class="link-header" href="http://localhost:8000/login">Accedi</a>
-          </div>
-        </Motion>
-      </div>
 
       <!-- FORM RICERCA -->
       <div class="container">
@@ -80,7 +66,7 @@ export default {
               <label class="text-white" for="specialization">Specializzazione:</label>
               <select @change="saveSpecialtyID($event)" class="form-control" name="specialty" id="specialty">
                 <option value="0" selected>Seleziona una specializzazione</option>
-                <option v-for="specialty in specialties" :value="specialty.id" :key="specialty.id">{{ specialty.name }}
+                <option v-for="specialty in store.specialties" :value="specialty.id" :key="specialty.id">{{ specialty.name }}
                 </option>
               </select>
             </div>
@@ -210,7 +196,6 @@ export default {
 </template>
 
 <style lang="scss">
-@use '../style.scss' as *;
 
 .navbar {
   height: 100px;

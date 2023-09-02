@@ -1,12 +1,15 @@
 <script>
 import axios from 'axios';
-import { store } from '../store/store';
+import { store } from '../data/store';
+import { backendPaths } from '../data/backendPaths';
+
 
 export default {
     name: 'DoctorPage',
     data() {
         return {
             store,
+            backendPaths,
             doctor: '',
             full_name: '',
             mail: '',
@@ -28,7 +31,7 @@ export default {
                     doctor_id: this.$route.params.doctorId
                 }
             }
-            axios.get('http://localhost:8000/api/doctorDetails', config)
+            axios.get(this.backendPaths.doctorDetailsURL, config)
                 .then(response => {
                     this.doctor = response.data.results.doctor;
                     console.log('DOCTOR LOG', this.doctor);
@@ -67,23 +70,6 @@ export default {
 </script>
 
 <template>
-    <header>
-        <div class="background">
-            <div class="container navbar ">
-                <div class="nav-left">
-                    <img id="logo" src="../img/LogoPiccolo.png" alt="">
-                    <h1 class="text-white">B-Doctors</h1>
-                </div>
-                <div class="nav-right">
-                    <router-link to="/advancedSearch">Torna indietro</router-link>
-                    <a class="link-header" href="http://localhost:8000/register">Registrati</a>
-                    <a class="link-header" href="http://localhost:8000/login">Accedi</a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-
     <main>
         <!-- PROFILO DOTTORE -->
         <div class="profile-container mt-5">
@@ -284,9 +270,6 @@ export default {
 </template>
 
 <style lang="scss">
-@use '../style.scss' as *;
-
-
 .navbar {
     height: 150px;
     margin: auto;
