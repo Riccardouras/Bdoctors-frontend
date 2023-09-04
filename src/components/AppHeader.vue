@@ -1,20 +1,19 @@
 <script>
 
-    import { backendPaths } from '../data/backendPaths';
+import { backendPaths } from '../data/backendPaths';
 
-    export default{
-        name: 'AppHeader',
-        data(){
-            return{
-                backendPaths
-            }
+export default {
+    name: 'AppHeader',
+    data() {
+        return {
+            backendPaths
         }
     }
+}
 
 </script>
 
 <template>
-
     <header>
         <div class="header-wrapper container-lg">
             <nav class="navbar navbar-expand justify-content-between w-100">
@@ -24,7 +23,13 @@
 
                 <div id="sectionNavBar">
 
-                    <ul class="navbar-nav gap-2">
+                    <ul class="navbar-nav gap-5">
+                        <li class="nav-item">
+                            <a class="nav-link hover-secondary" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link hover-secondary" href="./aboutus">About Us</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link hover-secondary" :href="backendPaths.registerURL">Registrati</a>
                         </li>
@@ -36,30 +41,20 @@
             </nav>
         </div>
     </header>
-
-    <!-- <Motion :initial="{ x: 1000 }" :animate="{ x: 0 }" :transition="{ type: 'spring', stiffness: 100 }"> -->
-
-
 </template>
 
 <style lang="scss" scoped>
-
 @use '../style/partials/variables.scss' as var;
 
-    header{
-        background-color: var.$primaryColor;
-        
-        .nav-link{
-            color: white;
-        }
+header {
+    background-color: var.$primaryColor;
+
+    .nav-link {
+        color: white;
     }
+}
 
-    .navbar{
-        height: 100px;
-    }
-
-
-
-
-
+.navbar {
+    height: 100px;
+}
 </style>
