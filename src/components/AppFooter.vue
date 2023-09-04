@@ -18,8 +18,8 @@ export default {
             <div class="text-center mt-4 mb-4">
                 <h2>INFO</h2>
             </div>
-            <div class="col-md-3 mb-2 mb-sm-0 media d-flex justify-content-between flex-column mt-0">
-                <div class="pr-1">
+            <div class="col-lg-3 mb-2 mb-sm-0 media d-flex justify-content-between flex-column mt-0">
+                <div class="pr-1 text-center">
                     <div class="d-inline-flex">
                         <i class="svg-icon svg-icon-search svg-icon-size-24 svg-icon-color-secondary"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -37,8 +37,8 @@ export default {
                 </div>
             </div>
 
-            <div class="col-md-3 mb-2 mb-sm-0 media d-flex justify-content-between flex-column mt-0">
-                <div class="pr-1">
+            <div class="col-lg-3 mb-2 mb-sm-0 media d-flex justify-content-between flex-column mt-0">
+                <div class="pr-1 text-center">
                     <div class="d-inline-flex">
                         <i class="svg-icon svg-icon-calendar-with-check svg-icon-size-24 svg-icon-color-secondary"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -58,8 +58,8 @@ export default {
                 </div>
             </div>
 
-            <div class="col-md-3 mb-2 mb-sm-0 media d-flex justify-content-between flex-column mt-0">
-                <div class="pr-1">
+            <div class="col-lg-3 mb-2 mb-sm-0 media d-flex justify-content-between flex-column mt-0">
+                <div class="pr-1 text-center">
                     <div class="d-inline-flex">
                         <i class="svg-icon svg-icon-bubble-chat-texting svg-icon-size-24 svg-icon-color-secondary"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -80,8 +80,8 @@ export default {
                 </div>
             </div>
 
-            <div class="col-md-3 mb-2 mb-sm-0 media d-flex justify-content-between flex-column  mt-0">
-                <div class="pr-1">
+            <div class="col-lg-3 mb-2 mb-sm-0 media d-flex justify-content-between flex-column  mt-0">
+                <div class="pr-1 text-center">
                     <div class="d-inline-flex">
                         <i class="svg-icon svg-icon-clock-filled svg-icon-size-24 svg-icon-color-secondary"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

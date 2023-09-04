@@ -115,7 +115,7 @@ export default {
                     <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{
                         store.doctors[0].doctorSpecialtiesArray[0] }}</h2>
                 </div>
-                <div class="col-sm-3 mt-2" v-for="doctor in store.doctors" :key="doctor.id">
+                <div class="col-lg-3 d-flex justify-content-center mt-2" v-for="doctor in store.doctors" :key="doctor.id">
                     <div class="card">
                         <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;"
                             :src="doctor.doctorImage" :alt="doctor.doctorName">
@@ -128,7 +128,8 @@ export default {
                             </ul>
                             <p class="card-text">Voto medio: {{ doctor.averageVote }}</p>
                             <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
-                            <button class="btn"><router-link :to="`/doctorpage/${doctor.doctorId}`">Vai alla pagina del
+                            <button class="btn"><router-link :to="`/doctorpage/${doctor.doctorId}`">Vai alla
+                                    pagina del
                                     dottore</router-link></button>
                         </div>
                     </div>
@@ -168,9 +169,13 @@ export default {
     padding: 32px;
     overflow: hidden;
     border-radius: 10px;
-    background: #212121;
+    background-color: rgb(248, 249, 250);
     border: 2px solid #313131;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+
+    .card-title {
+        color: var.$secondaryColor;
+    }
 }
 
 .content {
@@ -180,7 +185,7 @@ export default {
     height: 100%;
     align-items: center;
     gap: 20px;
-    color: #e8e8e8;
+    color: var.$primaryColor;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
@@ -193,19 +198,19 @@ export default {
     line-height: 1.5;
 }
 
-.content .btn {
-    color: #e8e8e8;
+.btn {
     text-decoration: none;
     padding: 10px;
     font-weight: 600;
     border: none;
     cursor: pointer;
-    background: #07090c;
+    background: #e5e5e5;
     border-radius: 5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
     a {
         text-decoration: none;
+        color: var.$primaryColor;
     }
 }
 
@@ -217,7 +222,7 @@ export default {
 .content .btn:hover {
     outline: 2px solid #e8e8e8;
     background: transparent;
-    color: var.$primaryColor;
+    color: white;
 }
 
 .content .btn:active {
