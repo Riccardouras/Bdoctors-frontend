@@ -138,7 +138,7 @@ export default {
     </main>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 @use '../style/partials/variables.scss' as var;
 
 @media (max-width: 992px) {
@@ -156,22 +156,6 @@ export default {
     }
 }
 
-.navbar {
-    height: 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 75%;
-    margin: auto;
-}
-
-
-.nav-left {
-    display: flex;
-    align-items: center;
-    width: 330px;
-    justify-content: space-between;
-}
 
 .card {
     position: relative;

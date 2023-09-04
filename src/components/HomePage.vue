@@ -86,11 +86,17 @@ export default {
         <h2 class="text-center mt-4 mb-4">Dottori in evidenza</h2>
         <div class="col-sm-3 mt-2" v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
           <div class="card">
-            <img class="card-img-top " style="height: 200px; object-fit: contain;" :src="doctor.doctorImage"
+            <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.doctorImage"
               :alt="doctor.doctorName">
-            <div class="card-body" style="min-height: 200px;">
+            <div class="content">
               <h5 class="card-title">{{ doctor.doctorName }}</h5>
-              <p class="card-text" v-for="specialty in doctor.doctorSpecialtiesArray">{{ specialty }}</p>
+              <span>Specializzato in:</span>
+              <ul class="list-unstyled">
+                <li class="specialization text-center" v-for="specialty in doctor.doctorSpecialtiesArray">{{
+                  specialty }}</li>
+              </ul>
+              <p class="card-text">Voto medio: {{ doctor.averageVote }}</p>
+              <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
               <router-link :to="`/doctorpage/${doctor.doctorId}`">Vai alla pagina del dottore</router-link>
             </div>
           </div>
@@ -174,6 +180,8 @@ export default {
 </template>
 
 <style lang="scss">
+@use '../style/partials/variables.scss' as var;
+
 .navbar {
   height: 100px;
   display: flex;
@@ -183,6 +191,72 @@ export default {
   margin: auto;
 }
 
+.card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 320px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  height: 100%;
+  padding: 32px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #212121;
+  border: 2px solid #313131;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  align-items: center;
+  gap: 20px;
+  color: #e8e8e8;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.content .heading {
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.content .para {
+  line-height: 1.5;
+}
+
+.content .btn {
+  color: #e8e8e8;
+  text-decoration: none;
+  padding: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: #07090c;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.card:hover {
+  box-shadow: var.$primaryColor;
+  border-color: var.$primaryColor;
+}
+
+.content .btn:hover {
+  outline: 2px solid #e8e8e8;
+  background: transparent;
+  color: var.$primaryColor;
+}
+
+.content .btn:active {
+  box-shadow: none;
+}
 
 .nav-left {
   display: flex;
