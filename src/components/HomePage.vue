@@ -28,18 +28,19 @@ export default {
       axios.get(this.backendPaths.allSpecialtiesURL)
         .then(response => {
           this.store.specialties = response.data.results;
-          console.log(this.specialties);
+          // console.log(this.specialties);
         })
     },
     saveSpecialtyID(event) {
       this.store.specialtyID = event.target.value;
-      console.log(this.store.specialtyID);
+      // console.log(this.store.specialtyID);
     }
 
   },
   mounted() {
     this.store.specialtyID = 0;
     this.sponsoredDoctors();
+    console.log(this.sponsoredDoctors())
     this.getSpecialties();
   },
 }

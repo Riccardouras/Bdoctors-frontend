@@ -25,6 +25,7 @@ export default {
             messageSuccess: false,
             reviewSuccess: false,
             voteSuccess: false,
+            doctorReviews: []
         }
     },
     computed: {
@@ -126,11 +127,23 @@ export default {
                 console.log(err.message, 'Bad request')
             });
             this.vote = '0'
+        },
+        getDoctorReviews(){
+            let config = {
+                params: {
+                    doctor_id: this.$route.params.doctorId
+                }
+            };
+            axios.get(this.backendPaths.getDoctorReviewsURL, config)
+                .then(response =>  {
+                    this.doctorReviews = response.data.results;
+                    console.log(this.doctorReviews);
+                });
         }
     },
     mounted() {
         this.getDoctorDetails();
-        this.loading = true;
+        this.getDoctorReviews();
     }
 }
 </script>
@@ -161,7 +174,34 @@ export default {
                     <div class="rating d-flex flex-column align-items-center">
                         <span class="rating-label"><strong>Numero di recensioni:</strong>
                         </span>
-                        <span>{{ doctor.numberOfReviews }}</span>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewsModal">{{ doctor.numberOfReviews }}</button>
+                    </div>
+
+                    <div class="modal fade" id="reviewsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="exampleModalLabel">Recensioni</h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <template v-for="review in doctorReviews">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="card-title">{{ review.title }}</div>
+                                                <div class="card-subtitle">{{ review.name }} , {{ review.date }}</div>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">{{ review.comment }}</p>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="rating d-flex flex-column align-items-center">
