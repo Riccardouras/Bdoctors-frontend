@@ -72,7 +72,7 @@ export default {
         <div class="background">
 
             <!-- FORM RICERCA -->
-            <div class="container form-container">
+            <div class="container form-container " style="padding-top: 80px; margin-top: -105px;">
                 <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5">
                     <h2>Filtra per numero di recensioni e numero di stelle</h2>
                 </div>

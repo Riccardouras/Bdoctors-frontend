@@ -14,7 +14,10 @@ export default {
 </script>
 
 <template>
-    <header>
+    <div>
+        <slot></slot>
+    </div>
+    <header class="header-doctor">
         <div class="header-wrapper container-lg">
             <nav class="navbar navbar-expand-lg justify-content-between w-100">
                 <a href="/" class="navbar-brand textColorDark fw-bold p-0 h-100">
@@ -25,6 +28,7 @@ export default {
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div id="sectionNavBar" class="collapse navbar-collapse ms-auto text-end">
                     <ul class="navbar-nav gap-3 ms-auto">
                         <li class="nav-item">
@@ -63,5 +67,9 @@ header {
 
 .navbarIcon {
     color: white;
+}
+
+header {
+    background: transparent;
 }
 </style>

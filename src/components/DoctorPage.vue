@@ -4,6 +4,7 @@ import { store } from '../data/store';
 import { backendPaths } from '../data/backendPaths';
 
 
+
 export default {
     name: 'DoctorPage',
     data() {
@@ -136,6 +137,9 @@ export default {
 
 <template>
     <main>
+        <div class="backDoctor">
+
+        </div>
         <div class="container d-flex">
 
             <!-- PROFILO DOTTORE -->
@@ -405,5 +409,14 @@ h1 {
 
 .rating-label {
     margin-right: 10px;
+}
+
+.backDoctor {
+    height: 100px;
+    background-image: url(../img/Dottori4.png);
+    background-size: cover;
+    background-position: center;
+    margin-top: -100px;
+
 }
 </style>

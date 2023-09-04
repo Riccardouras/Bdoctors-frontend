@@ -16,10 +16,10 @@ export default {
 
 <template>
     <div class="background">
-        <div class="container">
+        <div class="container" style="padding-top: 80px; margin-top: -105px;">
             <div class="flex-column d-flex align-items-center justify-content-center  " style="min-height: 350px;">
                 <h1 class="aboutus">About Us</h1>
-                <h5><a class="home" href="/">Home</a> / ContactUs</h5>
+                <h5><a class="home" href="/">Home</a> / AboutUs</h5>
             </div>
         </div>
     </div>
@@ -62,7 +62,7 @@ export default {
     background-image: url(../img/Dottori4.png);
     background-size: cover;
     background-position: center;
-    min-height: 350px;
+    min-height: 440px;
 }
 
 .aboutus {
