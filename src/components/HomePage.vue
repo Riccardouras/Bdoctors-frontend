@@ -9,10 +9,6 @@ export default {
   components: { Motion },
   data() {
     return {
-      images: [
-        'src/img/logo.png',
-        'src/img/programmazione.webp'
-      ],
       store,
       backendPaths
     }
@@ -25,19 +21,19 @@ export default {
       axios.get(this.backendPaths.sponsoredURL)
         .then(response => {
           this.store.sponsoredDoctors = response.data.results;
-          // console.log(this.results);
+          console.log(this.results);
         });
     },
     getSpecialties() {
       axios.get(this.backendPaths.allSpecialtiesURL)
         .then(response => {
           this.store.specialties = response.data.results;
-          // console.log(this.specialties);
+          console.log(this.specialties);
         })
     },
     saveSpecialtyID(event) {
       this.store.specialtyID = event.target.value;
-      // console.log(this.store.specialtyID);
+      console.log(this.store.specialtyID);
     }
 
   },
