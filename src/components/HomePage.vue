@@ -81,23 +81,25 @@ export default {
     <div class="container">
       <h2 class="text-center mt-4 mb-4">Dottori in evidenza</h2>
       <div class="row justify-content-center">
-        <div class="col-12 col-md-6 col-lg-4 mt-2" v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
-          <div class="card">
-            <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.image"
-              :alt="doctor.doctorName">
-            <div class="content">
-              <h5 class="card-title">{{ doctor.name }}</h5>
-              <span>Specializzato in:</span>
-              <ul class="list-unstyled">
-                <li class="specialization text-center" v-for="specialty in doctor.specialties">{{
-                  specialty }}</li>
-              </ul>
-              <p class="card-text">Voto medio: {{ doctor.averageVote }}</p>
-              <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
-              <router-link :to="`/doctorpage/${doctor.id}`">Vai alla pagina del dottore</router-link>
-            </div>
-          </div>
-        </div>
+        <div class="col-lg-3 d-flex justify-content-center mt-2" v-for="doctor in store.doctors" :key="doctor.id">
+                    <div class="card">
+                        <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;"
+                            :src="doctor.doctorImage" :alt="doctor.doctorName">
+                        <div class="content">
+                            <h5 class="card-title">{{ doctor.doctorName }}</h5>
+                            <span>Specializzato in:</span>
+                            <ul class="list-unstyled">
+                                <li class="specialization text-center" v-for="specialty in doctor.doctorSpecialtiesArray">{{
+                                    specialty }}</li>
+                            </ul>
+                            <p class="card-text">Voto medio: {{ doctor.averageVote }}</p>
+                            <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
+                            <button class="btn"><router-link :to="`/doctorpage/${doctor.doctorId}`">Vai alla
+                                    pagina del
+                                    dottore</router-link></button>
+                        </div>
+                    </div>
+                </div>
       </div>
     </div>
 
@@ -188,56 +190,64 @@ export default {
   margin: auto;
 }
 
+select{
+  cursor: pointer;
+}
+
 .card {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 320px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  height: 100%;
-  padding: 32px;
-  overflow: hidden;
-  border-radius: 10px;
-  background: #212121;
-  border: 2px solid #313131;
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    height: 100%;
+    padding: 32px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: rgb(248, 249, 250);
+    border: 2px solid #313131;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+
+    .card-title {
+        color: var.$secondaryColor;
+    }
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 100%;
-  align-items: center;
-  gap: 20px;
-  color: #e8e8e8;
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    align-items: center;
+    gap: 20px;
+    color: var.$primaryColor;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
 .content .heading {
-  font-weight: 700;
-  font-size: 32px;
+    font-weight: 700;
+    font-size: 32px;
 }
 
 .content .para {
-  line-height: 1.5;
+    line-height: 1.5;
 }
 
 .content .btn {
-  color: #e8e8e8;
   text-decoration: none;
-  padding: 10px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  background: #07090c;
-  border-radius: 5px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    background: #e5e5e5;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
-  a {
-    text-decoration: none;
-  }
+    a {
+        text-decoration: none;
+        color: var.$primaryColor;
+    }
 }
 
 .card:hover {
@@ -246,13 +256,13 @@ export default {
 }
 
 .content .btn:hover {
-  outline: 2px solid #e8e8e8;
-  background: transparent;
-  color: var.$primaryColor;
+    outline: 2px solid #e8e8e8;
+    background: transparent;
+    color: white;
 }
 
 .content .btn:active {
-  box-shadow: none;
+    box-shadow: none;
 }
 
 .nav-left {
