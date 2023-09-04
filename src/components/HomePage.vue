@@ -21,7 +21,7 @@ export default {
       axios.get(this.backendPaths.sponsoredURL)
         .then(response => {
           this.store.sponsoredDoctors = response.data.results;
-          console.log(response.data , 'sponsored doctors');
+          console.log(response.data, 'sponsored doctors');
         });
     },
     getSpecialties() {
@@ -53,7 +53,7 @@ export default {
       <!-- FORM RICERCA -->
       <div class="container" style="padding-top: 80px; margin-top: -105px;">
         <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5 ">
-          <h2>Cerca il tuo dottore!</h2>
+          <h2 style="font-weight: 700;">Cerca il tuo dottore!</h2>
           <h4>Cerca tra 100 000 Specialisti e Medici di Medicina Generale.</h4>
         </div>
 
@@ -79,27 +79,27 @@ export default {
   <main>
     <!-- MEDICI IN EVIDENZA-->
     <div class="container">
-      <h2 class="text-center mt-4 mb-4">Dottori in evidenza</h2>
+      <h2 class="text-center mt-4 mb-4" style="font-weight: 700;">Dottori in evidenza</h2>
       <div class="row justify-content-center">
         <div class="col-lg-3 d-flex justify-content-center mt-2" v-for="doctor in store.doctors" :key="doctor.id">
-                    <div class="card">
-                        <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;"
-                            :src="doctor.doctorImage" :alt="doctor.doctorName">
-                        <div class="content">
-                            <h5 class="card-title">{{ doctor.doctorName }}</h5>
-                            <span>Specializzato in:</span>
-                            <ul class="list-unstyled">
-                                <li class="specialization text-center" v-for="specialty in doctor.doctorSpecialtiesArray">{{
-                                    specialty }}</li>
-                            </ul>
-                            <p class="card-text">Voto medio: {{ doctor.averageVote }}</p>
-                            <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
-                            <button class="btn"><router-link :to="`/doctorpage/${doctor.doctorId}`">Vai alla
-                                    pagina del
-                                    dottore</router-link></button>
-                        </div>
-                    </div>
-                </div>
+          <div class="card">
+            <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.doctorImage"
+              :alt="doctor.doctorName">
+            <div class="content">
+              <h5 class="card-title">{{ doctor.doctorName }}</h5>
+              <span>Specializzato in:</span>
+              <ul class="list-unstyled">
+                <li class="specialization text-center" v-for="specialty in doctor.doctorSpecialtiesArray">{{
+                  specialty }}</li>
+              </ul>
+              <p class="card-text">Voto medio: {{ doctor.averageVote }}</p>
+              <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
+              <button class="btn"><router-link :to="`/doctorpage/${doctor.doctorId}`">Vai alla
+                  pagina del
+                  dottore</router-link></button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -190,64 +190,64 @@ export default {
   margin: auto;
 }
 
-select{
+select {
   cursor: pointer;
 }
 
 .card {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 320px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    height: 100%;
-    padding: 32px;
-    overflow: hidden;
-    border-radius: 10px;
-    background-color: rgb(248, 249, 250);
-    border: 2px solid #313131;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 320px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  height: 100%;
+  padding: 32px;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: rgb(248, 249, 250);
+  border: 2px solid #313131;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
 
-    .card-title {
-        color: var.$secondaryColor;
-    }
+  .card-title {
+    color: var.$secondaryColor;
+  }
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 100%;
-    align-items: center;
-    gap: 20px;
-    color: var.$primaryColor;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  align-items: center;
+  gap: 20px;
+  color: var.$primaryColor;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
 .content .heading {
-    font-weight: 700;
-    font-size: 32px;
+  font-weight: 700;
+  font-size: 32px;
 }
 
 .content .para {
-    line-height: 1.5;
+  line-height: 1.5;
 }
 
 .content .btn {
   text-decoration: none;
-    padding: 10px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    background: #e5e5e5;
-    border-radius: 5px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: #e5e5e5;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
-    a {
-        text-decoration: none;
-        color: var.$primaryColor;
-    }
+  a {
+    text-decoration: none;
+    color: var.$primaryColor;
+  }
 }
 
 .card:hover {
@@ -256,13 +256,13 @@ select{
 }
 
 .content .btn:hover {
-    outline: 2px solid #e8e8e8;
-    background: transparent;
-    color: white;
+  outline: 2px solid #e8e8e8;
+  background: transparent;
+  color: white;
 }
 
 .content .btn:active {
-    box-shadow: none;
+  box-shadow: none;
 }
 
 .nav-left {
