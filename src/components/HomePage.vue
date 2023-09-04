@@ -61,15 +61,12 @@ export default {
           <div class="form-row d-flex align-items-center">
             <div class="col me-3">
               <label class="text-white" for="specialization">Specializzazione:</label>
-              <select @change="saveSpecialtyID($event)" class="form-control" name="specialty" id="specialty">
+              <select @change="saveSpecialtyID($event)" class="form-control cursor-pointer" name="specialty" id="specialty">
                 <option value="0" selected>Seleziona una specializzazione</option>
-                <option v-for="specialty in store.specialties" :value="specialty.id" :key="specialty.id">{{ specialty.name
-                }}
-                </option>
+                <option v-for="specialty in store.specialties" :value="specialty.id" :key="specialty.id">{{ specialty.name}}</option>
               </select>
             </div>
-            <button :disabled="store.specialtyID != 0 ? false : true" @click="submitForm"
-              class="button text-center mt-4">Cerca</button>
+            <button :disabled="store.specialtyID != 0 ? false : true" @click="submitForm" class="button text-center mt-4">Cerca</button>
           </div>
         </div>
       </div>
@@ -81,22 +78,18 @@ export default {
     <div class="container">
       <h2 class="text-center mt-4 mb-4" style="font-weight: 700;">Dottori in evidenza</h2>
       <div class="row justify-content-center">
-        <div class="col-lg-3 d-flex justify-content-center mt-2" v-for="doctor in store.doctors" :key="doctor.id">
+        <div class="col-lg-3 d-flex justify-content-center mt-2" v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
           <div class="card">
-            <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.doctorImage"
-              :alt="doctor.doctorName">
+            <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.image" :alt="doctor.doctorName">
             <div class="content">
-              <h5 class="card-title">{{ doctor.doctorName }}</h5>
+              <h5 class="card-title">{{ doctor.name }}</h5>
               <span>Specializzato in:</span>
               <ul class="list-unstyled">
-                <li class="specialization text-center" v-for="specialty in doctor.doctorSpecialtiesArray">{{
-                  specialty }}</li>
+                <li class="specialization text-center" v-for="specialty in doctor.specialties">{{ specialty }}</li>
               </ul>
               <p class="card-text">Voto medio: {{ doctor.averageVote }}</p>
               <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
-              <button class="btn"><router-link :to="`/doctorpage/${doctor.doctorId}`">Vai alla
-                  pagina del
-                  dottore</router-link></button>
+              <button class="btn"><router-link :to="`/doctorpage/${doctor.id}`">Vai alla pagina del dottore</router-link></button>
             </div>
           </div>
         </div>
@@ -190,28 +183,29 @@ export default {
   margin: auto;
 }
 
-select {
+.cursor-pointer {
   cursor: pointer;
+
 }
 
 .card {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 320px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  height: 100%;
-  padding: 32px;
-  overflow: hidden;
-  border-radius: 10px;
-  background-color: rgb(248, 249, 250);
-  border: 2px solid #313131;
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    height: 100%;
+    padding: 32px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: rgb(248, 249, 250);
+    border: 2px solid #313131;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
 
-  .card-title {
-    color: var.$secondaryColor;
-  }
+    .card-title {
+        color: var.$secondaryColor;
+    }
 }
 
 .content {
