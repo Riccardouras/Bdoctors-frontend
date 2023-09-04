@@ -186,9 +186,9 @@ export default {
                                 </div>
                                 <div class="modal-body">
                                     <template v-for="review in doctorReviews">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <div class="card-title">{{ review.title }}</div>
+                                        <div class="card w-auto p-0 mb-2">
+                                            <div class="card-header w-100">
+                                                <h3 class="card-title">{{ review.title }}</h3>
                                                 <div class="card-subtitle">{{ review.name }} , {{ review.date }}</div>
                                             </div>
                                             <div class="card-body">

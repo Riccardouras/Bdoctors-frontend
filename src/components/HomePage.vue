@@ -21,7 +21,7 @@ export default {
       axios.get(this.backendPaths.sponsoredURL)
         .then(response => {
           this.store.sponsoredDoctors = response.data.results;
-          console.log(this.results);
+          console.log(response.data , 'sponsored doctors');
         });
     },
     getSpecialties() {
@@ -79,22 +79,22 @@ export default {
   <main>
     <!-- MEDICI IN EVIDENZA-->
     <div class="container">
+      <h2 class="text-center mt-4 mb-4">Dottori in evidenza</h2>
       <div class="row justify-content-center">
-        <h2 class="text-center mt-4 mb-4">Dottori in evidenza</h2>
-        <div class="col-sm-3 mt-2" v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
+        <div class="col-12 col-md-6 col-lg-4 mt-2" v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
           <div class="card">
-            <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.doctorImage"
+            <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.image"
               :alt="doctor.doctorName">
             <div class="content">
-              <h5 class="card-title">{{ doctor.doctorName }}</h5>
+              <h5 class="card-title">{{ doctor.name }}</h5>
               <span>Specializzato in:</span>
               <ul class="list-unstyled">
-                <li class="specialization text-center" v-for="specialty in doctor.doctorSpecialtiesArray">{{
+                <li class="specialization text-center" v-for="specialty in doctor.specialties">{{
                   specialty }}</li>
               </ul>
               <p class="card-text">Voto medio: {{ doctor.averageVote }}</p>
               <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
-              <router-link :to="`/doctorpage/${doctor.doctorId}`">Vai alla pagina del dottore</router-link>
+              <router-link :to="`/doctorpage/${doctor.id}`">Vai alla pagina del dottore</router-link>
             </div>
           </div>
         </div>
