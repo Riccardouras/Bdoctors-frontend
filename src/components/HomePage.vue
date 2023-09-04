@@ -66,7 +66,8 @@ export default {
               <label class="text-white" for="specialization">Specializzazione:</label>
               <select @change="saveSpecialtyID($event)" class="form-control" name="specialty" id="specialty">
                 <option value="0" selected>Seleziona una specializzazione</option>
-                <option v-for="specialty in store.specialties" :value="specialty.id" :key="specialty.id">{{ specialty.name }}
+                <option v-for="specialty in store.specialties" :value="specialty.id" :key="specialty.id">{{ specialty.name
+                }}
                 </option>
               </select>
             </div>
@@ -172,7 +173,6 @@ export default {
 </template>
 
 <style lang="scss">
-
 .navbar {
   height: 100px;
   display: flex;

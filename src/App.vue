@@ -6,11 +6,11 @@ import { RouterView } from 'vue-router'
 
 export default {
     components: {
-    HomePage,
-    RouterView,
-    AppHeader,
-    AppFooter
-}
+        HomePage,
+        RouterView,
+        AppHeader,
+        AppFooter,
+    }
 }
 </script>
 
@@ -21,7 +21,5 @@ export default {
 </template>
 
 <style lang="scss">
-
-    @use './style/general.scss' as *;
-
+@use './style/general.scss' as *;
 </style>
