@@ -17,7 +17,13 @@ export default {
             name: '',
             title: '',
             comment: '',
-            vote: ''
+            vote: '',
+            messageErrors: [],
+            reviewErrors: [],
+            voteErrors: [],
+            messageSuccess: false,
+            reviewSuccess: false,
+            voteSuccess: false,
         }
     },
     computed: {
@@ -43,17 +49,27 @@ export default {
         },
 
         sendMsgData() {
-            let config = {
+            let data = {
                 full_name: this.full_name,
                 mail: this.mail,
                 text: this.text,
                 doctor_id: this.$route.params.doctorId,
             }
 
-            axios.post(this.backendPaths.storeMessageURL, config).then(response => {
-                console.log(response, 'I dati del form sono stati inviati correttamaente');
+            axios.post(this.backendPaths.storeMessageURL, data).then(response => {
+                if (response.data.success) {
+                    console.log('Il messaggio è stato inviato con successo', response.data.success)
+                    this.messageSuccess = true
+                    this.messageErrors = []
+
+                } else {
+                    console.log('Qualcosa è andato storto', response.data.success)
+                    this.messageErrors = response.data.errors
+                    console.log(this.messageErrors, 'Questi sono gli errori')
+                    this.messageSuccess = false
+                }
             }).catch(err => {
-                console.log(err.message, 'ops, qualcosa è andato storto')
+                console.log(err, 'Bad request')
             });
             this.full_name = '';
             this.mail = '';
@@ -69,9 +85,19 @@ export default {
             };
 
             axios.post(this.backendPaths.storeReviewURL, dataMsg).then(response => {
-                console.log(response, 'La recensione è stata inviata correttamente');
+                if (response.data.success) {
+                    console.log('La recensione è stata inviato con successo', response.data.success)
+                    this.reviewSuccess = true
+                    this.reviewErrors = []
+                } else {
+                    console.log('Qualcosa è andato storto', response.data.success)
+                    this.reviewErrors = response.data.errors
+                    console.log(this.reviewErrors, 'Questi sono gli errori')
+                    this.reviewSuccess = false
+                }
+                this.loading = false
             }).catch(err => {
-                console.log(err.message, 'ops, qualcosa è andato storto')
+                console.log(err.message, 'Bad request')
             });
             this.name = '';
             this.title = '';
@@ -85,15 +111,25 @@ export default {
             };
 
             axios.post(this.backendPaths.storeVoteURL, dataVote).then(response => {
-                console.log(response, 'Il voto è stato inviato correttamente');
+                if (response.data.success) {
+                    console.log('Il voto è stata inviato con successo', response.data.success)
+                    this.voteSuccess = true
+                    this.voteErrors = []
+                } else {
+                    console.log('Qualcosa è andato storto', response.data.success)
+                    this.voteErrors = response.data.errors
+                    console.log(this.voteErrors, 'Questi sono gli errori')
+                    this.voteSuccess = false
+                }
             }).catch(err => {
-                console.log(err.message, 'ops, qualcosa è andato storto')
+                console.log(err.message, 'Bad request')
             });
             this.vote = '0'
         }
     },
     mounted() {
         this.getDoctorDetails();
+        this.loading = true;
     }
 }
 </script>
@@ -149,23 +185,37 @@ export default {
                 <h3 class="text-center">Scrivi una recensione</h3>
                 <form @submit.prevent="sendReviewData()">
                     <div class="form-group">
-                        <label for="name">Nome:</label>
+                        <label for="name">Nome *</label>
                         <input v-model="name" type="text" id="name" name="name" class="form-control"
+                            :class="reviewErrors.name ? 'is-invalid' : ''" required maxlength="30"
                             placeholder="Il tuo nome">
+                        <template v-if="reviewErrors.name">
+                            <p class="text-danger" v-for="error in reviewErrors.name">{{ error }}</p>
+                        </template>
                     </div>
                     <div class="form-group">
-                        <label for="title">Titolo:</label>
+                        <label for="title">Titolo *</label>
                         <input v-model="title" type="text" id="title" name="title" class="form-control"
+                            :class="reviewErrors.title ? 'is-invalid' : ''" required maxlength="300"
                             placeholder="Il tuo nome">
+                        <template v-if="reviewErrors.title">
+                            <p class="text-danger" v-for="error in reviewErrors.title">{{ error }}</p>
+                        </template>
                     </div>
                     <div class="form-group">
-                        <label for="comment">Commento:</label>
-                        <textarea v-model="comment" id="comment" name="title" class="form-control"
+                        <label for="comment">Commento *</label>
+                        <textarea v-model="comment" id="comment" name="title" class="form-control" required maxlength="800"
                             placeholder="Il tuo nome"></textarea>
+                        <template v-if="reviewErrors.comment">
+                            <p class="text-danger" v-for="error in reviewErrors.comment">{{ error }}</p>
+                        </template>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Recensione</button>
                     </div>
+                    <p class="text-success text-center" v-if="reviewSuccess">La recensione è stata inviata
+                        correttamente
+                    </p>
                 </form>
 
 
@@ -173,17 +223,24 @@ export default {
                     <h3 class="text-center">Invia un voto</h3>
                     <form @submit.prevent="sendVoteData()">
                         <div class="form-group">
-                            <label for="user-rating" class="mt-2 mb-2">Valutazione:</label>
-                            <select v-model="vote" id="user-rating" name="user-rating" class="form-control">
+                            <label for="user-rating" class="mt-2 mb-2">Valutazione *</label>
+                            <select v-model="vote" id="rating" name="rating" class="form-control" required
+                                :class="voteErrors.rating ? 'is-invalid' : ''">
                                 <option value="5">5</option>
                                 <option value="4">4</option>
                                 <option value="3">3</option>
                                 <option value="2">2</option>
                                 <option value="1">1</option>
                             </select>
+                            <template v-if="voteErrors.doctor_id || voteErrors.vote_id">
+                                <p class="text-danger">Ops qualcosa è andato storto</p>
+                            </template>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Voto</button>
                             </div>
+                            <p class="text-success text-center" v-if="voteSuccess">Il voto è stato inviato
+                                correttamente
+                            </p>
                         </div>
                     </form>
                 </div>
@@ -193,23 +250,36 @@ export default {
                     <h3 class="text-center">Invia un messaggio al dottore</h3>
                     <form @submit.prevent="sendMsgData()">
                         <div class="form-group">
-                            <label for="full_name">Nome:</label>
-                            <input v-model="full_name" type="text" id="full_name" class="form-control"
-                                placeholder="Il tuo nome">
+                            <label for="full_name">Nome *</label>
+                            <input v-model="full_name" type="text" id="full_name"
+                                :class="messageErrors.full_name ? 'is-invalid' : ''" class="form-control" required
+                                maxlength="30" placeholder="Il tuo nome">
+                            <template v-if="messageErrors.full_name">
+                                <p class="text-danger" v-for="error in messageErrors.full_name">{{ error }}</p>
+                            </template>
                         </div>
                         <div class="form-group">
-                            <label class="mt-2 mb-2" for="mail">Email</label>
-                            <input v-model="mail" type="email" class="form-control" id="mail"
-                                placeholder="Inserisci qui la tua email">
+                            <label class="mt-2 mb-2" for="mail">Email *</label>
+                            <input v-model="mail" type="email" id="mail" :class="messageErrors.mail ? 'is-invalid' : ''"
+                                class="form-control" required placeholder="Inserisci qui la tua email">
+                            <template v-if="messageErrors.mail">
+                                <p class="text-danger" v-for="error in messageErrors.mail">{{ error }}</p>
+                            </template>
                         </div>
                         <div class="form-group">
-                            <label class="mt-2 mb-2" for="text">Messaggio:</label>
-                            <textarea v-model="text" id="text" class="form-control" rows="4"
+                            <label class="mt-2 mb-2" for="text">Messaggio *</label>
+                            <textarea v-model="text" id="text" :class="messageErrors.text ? 'is-invalid' : ''"
+                                class="form-control" required maxlength="800" rows="4"
                                 placeholder="Il tuo messaggio"></textarea>
+                            <template v-if="messageErrors.text">
+                                <p class="text-danger" v-for="error in messageErrors.text">{{ error }}</p>
+                            </template>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary mt-3 mb-4">Invia messaggio</button>
                         </div>
+                        <p class="text-success text-center" v-if="messageSuccess">Il messaggio è stato inviato correttamente
+                        </p>
                     </form>
                 </div>
             </div>
