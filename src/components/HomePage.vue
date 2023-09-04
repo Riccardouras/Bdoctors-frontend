@@ -87,7 +87,7 @@ export default {
               <ul class="list-unstyled">
                 <li class="specialization text-center" v-for="specialty in doctor.specialties">{{ specialty }}</li>
               </ul>
-              <p class="card-text">Voto medio: {{ doctor.averageVote }}</p>
+              <p class="card-text">⭐ {{ doctor.averageVote }}</p>
               <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
               <button class="btn"><router-link :to="`/doctorpage/${doctor.id}`">Vai alla pagina del dottore</router-link></button>
             </div>

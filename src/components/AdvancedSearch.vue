@@ -86,8 +86,7 @@ export default {
                     </div>
                     <div class="form-col  col me-3">
                         <label for="minNumOfReviews">Numero minimo di recensioni</label>
-                        <select @change="saveMinNumOfReviews($event)" class="form-control p-2" name="minNumOfReviews"
-                            id="minNumOfReviews">
+                        <select @change="saveMinNumOfReviews($event)" class="form-control p-2" name="minNumOfReviews" id="minNumOfReviews">
                             <option value="0" :key="0" selected>Nessun minimo</option>
                             <option v-for="n in 10" :value="n">{{ n }}</option>
                         </select>
@@ -95,10 +94,7 @@ export default {
                     <div class="form-col col me-3">
                         <label for="specialization">Specializzazione:</label>
                         <select @change="saveSpecialtyID($event)" class="form-control" name="specialty" id="specialty">
-                            <option v-for="specialty in store.specialties" :value="specialty.id" :key="specialty.id"
-                                :selected="store.specialtyID == specialty.id">
-                                {{ specialty.name }}
-                            </option>
+                            <option v-for="specialty in store.specialties" :value="specialty.id" :key="specialty.id" :selected="store.specialtyID == specialty.id"> {{ specialty.name }} </option>
                         </select>
                     </div>
                     <button @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
@@ -112,25 +108,20 @@ export default {
         <div class="container m-auto">
             <div class="row justify-content-center">
                 <div class="col-12 text-center mt-4 mb-4">
-                    <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{
-                        store.doctors[0].doctorSpecialtiesArray[0] }}</h2>
+                    <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{ store.doctors[0].doctorSpecialtiesArray[0] }}</h2>
                 </div>
                 <div class="col-lg-3 d-flex justify-content-center mt-2" v-for="doctor in store.doctors" :key="doctor.id">
                     <div class="card">
-                        <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;"
-                            :src="doctor.doctorImage" :alt="doctor.doctorName">
+                        <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.doctorImage" :alt="doctor.doctorName">
                         <div class="content">
                             <h5 class="card-title">{{ doctor.doctorName }}</h5>
                             <span>Specializzato in:</span>
                             <ul class="list-unstyled">
-                                <li class="specialization text-center" v-for="specialty in doctor.doctorSpecialtiesArray">{{
-                                    specialty }}</li>
+                                <li class="specialization text-center" v-for="specialty in doctor.doctorSpecialtiesArray">{{ specialty }}</li>
                             </ul>
-                            <p class="card-text">Voto medio: {{ doctor.averageVote }}</p>
+                            <p class="card-text">⭐ {{ doctor.averageVote }}</p>
                             <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
-                            <button class="btn"><router-link :to="`/doctorpage/${doctor.doctorId}`">Vai alla
-                                    pagina del
-                                    dottore</router-link></button>
+                            <button class="btn"><router-link :to="`/doctorpage/${doctor.doctorId}`">Vai alla pagina del dottore</router-link></button>
                         </div>
                     </div>
                 </div>

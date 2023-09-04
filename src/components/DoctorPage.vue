@@ -165,16 +165,13 @@ export default {
                         <li class="specialization text-center" v-for="specialty in doctor.specialties">{{ specialty }}</li>
                     </ul>
 
-                    <div class="rating d-flex flex-column align-items-center">
-                        <span class="rating-label"><strong>Valutazione media:</strong>
-                        </span>
+                    <div class="rating d-flex align-items-center">
+                        <span class="rating-label fs-3">⭐</span>
                         <span>{{ doctor.averageVote }}</span>
                     </div>
 
                     <div class="rating d-flex flex-column align-items-center">
-                        <span class="rating-label"><strong>Numero di recensioni:</strong>
-                        </span>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewsModal">{{ doctor.numberOfReviews }}</button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewsModal">{{ doctor.numberOfReviews }} recensioni</button>
                     </div>
 
                     <div class="modal fade" id="reviewsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -206,7 +203,7 @@ export default {
 
                     <div class="rating d-flex flex-column align-items-center">
                         <span class="rating-label"><strong>Indirizzo:</strong> </span>
-                        <span> {{ doctor.address }} </span>
+                        <span> {{ doctor.address }}, {{ doctor.city }} </span>
                     </div>
 
                     <div class="rating d-flex flex-column align-items-center">
