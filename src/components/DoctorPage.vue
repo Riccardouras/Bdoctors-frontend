@@ -268,26 +268,29 @@ export default {
                 <div>
                     <h3 class="text-center">Invia un voto</h3>
                     <form @submit.prevent="sendVoteData()">
-                        <div class="form-group">
-                            <label for="user-rating" class="mt-2 mb-2">Valutazione *</label>
-                            <select v-model="vote" id="rating" name="rating" class="form-control" required
-                                :class="voteErrors.rating ? 'is-invalid' : ''">
-                                <option value="5">5</option>
-                                <option value="4">4</option>
-                                <option value="3">3</option>
-                                <option value="2">2</option>
-                                <option value="1">1</option>
-                            </select>
-                            <template v-if="voteErrors.doctor_id || voteErrors.vote_id">
-                                <p class="text-danger">Ops qualcosa è andato storto</p>
-                            </template>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Voto</button>
-                            </div>
-                            <p class="text-success text-center" v-if="voteSuccess">Il voto è stato inviato
-                                correttamente
-                            </p>
+                        <div class="star-rating-wrapper">
+                            <span class="star-rating">
+                                <label for="rate-1" style="--i:1"><i class="fa-solid fa-star"></i></label>
+                                <input v-model="vote" type="radio" name="vote_id" id="rate-1" value="1">
+                                <label for="rate-2" style="--i:2"><i class="fa-solid fa-star"></i></label>
+                                <input v-model="vote" type="radio" name="vote_id" id="rate-2" value="2" checked>
+                                <label for="rate-3" style="--i:3"><i class="fa-solid fa-star"></i></label>
+                                <input v-model="vote" type="radio" name="vote_id" id="rate-3" value="3">
+                                <label for="rate-4" style="--i:4"><i class="fa-solid fa-star"></i></label>
+                                <input v-model="vote" type="radio" name="vote_id" id="rate-4" value="4">
+                                <label for="rate-5" style="--i:5"><i class="fa-solid fa-star"></i></label>
+                                <input v-model="vote" type="radio" name="vote_id" id="rate-5" value="5">
+                            </span>
                         </div>
+                        <template v-if="voteErrors.doctor_id || voteErrors.vote_id">
+                            <p class="text-danger">Ops qualcosa è andato storto</p>
+                        </template>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Voto</button>
+                        </div>
+                        <p class="text-success text-center" v-if="voteSuccess">Il voto è stato inviato
+                            correttamente
+                        </p>
                     </form>
                 </div>
 
@@ -461,4 +464,49 @@ h1 {
     margin-top: -100px;
 
 }
+
+// STAR RATING
+
+.star-rating-wrapper{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+
+    label{
+        cursor: pointer;
+    }
+}
+.star-rating {
+	white-space: nowrap;
+}
+.star-rating [type="radio"] {
+	appearance: none;
+}
+.star-rating i {
+	font-size: 1.2em;
+	transition: 0.3s;
+}
+
+.star-rating label:is(:hover, :has(~ :hover)) i {
+	transform: scale(1.35);
+	color: #fffdba;
+	animation: jump 0.5s calc(0.3s + (var(--i) - 1) * 0.15s) alternate infinite;
+}
+.star-rating label:has(~ :checked) i {
+	color: #faec1b;
+	text-shadow: 0 0 2px #ffffff, 0 0 10px #ffee58;
+}
+
+@keyframes jump {
+	0%,
+	50% {
+		transform: translatey(0) scale(1.35);
+	}
+	100% {
+		transform: translatey(-15%) scale(1.35);
+	}
+}
+
 </style>
