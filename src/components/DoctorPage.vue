@@ -153,183 +153,187 @@ export default {
         <div class="backDoctor">
 
         </div>
-        <div class="container d-flex">
+        <div class="container">
+            <div class="row">
+                <!-- PROFILO DOTTORE -->
+                <div class="col-md-6 col-sm-12">
+                    <div class="profile-container mt-5 d-flex flex-column align-items-center">
+                        <h1>{{ doctor.name }}</h1>
+                        <img :src='doctor.image' class="img-thumbnail" style="max-width: 70%;" :alt="doctor.doctorName">
+                        <span><strong>Specializzato in:</strong></span>
+                        <ul class="list-unstyled">
+                            <li class="specialization text-center" v-for="specialty in doctor.specialties">{{ specialty }}
+                            </li>
+                        </ul>
 
-            <!-- PROFILO DOTTORE -->
-            <div class="container">
-                <div class="profile-container mt-5 d-flex flex-column align-items-center">
-                    <h1>{{ doctor.name }}</h1>
-                    <img :src='doctor.image' class="img-thumbnail" style="max-width: 70%;" :alt="doctor.doctorName">
-                    <span><strong>Specializzato in:</strong></span>
-                    <ul class="list-unstyled">
-                        <li class="specialization text-center" v-for="specialty in doctor.specialties">{{ specialty }}</li>
-                    </ul>
+                        <div class="rating d-flex align-items-center">
+                            <span class="rating-label fs-3">⭐</span>
+                            <span>{{ doctor.averageVote }}</span>
+                        </div>
 
-                    <div class="rating d-flex align-items-center">
-                        <span class="rating-label fs-3">⭐</span>
-                        <span>{{ doctor.averageVote }}</span>
-                    </div>
+                        <div class="rating d-flex flex-column align-items-center">
+                            <span class="rating-label"><strong>Numero di recensioni:</strong>
+                            </span>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewsModal">{{
+                                doctor.numberOfReviews }} recensioni</button>
+                        </div>
 
-                    <div class="rating d-flex flex-column align-items-center">
-                        <span class="rating-label"><strong>Numero di recensioni:</strong>
-                        </span>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewsModal">{{
-                            doctor.numberOfReviews }} recensioni</button>
-                    </div>
-
-                    <div class="modal fade" id="reviewsModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h3 class="modal-title" id="exampleModalLabel">Recensioni</h3>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <template v-for="review in doctorReviews">
-                                        <div class="card w-auto p-0 mb-2">
-                                            <div class="card-header w-100">
-                                                <h3 class="card-title">{{ review.title }}</h3>
-                                                <div class="card-subtitle">{{ review.name }} , {{ review.date }}</div>
+                        <div class="modal fade" id="reviewsModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel">Recensioni</h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <template v-for="review in doctorReviews">
+                                            <div class="card w-auto p-0 mb-2">
+                                                <div class="card-header w-100">
+                                                    <h3 class="card-title">{{ review.title }}</h3>
+                                                    <div class="card-subtitle">{{ review.name }} , {{ review.date }}</div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="card-text">{{ review.comment }}</p>
+                                                </div>
                                             </div>
-                                            <div class="card-body">
-                                                <p class="card-text">{{ review.comment }}</p>
-                                            </div>
-                                        </div>
-                                    </template>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                        </template>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Chiudi</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="rating d-flex flex-column align-items-center">
-                        <span class="rating-label"><strong>Indirizzo:</strong> </span>
-                        <span> {{ doctor.address }}, {{ doctor.city }} </span>
-                    </div>
+                        <div class="rating d-flex flex-column align-items-center">
+                            <span class="rating-label"><strong>Indirizzo:</strong> </span>
+                            <span> {{ doctor.address }}, {{ doctor.city }} </span>
+                        </div>
 
-                    <div class="rating d-flex flex-column align-items-center">
-                        <span class="rating-label"><strong>Servizi:</strong> </span>
-                        <span class="text-center">{{ doctor.service }}</span>
-                    </div>
+                        <div class="rating d-flex flex-column align-items-center">
+                            <span class="rating-label"><strong>Servizi:</strong> </span>
+                            <span class="text-center">{{ doctor.service }}</span>
+                        </div>
 
-                    <div class="rating d-flex flex-column align-items-center">
-                        <span class="rating-label"><strong>Telefono:</strong> </span>
-                        <span>{{ doctor.phone_number }}</span>
-                    </div>
-                    <div class="rating d-flex flex-column align-items-center">
-                        <a :href="doctor.curriculum" target="_blank">Clicca qui per aprire il CV</a>
+                        <div class="rating d-flex flex-column align-items-center">
+                            <span class="rating-label"><strong>Telefono:</strong> </span>
+                            <span>{{ doctor.phone_number }}</span>
+                        </div>
+                        <div class="rating d-flex flex-column align-items-center">
+                            <a :href="doctor.curriculum" target="_blank">Clicca qui per aprire il CV</a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- RECENSIONE -->
-            <div class="container mt-5 d-flex flex-column justify-content-around">
-                <h3 class="text-center">Scrivi una recensione</h3>
-                <form @submit.prevent="sendReviewData()">
-                    <div class="form-group">
-                        <label for="name">Nome *</label>
-                        <input v-model="name" type="text" id="name" name="name" class="form-control"
-                            :class="reviewErrors.name ? 'is-invalid' : ''" required maxlength="30"
-                            placeholder="Il tuo nome">
-                        <template v-if="reviewErrors.name">
-                            <p class="text-danger" v-for="error in reviewErrors.name">{{ error }}</p>
-                        </template>
-                    </div>
-                    <div class="form-group">
-                        <label for="title">Titolo *</label>
-                        <input v-model="title" type="text" id="title" name="title" class="form-control"
-                            :class="reviewErrors.title ? 'is-invalid' : ''" required maxlength="300"
-                            placeholder="Titolo recensione">
-                        <template v-if="reviewErrors.title">
-                            <p class="text-danger" v-for="error in reviewErrors.title">{{ error }}</p>
-                        </template>
-                    </div>
-                    <div class="form-group">
-                        <label for="comment">Commento *</label>
-                        <textarea v-model="comment" id="comment" name="title" class="form-control" required maxlength="800"
-                            placeholder="Il tuo commento"></textarea>
-                        <template v-if="reviewErrors.comment">
-                            <p class="text-danger" v-for="error in reviewErrors.comment">{{ error }}</p>
-                        </template>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Recensione</button>
-                    </div>
-                    <p class="text-success text-center" v-if="reviewSuccess">La recensione è stata inviata
-                        correttamente
-                    </p>
-                </form>
-
-
-                <div>
-                    <h3 class="text-center">Invia un voto</h3>
-                    <form @submit.prevent="sendVoteData()">
-                        <div class="star-rating-wrapper">
-                            <span class="star-rating">
-                                <label for="rate-1" style="--i:1"><i class="fa-solid fa-star"></i></label>
-                                <input v-model="vote" type="radio" name="vote_id" id="rate-1" value="1">
-                                <label for="rate-2" style="--i:2"><i class="fa-solid fa-star"></i></label>
-                                <input v-model="vote" type="radio" name="vote_id" id="rate-2" value="2" checked>
-                                <label for="rate-3" style="--i:3"><i class="fa-solid fa-star"></i></label>
-                                <input v-model="vote" type="radio" name="vote_id" id="rate-3" value="3">
-                                <label for="rate-4" style="--i:4"><i class="fa-solid fa-star"></i></label>
-                                <input v-model="vote" type="radio" name="vote_id" id="rate-4" value="4">
-                                <label for="rate-5" style="--i:5"><i class="fa-solid fa-star"></i></label>
-                                <input v-model="vote" type="radio" name="vote_id" id="rate-5" value="5">
-                            </span>
+                <!-- RECENSIONE -->
+                <div class="col-md-6 col-sm-12 mt-5">
+                    <h3 class="text-center">Scrivi una recensione</h3>
+                    <form @submit.prevent="sendReviewData()">
+                        <div class="form-group">
+                            <label for="name">Nome *</label>
+                            <input v-model="name" type="text" id="name" name="name" class="form-control"
+                                :class="reviewErrors.name ? 'is-invalid' : ''" required maxlength="30"
+                                placeholder="Il tuo nome">
+                            <template v-if="reviewErrors.name">
+                                <p class="text-danger" v-for="error in reviewErrors.name">{{ error }}</p>
+                            </template>
                         </div>
-                        <template v-if="voteErrors.doctor_id || voteErrors.vote_id">
-                            <p class="text-danger">Ops qualcosa è andato storto</p>
-                        </template>
+                        <div class="form-group">
+                            <label for="title">Titolo *</label>
+                            <input v-model="title" type="text" id="title" name="title" class="form-control"
+                                :class="reviewErrors.title ? 'is-invalid' : ''" required maxlength="300"
+                                placeholder="Titolo recensione">
+                            <template v-if="reviewErrors.title">
+                                <p class="text-danger" v-for="error in reviewErrors.title">{{ error }}</p>
+                            </template>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Commento *</label>
+                            <textarea v-model="comment" id="comment" name="title" class="form-control" required
+                                maxlength="800" placeholder="Il tuo commento"></textarea>
+                            <template v-if="reviewErrors.comment">
+                                <p class="text-danger" v-for="error in reviewErrors.comment">{{ error }}</p>
+                            </template>
+                        </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Voto</button>
+                            <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Recensione</button>
                         </div>
-                        <p class="text-success text-center" v-if="voteSuccess">Il voto è stato inviato
+                        <p class="text-success text-center" v-if="reviewSuccess">La recensione è stata inviata
                             correttamente
                         </p>
                     </form>
-                </div>
 
-                <!-- INVIA MESSAGGIO AL DOTTORE -->
-                <div class="card-footer">
-                    <h3 class="text-center">Invia un messaggio al dottore</h3>
-                    <form @submit.prevent="sendMsgData()">
-                        <div class="form-group">
-                            <label for="full_name">Nome *</label>
-                            <input v-model="full_name" type="text" id="full_name"
-                                :class="messageErrors.full_name ? 'is-invalid' : ''" class="form-control" required
-                                maxlength="30" placeholder="Il tuo nome">
-                            <template v-if="messageErrors.full_name">
-                                <p class="text-danger" v-for="error in messageErrors.full_name">{{ error }}</p>
+
+                    <div>
+                        <h3 class="text-center">Invia un voto</h3>
+                        <form @submit.prevent="sendVoteData()">
+                            <div class="star-rating-wrapper">
+                                <span class="star-rating">
+                                    <label for="rate-1" style="--i:1"><i class="fa-solid fa-star"></i></label>
+                                    <input v-model="vote" type="radio" name="vote_id" id="rate-1" value="1">
+                                    <label for="rate-2" style="--i:2"><i class="fa-solid fa-star"></i></label>
+                                    <input v-model="vote" type="radio" name="vote_id" id="rate-2" value="2" checked>
+                                    <label for="rate-3" style="--i:3"><i class="fa-solid fa-star"></i></label>
+                                    <input v-model="vote" type="radio" name="vote_id" id="rate-3" value="3">
+                                    <label for="rate-4" style="--i:4"><i class="fa-solid fa-star"></i></label>
+                                    <input v-model="vote" type="radio" name="vote_id" id="rate-4" value="4">
+                                    <label for="rate-5" style="--i:5"><i class="fa-solid fa-star"></i></label>
+                                    <input v-model="vote" type="radio" name="vote_id" id="rate-5" value="5">
+                                </span>
+                            </div>
+                            <template v-if="voteErrors.doctor_id || voteErrors.vote_id">
+                                <p class="text-danger">Ops qualcosa è andato storto</p>
                             </template>
-                        </div>
-                        <div class="form-group">
-                            <label class="mt-2 mb-2" for="mail">Email *</label>
-                            <input v-model="mail" type="email" id="mail" :class="messageErrors.mail ? 'is-invalid' : ''"
-                                class="form-control" required placeholder="Inserisci qui la tua email">
-                            <template v-if="messageErrors.mail">
-                                <p class="text-danger" v-for="error in messageErrors.mail">{{ error }}</p>
-                            </template>
-                        </div>
-                        <div class="form-group">
-                            <label class="mt-2 mb-2" for="text">Messaggio *</label>
-                            <textarea v-model="text" id="text" :class="messageErrors.text ? 'is-invalid' : ''"
-                                class="form-control" required maxlength="800" rows="4"
-                                placeholder="Il tuo messaggio"></textarea>
-                            <template v-if="messageErrors.text">
-                                <p class="text-danger" v-for="error in messageErrors.text">{{ error }}</p>
-                            </template>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary mt-3 mb-4">Invia messaggio</button>
-                        </div>
-                        <p class="text-success text-center" v-if="messageSuccess">Il messaggio è stato inviato correttamente
-                        </p>
-                    </form>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Voto</button>
+                            </div>
+                            <p class="text-success text-center" v-if="voteSuccess">Il voto è stato inviato
+                                correttamente
+                            </p>
+                        </form>
+                    </div>
+
+                    <!-- INVIA MESSAGGIO AL DOTTORE -->
+                    <div class="card-footer">
+                        <h3 class="text-center">Invia un messaggio al dottore</h3>
+                        <form @submit.prevent="sendMsgData()">
+                            <div class="form-group">
+                                <label for="full_name">Nome *</label>
+                                <input v-model="full_name" type="text" id="full_name"
+                                    :class="messageErrors.full_name ? 'is-invalid' : ''" class="form-control" required
+                                    maxlength="30" placeholder="Il tuo nome">
+                                <template v-if="messageErrors.full_name">
+                                    <p class="text-danger" v-for="error in messageErrors.full_name">{{ error }}</p>
+                                </template>
+                            </div>
+                            <div class="form-group">
+                                <label class="mt-2 mb-2" for="mail">Email *</label>
+                                <input v-model="mail" type="email" id="mail" :class="messageErrors.mail ? 'is-invalid' : ''"
+                                    class="form-control" required placeholder="Inserisci qui la tua email">
+                                <template v-if="messageErrors.mail">
+                                    <p class="text-danger" v-for="error in messageErrors.mail">{{ error }}</p>
+                                </template>
+                            </div>
+                            <div class="form-group">
+                                <label class="mt-2 mb-2" for="text">Messaggio *</label>
+                                <textarea v-model="text" id="text" :class="messageErrors.text ? 'is-invalid' : ''"
+                                    class="form-control" required maxlength="800" rows="4"
+                                    placeholder="Il tuo messaggio"></textarea>
+                                <template v-if="messageErrors.text">
+                                    <p class="text-danger" v-for="error in messageErrors.text">{{ error }}</p>
+                                </template>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary mt-3 mb-4">Invia messaggio</button>
+                            </div>
+                            <p class="text-success text-center" v-if="messageSuccess">Il messaggio è stato inviato
+                                correttamente
+                            </p>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -467,46 +471,51 @@ h1 {
 
 // STAR RATING
 
-.star-rating-wrapper{
+.star-rating-wrapper {
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.5em;
 
-    label{
+    label {
         cursor: pointer;
     }
 }
+
 .star-rating {
-	white-space: nowrap;
+    white-space: nowrap;
 }
+
 .star-rating [type="radio"] {
-	appearance: none;
+    appearance: none;
 }
+
 .star-rating i {
-	font-size: 1.2em;
-	transition: 0.3s;
+    font-size: 1.2em;
+    transition: 0.3s;
 }
 
 .star-rating label:is(:hover, :has(~ :hover)) i {
-	transform: scale(1.35);
-	color: #fffdba;
-	animation: jump 0.5s calc(0.3s + (var(--i) - 1) * 0.15s) alternate infinite;
+    transform: scale(1.35);
+    color: #fffdba;
+    animation: jump 0.5s calc(0.3s + (var(--i) - 1) * 0.15s) alternate infinite;
 }
+
 .star-rating label:has(~ :checked) i {
-	color: #faec1b;
-	text-shadow: 0 0 2px #ffffff, 0 0 10px #ffee58;
+    color: #faec1b;
+    text-shadow: 0 0 2px #ffffff, 0 0 10px #ffee58;
 }
 
 @keyframes jump {
-	0%,
-	50% {
-		transform: translatey(0) scale(1.35);
-	}
-	100% {
-		transform: translatey(-15%) scale(1.35);
-	}
-}
 
+    0%,
+    50% {
+        transform: translatey(0) scale(1.35);
+    }
+
+    100% {
+        transform: translatey(-15%) scale(1.35);
+    }
+}
 </style>

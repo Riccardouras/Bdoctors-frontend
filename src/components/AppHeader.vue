@@ -17,15 +17,14 @@ export default {
     <div>
         <slot></slot>
     </div>
-    <header class="header-doctor">
+    <header class="header-doctor position-relative">
         <div class="header-wrapper container-lg">
-            <nav class="navbar navbar-expand-lg justify-content-between w-100">
+            <nav class="navbar navbar-expand-sm navbar-light justify-content-between w-100">
                 <a href="/" class="navbar-brand textColorDark fw-bold p-0 h-100">
                     <img id="navbarIcon" class="h-100" src="../img/logoNoBackground.png" alt="site icon">
                 </a>
-                <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#sectionNavBar" aria-controls="sectionNavBar" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sectionNavBar"
+                    aria-controls="sectionNavBar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -52,6 +51,18 @@ export default {
 
 <style lang="scss" scoped>
 @use '../style/partials/variables.scss' as var;
+
+@media (max-width: 576px) {
+    #sectionNavBar {
+        position: absolute;
+        top: 80px;
+        right: 1px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: rgba(23, 165, 245, 0.2);
+        color: white;
+    }
+}
 
 header {
     background-color: var.$primaryColor;
