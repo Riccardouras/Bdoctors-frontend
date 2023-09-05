@@ -88,9 +88,14 @@ export default {
                         <label for="minNumOfReviews">Numero minimo di recensioni</label>
                         <select @change="saveMinNumOfReviews($event)" class="form-control p-2" name="minNumOfReviews"
                             id="minNumOfReviews">
+<<<<<<< HEAD
                             <option value="0" :key="0">Nessun minimo</option>
                             <option :value="0 - 10" :key="0">0-10</option>
                             <option :value="10" :key="1">Più di 10</option>
+=======
+                            <option value="0" :key="0" selected>Nessun minimo</option>
+                            <option v-for="n in 10" :value="n">{{ n }}</option>
+>>>>>>> luca-responsive
                         </select>
                     </div>
                     <div class="form-col col me-3">
@@ -114,7 +119,8 @@ export default {
                     <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{
                         store.doctors[0].doctorSpecialtiesArray[0] }}</h2>
                 </div>
-                <div class="col-lg-3 d-flex justify-content-center mt-2" v-for="doctor in store.doctors" :key="doctor.id">
+                <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-2" v-for="doctor in store.doctors"
+                    :key="doctor.id">
                     <div class="card">
                         <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;"
                             :src="doctor.doctorImage" :alt="doctor.doctorName">
