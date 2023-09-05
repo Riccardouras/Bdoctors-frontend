@@ -57,18 +57,22 @@ export default {
 
         <div>
           <div class="form-row d-flex align-items-center">
-            <div class="col-lg-8 col-sm-12">
-              <label class="text-white" for="specialization">Specializzazione:</label>
-              <select @change="saveSpecialtyID($event)" class="form-control cursor-pointer" name="specialty"
-                id="specialty">
-                <option value="0" selected>Seleziona una specializzazione</option>
-                <option v-for="specialty in store.specialties" :value="specialty.id" :key="specialty.id">{{
-                  specialty.name }}</option>
-              </select>
-            </div>
-            <div class="col-lg-4 col-sm-12">
-              <button :disabled="store.specialtyID != 0 ? false : true" @click="submitForm"
-                class="button text-center mt-4">Cerca</button>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8 col-sm-12 d-flex justify-content-around flex-column">
+                  <label class="text-white" for="specialization">Specializzazione:</label>
+                  <select @change="saveSpecialtyID($event)" class="form-control cursor-pointer" name="specialty"
+                    id="specialty">
+                    <option value="0" selected>Seleziona una specializzazione</option>
+                    <option v-for="specialty in store.specialties" :value="specialty.id" :key="specialty.id">{{
+                      specialty.name }}</option>
+                  </select>
+                </div>
+                <div class="col-md-4 col-sm-12 btncenter">
+                  <button :disabled="store.specialtyID != 0 ? false : true" @click="submitForm"
+                    class="button text-center mt-4">Cerca</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -180,6 +184,12 @@ export default {
 <style lang="scss">
 @use '../style/partials/variables.scss' as var;
 
+@media (max-width: 768px) {
+  .btncenter {
+    text-align: center;
+  }
+}
+
 .navbar {
   height: 100px;
   display: flex;
@@ -220,7 +230,7 @@ export default {
   justify-content: space-around;
   height: 100%;
   align-items: center;
-  gap: 20px;
+  gap: 5px;
   color: var.$primaryColor;
   transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
 }

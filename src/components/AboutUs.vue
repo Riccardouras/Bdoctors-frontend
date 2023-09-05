@@ -25,7 +25,7 @@ export default {
     </div>
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-3">
+            <div class="col-lg-4 col-md-12 d-flex justify-content-center">
                 <div class="card custom-card">
                     <div class="card-body">
                         <h5 class="card-title"><strong>Il nostro Telefono</strong></h5>
@@ -33,7 +33,7 @@ export default {
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-lg-4 col-md-12 d-flex justify-content-center">
                 <div class="card custom-card">
                     <div class="card-body">
                         <h5 class="card-title"><strong>La nostra Via</strong></h5>
@@ -41,7 +41,7 @@ export default {
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-lg-4 col-md-12 d-flex justify-content-center">
                 <div class="card custom-card">
                     <div class="card-body">
                         <h5 class="card-title"><strong>La nostra Email</strong></h5>

@@ -72,7 +72,7 @@ export default {
         <div class="background">
 
             <!-- FORM RICERCA -->
-            <div class="container form-container " style="padding-top: 80px; margin-top: -105px;">
+            <div class="container form-container " style="padding-top: 15px; margin-top: -105px;">
                 <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5">
                     <h2>Filtra per numero di recensioni e numero di stelle</h2>
                 </div>
@@ -183,7 +183,7 @@ export default {
     justify-content: space-around;
     height: 100%;
     align-items: center;
-    gap: 20px;
+    gap: 5px;
     color: var.$primaryColor;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
 }
@@ -252,7 +252,7 @@ header a {
     // background-image: url(../img/dottore.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-
+    min-height: 450px;
 }
 
 .titleDoctor {
