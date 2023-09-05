@@ -128,14 +128,14 @@ export default {
             });
             this.vote = '0'
         },
-        getDoctorReviews(){
+        getDoctorReviews() {
             let config = {
                 params: {
                     doctor_id: this.$route.params.doctorId
                 }
             };
             axios.get(this.backendPaths.getDoctorReviewsURL, config)
-                .then(response =>  {
+                .then(response => {
                     this.doctorReviews = response.data.results;
                     console.log(this.doctorReviews);
                 });
@@ -174,15 +174,18 @@ export default {
                     <div class="rating d-flex flex-column align-items-center">
                         <span class="rating-label"><strong>Numero di recensioni:</strong>
                         </span>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewsModal">{{ doctor.numberOfReviews }}</button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewsModal">{{
+                            doctor.numberOfReviews }}</button>
                     </div>
 
-                    <div class="modal fade" id="reviewsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="reviewsModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h3 class="modal-title" id="exampleModalLabel">Recensioni</h3>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <template v-for="review in doctorReviews">
@@ -241,7 +244,7 @@ export default {
                         <label for="title">Titolo *</label>
                         <input v-model="title" type="text" id="title" name="title" class="form-control"
                             :class="reviewErrors.title ? 'is-invalid' : ''" required maxlength="300"
-                            placeholder="Il tuo nome">
+                            placeholder="Titolo recensione">
                         <template v-if="reviewErrors.title">
                             <p class="text-danger" v-for="error in reviewErrors.title">{{ error }}</p>
                         </template>
@@ -249,7 +252,7 @@ export default {
                     <div class="form-group">
                         <label for="comment">Commento *</label>
                         <textarea v-model="comment" id="comment" name="title" class="form-control" required maxlength="800"
-                            placeholder="Il tuo nome"></textarea>
+                            placeholder="Il tuo commento"></textarea>
                         <template v-if="reviewErrors.comment">
                             <p class="text-danger" v-for="error in reviewErrors.comment">{{ error }}</p>
                         </template>
