@@ -35,7 +35,7 @@ export default {
                             <a class="nav-link hover-secondary" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link hover-secondary" href="./aboutus">About Us</a>
+                            <a class="nav-link hover-secondary" href="/aboutus">About Us</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link hover-secondary" :href="backendPaths.registerURL">Registrati</a>
