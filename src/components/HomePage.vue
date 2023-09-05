@@ -40,7 +40,6 @@ export default {
   mounted() {
     this.store.specialtyID = 0;
     this.sponsoredDoctors();
-    console.log(this.sponsoredDoctors())
     this.getSpecialties();
   },
 }
