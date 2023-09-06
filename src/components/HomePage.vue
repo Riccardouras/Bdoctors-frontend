@@ -87,7 +87,7 @@ export default {
       <div class="row justify-content-center">
         <div class="col-xl-4 col-md-6 col-sm-12 d-flex justify-content-center mt-2"
           v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
-          <div class="card">
+          <div class="card cardPremium">
             <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.image"
               :alt="doctor.doctorName">
             <div class="content">
@@ -181,7 +181,7 @@ export default {
   </footer>
 </template>
 
-<style lang="scss">
+<style scopded lang="scss">
 @use '../style/partials/variables.scss' as var;
 
 @media (max-width: 768px) {
@@ -222,6 +222,25 @@ export default {
   .card-title {
     color: var.$secondaryColor;
   }
+}
+
+.cardPremium::before {
+  content: 'Premium';
+  position: absolute;
+  right: 100px;
+  top: 40px;
+  width: 100%;
+  height: 40px;
+  background-image: linear-gradient(45deg, #05486e 0%, #084f79 51%, #17a5f5 100%);
+  transform: rotate(-45deg) translateY(-20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.23);
 }
 
 .content {
