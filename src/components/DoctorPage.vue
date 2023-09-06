@@ -88,16 +88,18 @@ export default {
 
             axios.post(this.backendPaths.storeReviewURL, dataMsg).then(response => {
                 if (response.data.success) {
-                    console.log('La recensione è stata inviato con successo', response.data.success)
-                    this.reviewSuccess = true
-                    this.reviewErrors = []
+                    console.log('La recensione è stata inviato con successo', response.data.success);
+                    this.reviewSuccess = true;
+                    this.reviewErrors = [];
+                    this.getDoctorDetails();
+                    this.getDoctorReviews();
                 } else {
-                    console.log('Qualcosa è andato storto', response.data.success)
-                    this.reviewErrors = response.data.errors
-                    console.log(this.reviewErrors, 'Questi sono gli errori')
-                    this.reviewSuccess = false
+                    console.log('Qualcosa è andato storto', response.data.success);
+                    this.reviewErrors = response.data.errors;
+                    console.log(this.reviewErrors, 'Questi sono gli errori');
+                    this.reviewSuccess = false;
                 }
-                this.loading = false
+                this.loading = false;
             }).catch(err => {
                 console.log(err.message, 'Bad request')
             });
@@ -117,11 +119,13 @@ export default {
                     console.log('Il voto è stata inviato con successo', response.data.success)
                     this.voteSuccess = true
                     this.voteErrors = []
+                    this.getDoctorDetails();
+                    this.getDoctorReviews();
                 } else {
-                    console.log('Qualcosa è andato storto', response.data.success)
-                    this.voteErrors = response.data.errors
-                    console.log(this.voteErrors, 'Questi sono gli errori')
-                    this.voteSuccess = false
+                    console.log('Qualcosa è andato storto', response.data.success);
+                    this.voteErrors = response.data.errors;
+                    console.log(this.voteErrors, 'Questi sono gli errori');
+                    this.voteSuccess = false;
                 }
             }).catch(err => {
                 console.log(err.message, 'Bad request')
@@ -137,7 +141,7 @@ export default {
             axios.get(this.backendPaths.getDoctorReviewsURL, config)
                 .then(response => {
                     this.doctorReviews = response.data.results;
-                    console.log(this.doctorReviews);
+                    console.log('Chiamata per recensioni', this.doctorReviews);
                 });
         }
     },
