@@ -59,7 +59,7 @@ export default {
 @use '../style/partials/variables.scss' as var;
 
 .background {
-    background-image: url(../img/Dottori4.png);
+    background-image: url(../img/Dottori4.jpg);
     background-size: cover;
     background-position: center;
     min-height: 440px;

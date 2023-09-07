@@ -17,7 +17,7 @@ export default {
     <div>
         <slot></slot>
     </div>
-    <header class="header-doctor position-relative">
+    <header  class="header-doctor position-relative">
         <div class="header-wrapper container-lg">
             <nav class="navbar navbar-expand-sm navbar-light justify-content-between w-100">
                 <a href="/" class="navbar-brand textColorDark fw-bold p-0 h-100">
@@ -68,7 +68,7 @@ header {
     background-color: var.$primaryColor;
 
     .nav-link {
-        color: white;
+        color: #0b6091;
     }
 }
 

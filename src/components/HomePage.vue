@@ -10,8 +10,15 @@ export default {
   data() {
     return {
       store,
-      backendPaths
-    }
+      backendPaths,
+      images: [
+                'src/img/Dottori4.jpg',
+                'src/img/Dottori5.png',
+                'src/img/Dottori6.png',
+            ],
+      currentIndex: 0,
+      isAnimating: false
+    };
   },
   methods: {
     submitForm() {
@@ -34,20 +41,35 @@ export default {
     saveSpecialtyID(event) {
       this.store.specialtyID = event.target.value;
       // console.log(this.store.specialtyID);
-    }
+    },
+    changeBackground() {
+            this.isAnimating = true;
+            setTimeout(() => {
+                this.currentIndex = (this.currentIndex + 1) % this.images.length;
+                this.isAnimating = false;
+            }, 1000);
+        }
 
   },
   mounted() {
     this.store.specialtyID = 0;
     this.sponsoredDoctors();
     this.getSpecialties();
+    setInterval(() => {
+                    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+                }, 4000);
   },
+  computed: {
+                currentImage() {
+                    return this.images[this.currentIndex];
+                }
+            },
 }
 </script>
 <template>
   <!-- NAVBAR -->
   <header>
-    <div class="background">
+    <div :class="{ 'animating': isAnimating }" :style="{ 'background-image': 'url(' + currentImage + ')' }" class="background">
       <!-- FORM RICERCA -->
       <div class="container" style="padding-top: 80px; margin-top: -105px;">
         <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5 ">
@@ -330,10 +352,13 @@ header a {
 }
 
 .background {
-  background-image: url(../img/Dottori4.png);
+  background-image: url(../img/Dottori4.jpg);
   background-size: cover;
   background-position: center;
+  transition: background-image ease-in 4s;
 }
+
+
 
 .titleDoctor {
   height: 180px;
