@@ -15,6 +15,7 @@ export default {
     },
     methods: {
         search(specialtyID, minVote, minReview) {
+            this.store.loading = true
             let config = {
                 params: {
                     specialty: specialtyID,
@@ -26,9 +27,10 @@ export default {
                 .then(response => {
                     this.store.doctors = response.data.results;
                     console.log('SEARCH', this.store.doctors);
+                    this.store.loading = false
                 })
 
-            this.store.searchedSpecialty = this.store.specialties[specialtyID-1].name;
+            this.store.searchedSpecialty = this.store.specialties[specialtyID - 1].name;
         }
     },
     mounted() {
@@ -42,47 +44,51 @@ export default {
 
 <template>
     <!-- NAVBAR -->
-        <div class="background">
+    <div class="background">
 
-            <!-- FORM RICERCA -->
-            <div class="container form-container " style="padding-top: 15px; margin-top: -105px;">
-                <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5">
-                    <h2>Filtra per numero di recensioni e numero di stelle</h2>
+        <!-- FORM RICERCA -->
+        <div class="container form-container " style="padding-top: 15px; margin-top: -105px;">
+            <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5">
+                <h2>Filtra per numero di recensioni e numero di stelle</h2>
+            </div>
+            <div class="form-row d-flex align-items-center">
+                <div class="form-col col me-3">
+                    <label for="minAvgVote">Voto minimo</label>
+                    <select v-model="store.minAvgVote" class="form-control p-2" name="minAvgVote" id="minAvgVote">
+                        <option :value="0" selected>Nessun minimo</option>
+                        <option v-for="n in 5" :value="n">{{ n }}</option>
+                    </select>
                 </div>
-                <div class="form-row d-flex align-items-center">
-                    <div class="form-col col me-3">
-                        <label for="minAvgVote">Voto minimo</label>
-                        <select v-model="store.minAvgVote" class="form-control p-2" name="minAvgVote" id="minAvgVote">
-                            <option :value="0" selected>Nessun minimo</option>
-                            <option v-for="n in 5" :value="n">{{ n }}</option>
-                        </select>
-                    </div>
-                    <div class="form-col col me-3">
-                        <label for="minNumOfReviews">Numero minimo di recensioni</label>
-                        <select v-model="store.minNumOfReviews" class="form-control p-2" name="minNumOfReviews"
-                            id="minNumOfReviews">
-                            <option value="0" >Nessun minimo</option>
-                            <option :value="5">5 o più</option>
-                            <option :value="10">10 o più</option>
-                        </select>
-                    </div>
-                    <div class="form-col col me-3">
-                        <label for="specialization">Specializzazione:</label>
-                        <select v-model="store.specialtyID" class="form-control" name="specialty" id="specialty">
-                            <option v-for="specialty in store.specialties" :value="specialty.id" :selected="store.specialtyID == specialty.id"> {{ specialty.name }} </option>
-                        </select>
-                    </div>
-                    <button @click="search(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
-                        class="button text-center mt-4">Cerca</button>
+                <div class="form-col col me-3">
+                    <label for="minNumOfReviews">Numero minimo di recensioni</label>
+                    <select v-model="store.minNumOfReviews" class="form-control p-2" name="minNumOfReviews"
+                        id="minNumOfReviews">
+                        <option value="0">Nessun minimo</option>
+                        <option :value="5">5 o più</option>
+                        <option :value="10">10 o più</option>
+                    </select>
                 </div>
+                <div class="form-col col me-3">
+                    <label for="specialization">Specializzazione:</label>
+                    <select v-model="store.specialtyID" class="form-control" name="specialty" id="specialty">
+                        <option v-for="specialty in store.specialties" :value="specialty.id"
+                            :selected="store.specialtyID == specialty.id"> {{ specialty.name }} </option>
+                    </select>
+                </div>
+                <button @click="search(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
+                    class="button text-center mt-4">Cerca</button>
             </div>
         </div>
+    </div>
 
     <main>
-        <div class="container m-auto">
+        <div v-if="store.loading" class="text-center loading mt-4">
+            <i class=" loading fa-solid fa-spinner fa-spin"></i>
+        </div>
+        <div v-else class="container m-auto">
             <div class="row justify-content-center">
                 <div class="col-12 text-center mt-4 mb-4">
-                    <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{store.searchedSpecialty }}</h2>
+                    <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{ store.searchedSpecialty }}</h2>
                     <h2 v-else>Nessun risultato trovato</h2>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-2" v-for="doctor in store.doctors"
@@ -129,7 +135,7 @@ export default {
     }
 }
 
-select{
+select {
     cursor: pointer;
 }
 

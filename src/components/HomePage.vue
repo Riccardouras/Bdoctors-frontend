@@ -18,10 +18,12 @@ export default {
       this.$router.push('/advancedsearch');
     },
     sponsoredDoctors() {
+      this.store.loading = true
       axios.get(this.backendPaths.sponsoredURL)
         .then(response => {
           this.store.sponsoredDoctors = response.data.results;
           console.log(response.data, 'sponsored doctors');
+          this.store.loading = false
         });
     },
     getSpecialties() {
@@ -75,8 +77,11 @@ export default {
   </header>
 
   <main>
+    <div v-if="store.loading" class="text-center loading mt-4">
+      <i class=" loading fa-solid fa-spinner fa-spin"></i>
+    </div>
     <!-- MEDICI IN EVIDENZA-->
-    <div class="container">
+    <div v-else class="container">
       <h2 class="text-center mt-4 mb-4" style="font-weight: 700;">Dottori in evidenza</h2>
       <div class="row justify-content-center">
         <div class="col-xl-4 col-md-6 col-sm-12 d-flex justify-content-center mt-2"
@@ -203,6 +208,11 @@ export default {
 
 .text-blu {
   color: #0b6091;
+}
+
+.loading {
+  font-size: 6rem;
+  opacity: 0.9;
 }
 
 .card {

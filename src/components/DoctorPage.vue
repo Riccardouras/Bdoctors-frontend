@@ -38,6 +38,7 @@ export default {
         },
 
         getDoctorDetails() {
+            this.store.loading = true
             let config = {
                 params: {
                     doctor_id: this.$route.params.doctorId
@@ -47,6 +48,7 @@ export default {
                 .then(response => {
                     this.doctor = response.data.results.doctor;
                     console.log('DOCTOR LOG', this.doctor);
+                    this.store.loading = false
                 })
         },
 
@@ -133,6 +135,7 @@ export default {
             this.vote = '0'
         },
         getDoctorReviews() {
+            this.store.loading = true
             let config = {
                 params: {
                     doctor_id: this.$route.params.doctorId
@@ -142,6 +145,7 @@ export default {
                 .then(response => {
                     this.doctorReviews = response.data.results;
                     console.log('Chiamata per recensioni', this.doctorReviews);
+                    this.store.loading = false
                 });
         }
     },
@@ -157,7 +161,10 @@ export default {
         <div class="backDoctor">
 
         </div>
-        <div class="container">
+        <div v-if="store.loading" class="text-center loading mt-4">
+            <i class=" loading fa-solid fa-spinner fa-spin"></i>
+        </div>
+        <div v-else class="container">
             <div class="row">
                 <!-- PROFILO DOTTORE -->
                 <div class="col-md-6 col-sm-12">
