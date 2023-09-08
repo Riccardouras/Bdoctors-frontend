@@ -27,6 +27,8 @@ export default {
                     this.store.doctors = response.data.results;
                     console.log('SEARCH', this.store.doctors);
                 })
+
+            this.store.searchedSpecialty = this.store.specialties[specialtyID-1].name;
         }
     },
     mounted() {
@@ -80,7 +82,7 @@ export default {
         <div class="container m-auto">
             <div class="row justify-content-center">
                 <div class="col-12 text-center mt-4 mb-4">
-                    <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{store.doctors[0].specialties[0] }}</h2>
+                    <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{store.searchedSpecialty }}</h2>
                     <h2 v-else>Nessun risultato trovato</h2>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-2" v-for="doctor in store.doctors"

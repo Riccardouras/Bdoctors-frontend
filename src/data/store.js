@@ -6,5 +6,6 @@ export const store = reactive({
     minNumOfReviews: '0',
     doctors: [],
     sponsoredDoctors: [],
-    specialties: []
+    specialties: [],
+    searchedSpecialty: ''
 });
