@@ -473,9 +473,9 @@ h1 {
 
 .backDoctor {
     height: 100px;
-    background-image: url(../img/Dottori4.png);
+    background-image: url(../img/Dottori4.jpg);
     background-size: cover;
-    background-position: center;
+    background-position: bottom;
     margin-top: -100px;
 
 }
