@@ -12,10 +12,10 @@ export default {
       store,
       backendPaths,
       images: [
-                'src/img/Dottori4.jpg',
-                'src/img/Dottori5.png',
-                'src/img/Dottori6.png',
-            ],
+        'src/img/Dottori4.jpg',
+        'src/img/Dottori5.png',
+        'src/img/Dottori6.png',
+      ],
       currentIndex: 0,
       isAnimating: false
     };
@@ -43,12 +43,12 @@ export default {
       // console.log(this.store.specialtyID);
     },
     changeBackground() {
-            this.isAnimating = true;
-            setTimeout(() => {
-                this.currentIndex = (this.currentIndex + 1) % this.images.length;
-                this.isAnimating = false;
-            }, 1000);
-        }
+      this.isAnimating = true;
+      setTimeout(() => {
+        this.currentIndex = (this.currentIndex + 1) % this.images.length;
+        this.isAnimating = false;
+      }, 1000);
+    }
 
   },
   mounted() {
@@ -56,20 +56,20 @@ export default {
     this.sponsoredDoctors();
     this.getSpecialties();
     setInterval(() => {
-                    this.currentIndex = (this.currentIndex + 1) % this.images.length;
-                }, 4000);
+      this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    }, 4000);
   },
   computed: {
-                currentImage() {
-                    return this.images[this.currentIndex];
-                }
-            },
+    currentImage() {
+      return this.images[this.currentIndex];
+    }
+  },
 }
 </script>
 <template>
   <!-- NAVBAR -->
   <header>
-    <div :class="{ 'animating': isAnimating }" :style="{ 'background-image': 'url(' + currentImage + ')' }" class="background">
+    <div class="background">
       <!-- FORM RICERCA -->
       <div class="container" style="padding-top: 80px; margin-top: -105px;">
         <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5 ">
@@ -110,24 +110,23 @@ export default {
         <div class="col-xl-4 col-md-6 col-sm-12 d-flex justify-content-center mt-2"
           v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
           <div class="card cardPremium">
-            <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.image"
-              :alt="doctor.doctorName">
+            <router-link :to="`/doctorpage/${doctor.id}`">
+              <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.image"
+                :alt="doctor.doctorName">
+            </router-link>
             <div class="content">
-              <h5 class="card-title">{{ doctor.name }}</h5>
+              <h5 class="card-title"><router-link :to="`/doctorpage/${doctor.id}`">{{ doctor.name }}</router-link></h5>
               <span>Specializzato in:</span>
               <ul class="list-unstyled">
                 <li class="specialization text-center" v-for="specialty in doctor.specialties">{{ specialty }}</li>
               </ul>
               <p class="card-text">⭐ {{ doctor.averageVote }}</p>
               <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
-              <button class="btn"><router-link :to="`/doctorpage/${doctor.id}`">Vai alla pagina del
-                  dottore</router-link></button>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </main>
 
   <footer>
@@ -212,6 +211,10 @@ export default {
   }
 }
 
+.background {
+  background-image: url(../img/Dottori4.png);
+}
+
 .navbar {
   height: 100px;
   display: flex;
@@ -263,6 +266,11 @@ export default {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.23);
+}
+
+div a {
+  text-decoration: none;
+  color: #05486e;
 }
 
 .content {

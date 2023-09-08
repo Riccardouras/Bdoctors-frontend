@@ -117,10 +117,14 @@ export default {
                 <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-2" v-for="doctor in store.doctors"
                     :key="doctor.id">
                     <div class="card">
-                        <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;"
-                            :src="doctor.doctorImage" :alt="doctor.doctorName">
+                        <router-link :to="`/doctorpage/${doctor.id}`">
+                            <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;"
+                                :src="doctor.doctorImage" :alt="doctor.doctorName">
+                        </router-link>
                         <div class="content">
-                            <h5 class="card-title">{{ doctor.doctorName }}</h5>
+                            <h5 class="card-title"><router-link :to="`/doctorpage/${doctor.id}`">{{ doctor.doctorName
+                            }}</router-link>
+                            </h5>
                             <span>Specializzato in:</span>
                             <ul class="list-unstyled">
                                 <li class="specialization text-center" v-for="specialty in doctor.doctorSpecialtiesArray">{{
@@ -128,8 +132,6 @@ export default {
                             </ul>
                             <p class="card-text">⭐ {{ doctor.averageVote }}</p>
                             <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
-                            <button class="btn"><router-link :to="`/doctorpage/${doctor.doctorId}`">Vai alla pagina del
-                                    dottore</router-link></button>
                         </div>
                     </div>
                 </div>
