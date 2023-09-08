@@ -40,19 +40,6 @@ export default {
                     console.log('SEARCH WITH FILTER', this.store.doctors);
                 })
         },
-
-        saveMinAvgVote(event) {
-            this.store.minAvgVote = event.target.value;
-            console.log(this.store.minAvgVote);
-        },
-        saveMinNumOfReviews(event) {
-            this.store.minNumOfReviews = event.target.value;
-            console.log(this.store.minNumOfReviews);
-        },
-        saveSpecialtyID(event) {
-            this.store.specialtyID = event.target.value;
-            // console.log(this.store.specialtyID);
-        },
         submitForm() {
             this.$router.push('/advancedsearch');
         },
@@ -79,25 +66,24 @@ export default {
                 <div class="form-row d-flex align-items-center">
                     <div class="form-col col me-3">
                         <label for="minAvgVote">Voto minimo</label>
-                        <select @change="saveMinAvgVote($event)" class="form-control p-2" name="minAvgVote" id="minAvgVote">
-                            <option :value="0" :key="0" selected>Nessun minimo</option>
-                            <option v-for="n in 5" :value="n" :key="n">{{ n }}</option>
+                        <select v-model="store.minAvgVote" class="form-control p-2" name="minAvgVote" id="minAvgVote">
+                            <option :value="0" selected>Nessun minimo</option>
+                            <option v-for="n in 5" :value="n">{{ n }}</option>
                         </select>
                     </div>
                     <div class="form-col col me-3">
                         <label for="minNumOfReviews">Numero minimo di recensioni</label>
-                        <select @change="saveMinNumOfReviews($event)" class="form-control p-2" name="minNumOfReviews"
+                        <select v-model="store.minNumOfReviews" class="form-control p-2" name="minNumOfReviews"
                             id="minNumOfReviews">
-                            <option value="0" :key="0">Nessun minimo</option>
-                            <option :value="0 - 10" :key="0">0-10</option>
-                            <option :value="10" :key="1">Più di 10</option>
+                            <option value="0" >Nessun minimo</option>
+                            <option :value="5">5 o più</option>
+                            <option :value="10">10 o più</option>
                         </select>
                     </div>
                     <div class="form-col col me-3">
                         <label for="specialization">Specializzazione:</label>
-                        <select @change="saveSpecialtyID($event)" class="form-control" name="specialty" id="specialty">
-                            <option v-for="specialty in store.specialties" :value="specialty.id" :key="specialty.id"
-                                :selected="store.specialtyID == specialty.id"> {{ specialty.name }} </option>
+                        <select v-model="store.specialtyID" class="form-control" name="specialty" id="specialty">
+                            <option v-for="specialty in store.specialties" :value="specialty.id" :selected="store.specialtyID == specialty.id"> {{ specialty.name }} </option>
                         </select>
                     </div>
                     <button @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
@@ -111,8 +97,8 @@ export default {
         <div class="container m-auto">
             <div class="row justify-content-center">
                 <div class="col-12 text-center mt-4 mb-4">
-                    <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{
-                        store.doctors[0].doctorSpecialtiesArray[0] }}</h2>
+                    <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{store.doctors[0].doctorSpecialtiesArray[0] }}</h2>
+                    <h2 v-else>Nessun risultato trovato</h2>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-2" v-for="doctor in store.doctors"
                     :key="doctor.id">

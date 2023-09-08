@@ -10,15 +10,8 @@ export default {
   data() {
     return {
       store,
-      backendPaths,
-      images: [
-        'src/img/Dottori4.jpg',
-        'src/img/Dottori5.png',
-        'src/img/Dottori6.png',
-      ],
-      currentIndex: 0,
-      isAnimating: false
-    };
+      backendPaths
+    }
   },
   methods: {
     submitForm() {
@@ -38,18 +31,6 @@ export default {
           // console.log(this.specialties);
         })
     },
-    saveSpecialtyID(event) {
-      this.store.specialtyID = event.target.value;
-      // console.log(this.store.specialtyID);
-    },
-    changeBackground() {
-      this.isAnimating = true;
-      setTimeout(() => {
-        this.currentIndex = (this.currentIndex + 1) % this.images.length;
-        this.isAnimating = false;
-      }, 1000);
-    }
-
   },
   mounted() {
     this.store.specialtyID = 0;
@@ -83,10 +64,10 @@ export default {
               <div class="row">
                 <div class="col-md-8 col-sm-12 d-flex justify-content-around flex-column">
                   <label class="text-white" for="specialization">Specializzazione:</label>
-                  <select @change="saveSpecialtyID($event)" class="form-control cursor-pointer" name="specialty"
+                  <select v-model="store.specialtyID" class="form-control cursor-pointer" name="specialty"
                     id="specialty">
                     <option value="0" selected>Seleziona una specializzazione</option>
-                    <option v-for="specialty in store.specialties" :value="specialty.id" :key="specialty.id">{{
+                    <option v-for="specialty in store.specialties" :value="specialty.id">{{
                       specialty.name }}</option>
                   </select>
                 </div>
