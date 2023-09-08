@@ -17,7 +17,7 @@ export default {
     <div>
         <slot></slot>
     </div>
-    <header  class="header-doctor position-relative">
+    <header class="header-doctor position-relative">
         <div class="header-wrapper container-lg">
             <nav class="navbar navbar-expand-sm navbar-light justify-content-between w-100">
                 <a href="/" class="navbar-brand textColorDark fw-bold p-0 h-100">
@@ -36,11 +36,11 @@ export default {
                         <li class="nav-item">
                             <a class="nav-link hover-secondary" href="/aboutus">About Us</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link hover-secondary" :href="backendPaths.registerURL">Registrati</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
-                            <a class="nav-link hover-secondary" :href="backendPaths.loginURL">Accedi</a>
+                            <a class="nav-link " :href="backendPaths.loginURL">Area riservata</a>
                         </li>
                     </ul>
                 </div>
@@ -69,7 +69,13 @@ header {
 
     .nav-link {
         color: #0b6091;
+
     }
+
+    .nav-link:hover {
+        text-decoration: underline;
+    }
+
 }
 
 .navbar {
