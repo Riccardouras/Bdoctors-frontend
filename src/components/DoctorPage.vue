@@ -244,7 +244,7 @@ export default {
                     <h3 class="text-center">Scrivi una recensione</h3>
                     <form @submit.prevent="sendReviewData()">
                         <div class="form-group">
-                            <label for="name">Nome *</label>
+                            <label class="mt-2 mb-2" for="name">Nome *</label>
                             <input v-model="name" type="text" id="name" name="name" class="form-control"
                                 :class="reviewErrors.name ? 'is-invalid' : ''" required maxlength="30"
                                 placeholder="Il tuo nome">
@@ -253,7 +253,7 @@ export default {
                             </template>
                         </div>
                         <div class="form-group">
-                            <label for="title">Titolo *</label>
+                            <label class="mt-2 mb-2" for="title">Titolo *</label>
                             <input v-model="title" type="text" id="title" name="title" class="form-control"
                                 :class="reviewErrors.title ? 'is-invalid' : ''" required maxlength="300"
                                 placeholder="Titolo recensione">
@@ -262,7 +262,7 @@ export default {
                             </template>
                         </div>
                         <div class="form-group">
-                            <label for="comment">Commento *</label>
+                            <label class="mt-2 mb-2" for="comment">Commento *</label>
                             <textarea v-model="comment" id="comment" name="title" class="form-control" required
                                 maxlength="800" placeholder="Il tuo commento"></textarea>
                             <template v-if="reviewErrors.comment">
@@ -312,7 +312,7 @@ export default {
                         <h3 class="text-center">Invia un messaggio al dottore</h3>
                         <form @submit.prevent="sendMsgData()">
                             <div class="form-group">
-                                <label for="full_name">Nome *</label>
+                                <label class="mt-2 mb-2" for="full_name">Nome *</label>
                                 <input v-model="full_name" type="text" id="full_name"
                                     :class="messageErrors.full_name ? 'is-invalid' : ''" class="form-control" required
                                     maxlength="30" placeholder="Il tuo nome">
