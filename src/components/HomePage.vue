@@ -85,7 +85,7 @@ export default {
           <div class="card cardPremium">
             <router-link :to="`/doctorpage/${doctor.id}`">
               <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.image"
-                :alt="doctor.doctorName">
+                :alt="doctor.name">
             </router-link>
             <div class="content">
               <h5 class="card-title"><router-link :to="`/doctorpage/${doctor.id}`">{{ doctor.name }}</router-link></h5>

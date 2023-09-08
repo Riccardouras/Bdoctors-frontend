@@ -40,7 +40,6 @@ export default {
 
 <template>
     <!-- NAVBAR -->
-    <header>
         <div class="background">
 
             <!-- FORM RICERCA -->
@@ -76,13 +75,12 @@ export default {
                 </div>
             </div>
         </div>
-    </header>
 
     <main>
         <div class="container m-auto">
             <div class="row justify-content-center">
                 <div class="col-12 text-center mt-4 mb-4">
-                    <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{store.doctors[0].doctorSpecialtiesArray[0] }}</h2>
+                    <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{store.doctors[0].specialties[0] }}</h2>
                     <h2 v-else>Nessun risultato trovato</h2>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-2" v-for="doctor in store.doctors"
@@ -90,15 +88,15 @@ export default {
                     <div class="card">
                         <router-link :to="`/doctorpage/${doctor.id}`">
                             <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;"
-                                :src="doctor.doctorImage" :alt="doctor.doctorName">
+                                :src="doctor.image" :alt="doctor.name">
                         </router-link>
                         <div class="content">
-                            <h5 class="card-title"><router-link :to="`/doctorpage/${doctor.id}`">{{ doctor.doctorName
+                            <h5 class="card-title"><router-link :to="`/doctorpage/${doctor.id}`">{{ doctor.name
                             }}</router-link>
                             </h5>
                             <span>Specializzato in:</span>
                             <ul class="list-unstyled">
-                                <li class="specialization text-center" v-for="specialty in doctor.doctorSpecialtiesArray">{{
+                                <li class="specialization text-center" v-for="specialty in doctor.specialties">{{
                                     specialty }}</li>
                             </ul>
                             <p class="card-text">⭐ {{ doctor.averageVote }}</p>
@@ -127,6 +125,10 @@ export default {
     .form-col {
         width: 100%;
     }
+}
+
+select{
+    cursor: pointer;
 }
 
 
@@ -200,26 +202,6 @@ export default {
 .content .btn:active {
     box-shadow: none;
 }
-
-#logo {
-    width: 110px;
-}
-
-.nav-right {
-    width: 300px;
-    display: flex;
-    justify-content: space-between;
-}
-
-header a {
-    text-decoration: none;
-    color: white;
-}
-
-.link-header:hover {
-    color: black;
-}
-
 
 .background {
     // background-image: url(../img/dottore.jpg);
