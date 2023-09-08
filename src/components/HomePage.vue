@@ -45,7 +45,7 @@ export default {
     <div class="background">
       <!-- FORM RICERCA -->
       <div class="container" style="padding-top: 80px; margin-top: -105px;">
-        <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5 ">
+        <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5 row">
           <h2 style="font-weight: 700;">Cerca il tuo dottore!</h2>
           <h4>Cerca tra 100 000 Specialisti e Medici di Medicina Generale.</h4>
         </div>
