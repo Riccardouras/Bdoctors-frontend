@@ -14,19 +14,7 @@ export default {
         }
     },
     methods: {
-        searchPerSpecialty(specialtyID) {
-            let config = {
-                params: {
-                    specialty: specialtyID
-                }
-            };
-            axios.get(this.backendPaths.searchPerSpecialtyURL, config)
-                .then(response => {
-                    this.store.doctors = response.data.results;
-                    console.log('SEARCH PER SPECIALTY', this.store.doctors);
-                })
-        },
-        searchWithFilter(specialtyID, minVote, minReview) {
+        search(specialtyID, minVote, minReview) {
             let config = {
                 params: {
                     specialty: specialtyID,
@@ -34,20 +22,17 @@ export default {
                     minNumOfReviews: minReview
                 }
             };
-            axios.get(this.backendPaths.searchWithFilterURL, config)
+            axios.get(this.backendPaths.searchURL, config)
                 .then(response => {
                     this.store.doctors = response.data.results;
-                    console.log('SEARCH WITH FILTER', this.store.doctors);
+                    console.log('SEARCH', this.store.doctors);
                 })
-        },
-        submitForm() {
-            this.$router.push('/advancedsearch');
-        },
+        }
     },
     mounted() {
         this.store.minAvgVote = 0;
         this.store.minNumOfReviews = 0;
-        this.searchPerSpecialty(this.store.specialtyID);
+        this.search(this.store.specialtyID, this.store.minAvgVote, this.store.minNumOfReviews);
         console.log('LOG AL MOUNTED', this.store.doctors);
     }
 }
@@ -86,7 +71,7 @@ export default {
                             <option v-for="specialty in store.specialties" :value="specialty.id" :selected="store.specialtyID == specialty.id"> {{ specialty.name }} </option>
                         </select>
                     </div>
-                    <button @click="searchWithFilter(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
+                    <button @click="search(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
                         class="button text-center mt-4">Cerca</button>
                 </div>
             </div>

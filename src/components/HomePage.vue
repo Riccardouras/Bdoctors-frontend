@@ -36,15 +36,7 @@ export default {
     this.store.specialtyID = 0;
     this.sponsoredDoctors();
     this.getSpecialties();
-    setInterval(() => {
-      this.currentIndex = (this.currentIndex + 1) % this.images.length;
-    }, 4000);
-  },
-  computed: {
-    currentImage() {
-      return this.images[this.currentIndex];
-    }
-  },
+  }
 }
 </script>
 <template>

@@ -11,8 +11,7 @@ export const backendPaths = reactive({
 
     allSpecialtiesURL: baseApiURL + 'allSpecialties',
     sponsoredURL: baseApiURL + 'sponsoredDoctors',
-    searchPerSpecialtyURL: baseApiURL + 'searchPerSpecialty',
-    searchWithFilterURL: baseApiURL + 'searchWithFilter',
+    searchURL: baseApiURL + 'search',
     doctorDetailsURL: baseApiURL + 'doctorDetails',
     getDoctorReviewsURL: baseApiURL + 'getDoctorReviews',
     storeMessageURL: baseApiURL + 'storeMessage',
