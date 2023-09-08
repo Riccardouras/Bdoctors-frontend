@@ -55,9 +55,8 @@ export default {
             <div class="container">
               <div class="row">
                 <div class="col-md-8 col-sm-12 d-flex justify-content-around flex-column">
-                  <label class="text-white" for="specialization">Specializzazione:</label>
-                  <select v-model="store.specialtyID" class="form-control cursor-pointer" name="specialty"
-                    id="specialty">
+                  <label class="text-blu" for="specialization">Specializzazione:</label>
+                  <select v-model="store.specialtyID" class="form-control cursor-pointer" name="specialty" id="specialty">
                     <option value="0" selected>Seleziona una specializzazione</option>
                     <option v-for="specialty in store.specialties" :value="specialty.id">{{
                       specialty.name }}</option>
@@ -200,6 +199,10 @@ export default {
 .cursor-pointer {
   cursor: pointer;
 
+}
+
+.text-blu {
+  color: #0b6091;
 }
 
 .card {
