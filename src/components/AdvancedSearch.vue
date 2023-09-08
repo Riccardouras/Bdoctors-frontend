@@ -33,7 +33,7 @@ export default {
         this.store.minAvgVote = 0;
         this.store.minNumOfReviews = 0;
         this.search(this.store.specialtyID, this.store.minAvgVote, this.store.minNumOfReviews);
-        console.log('LOG AL MOUNTED', this.store.doctors);
+        // console.log('LOG AL MOUNTED', this.store.doctors);
     }
 }
 </script>
@@ -85,7 +85,7 @@ export default {
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-2" v-for="doctor in store.doctors"
                     :key="doctor.id">
-                    <div class="card">
+                    <div class="card" :class="doctor.sponsorCheck ? 'cardPremium' : ''">
                         <router-link :to="`/doctorpage/${doctor.id}`">
                             <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;"
                                 :src="doctor.image" :alt="doctor.name">
@@ -224,5 +224,24 @@ select{
 .form-select {
     height: 50px;
     border-radius: 2px
+}
+
+.cardPremium::before {
+    content: 'Premium';
+    position: absolute;
+    right: 100px;
+    top: 40px;
+    width: 100%;
+    height: 40px;
+    background-image: linear-gradient(45deg, #05486e 0%, #084f79 51%, #17a5f5 100%);
+    transform: rotate(-45deg) translateY(-20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.23);
 }
 </style>
