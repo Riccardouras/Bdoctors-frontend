@@ -23,11 +23,39 @@ export default {
                 <a href="/" class="navbar-brand textColorDark fw-bold p-0 h-100">
                     <img id="navbarIcon" class="h-100" src="../img/logoNoBackground.png" alt="site icon">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sectionNavBar"
-                    aria-controls="sectionNavBar" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- <button class="d-none navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#sectionNavBar" aria-controls="sectionNavBar" aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button> -->
+                <!-- ******************************* -->
+                <button class=" d-sm-none btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                    aria-controls="offcanvasRight"><i class="fa-solid fa-chevron-down"></i></button>
 
+                <div class="d-sm-none offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                    aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header d-flex justify-content-end">
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav gap-3 ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link hover-secondary" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link hover-secondary" href="/aboutus">About Us</a>
+                            </li>
+                            <!-- <li class="nav-item">
+                            <a class="nav-link hover-secondary" :href="backendPaths.registerURL">Registrati</a>
+                        </li> -->
+                            <li class="nav-item">
+                                <a class="nav-link " :href="backendPaths.loginURL">Area riservata</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- ************************************************* -->
                 <div id="sectionNavBar" class="collapse navbar-collapse ms-auto text-end">
                     <ul class="navbar-nav gap-3 ms-auto">
                         <li class="nav-item">
@@ -88,5 +116,10 @@ header {
 
 header {
     background: transparent;
+}
+
+#offcanvasRight {
+    width: 40%;
+    opacity: 0.95;
 }
 </style>

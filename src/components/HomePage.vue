@@ -10,9 +10,16 @@ export default {
   data() {
     return {
       store,
-      backendPaths
+      backendPaths,
+      loopIndex: 0,
     }
   },
+  computed: {
+    currentSpecialty() {
+      return this.store.specialties[this.loopIndex].name;
+    }
+  },
+
   methods: {
     submitForm() {
       this.$router.push('/advancedsearch');
@@ -27,14 +34,36 @@ export default {
         });
     },
     getSpecialties() {
+      this.store.loading = true
       axios.get(this.backendPaths.allSpecialtiesURL)
         .then(response => {
           this.store.specialties = response.data.results;
+          this.store.loading = false
           // console.log(this.specialties);
         })
     },
+    startCycle() {
+      this.cycleItem();
+    },
+    cycleItem() {
+      setTimeout(() => {
+        // this.loopIndex = 0,
+        this.loopIndex++;
+
+        if (this.loopIndex === this.store.specialties.length) {
+          this.loopIndex = 0;
+        }
+        this.cycleItem();
+      }, 2000);
+    },
+  },
+  created() {
+
+
   },
   mounted() {
+    this.loopIndex = 0,
+      this.startCycle();
     this.store.specialtyID = 0;
     this.sponsoredDoctors();
     this.getSpecialties();
@@ -42,141 +71,146 @@ export default {
 }
 </script>
 <template>
-  <!-- NAVBAR -->
-  <header>
-    <div class="background">
-      <!-- FORM RICERCA -->
-      <div class="container" style="padding-top: 80px; margin-top: -105px;">
-        <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5 row">
-          <h2 style="font-weight: 700;">Cerca il tuo dottore!</h2>
-          <h4>Cerca tra 100 000 Specialisti e Medici di Medicina Generale.</h4>
-        </div>
+  <div v-if="store.loading" class="text-center modalLoading">
+    <i class="fa-solid fa-spinner fa-spin"></i>
+  </div>
+  <div id="allContent" v-else>
+    <!-- NAVBAR -->
+    <header>
+      <div class="background">
+        <!-- FORM RICERCA -->
+        <div class="container" style="padding-top: 80px; margin-top: -105px;">
+          <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5 row">
+            <h2 style="font-weight: 700;">Cerca il tuo dottore!</h2>
+            <div v-if="!store.loading" class="d-flex align-items-center">
+              <h4>Cerca tra 100 000 Medici specializzati in <span id="loopSpecialty"> {{ currentSpecialty }}</span></h4>
+              <!-- <h4 id="loopSpecialty"> {{ currentSpecialty }}</h4> -->
+            </div>
+          </div>
 
-        <div>
-          <div class="form-row d-flex align-items-center">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-8 col-sm-12 d-flex justify-content-around flex-column">
-                  <label class="text-blu" for="specialization">Specializzazione:</label>
-                  <select v-model="store.specialtyID" class="form-control cursor-pointer" name="specialty" id="specialty">
-                    <option value="0" selected>Seleziona una specializzazione</option>
-                    <option v-for="specialty in store.specialties" :value="specialty.id">{{
-                      specialty.name }}</option>
-                  </select>
-                </div>
-                <div class="col-md-4 col-sm-12 btncenter">
-                  <button :disabled="store.specialtyID != 0 ? false : true" @click="submitForm"
-                    class="button text-center mt-4">Cerca</button>
+          <div>
+            <div class="form-row d-flex align-items-center">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-8 col-sm-12 d-flex justify-content-around flex-column">
+                    <label class="text-blu" for="specialization">Specializzazione:</label>
+                    <select v-model="store.specialtyID" class="form-control cursor-pointer" name="specialty"
+                      id="specialty">
+                      <option value="0" selected>Seleziona una specializzazione</option>
+                      <option v-for="specialty in store.specialties" :value="specialty.id">{{
+                        specialty.name }}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4 col-sm-12 btncenter">
+                    <button :disabled="store.specialtyID != 0 ? false : true" @click="submitForm"
+                      class="button text-center mt-4">Cerca</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <div v-if="store.loading" class="text-center loading mt-4">
-      <i class=" loading fa-solid fa-spinner fa-spin"></i>
-    </div>
-    <!-- MEDICI IN EVIDENZA-->
-    <div v-else class="container">
-      <h2 class="text-center mt-4 mb-4" style="font-weight: 700;">Dottori in evidenza</h2>
-      <div class="row justify-content-center">
-        <div class="col-xl-4 col-md-6 col-sm-12 d-flex justify-content-center mt-2"
-          v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
-          <div class="card cardPremium">
-            <router-link :to="`/doctorpage/${doctor.id}`">
-              <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.image"
-                :alt="doctor.name">
-            </router-link>
-            <div class="content">
-              <h5 class="card-title"><router-link :to="`/doctorpage/${doctor.id}`">{{ doctor.name }}</router-link></h5>
-              <span>Specializzato in:</span>
-              <ul class="list-unstyled">
-                <li class="specialization text-center" v-for="specialty in doctor.specialties">{{ specialty }}</li>
-              </ul>
-              <p class="card-text">⭐ {{ doctor.averageVote }}</p>
-              <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
+    <main>
+      <!-- MEDICI IN EVIDENZA-->
+      <div class="container">
+        <h2 class="text-center mt-4 mb-4" style="font-weight: 700;">Dottori in evidenza</h2>
+        <div class="row justify-content-center">
+          <div class="col-xl-4 col-md-6 col-sm-12 d-flex justify-content-center mt-2"
+            v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
+            <div class="card cardPremium">
+              <router-link :to="`/doctorpage/${doctor.id}`">
+                <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.image"
+                  :alt="doctor.name">
+              </router-link>
+              <div class="content">
+                <h5 class="card-title"><router-link :to="`/doctorpage/${doctor.id}`">{{ doctor.name }}</router-link></h5>
+                <span>Specializzato in:</span>
+                <ul class="list-unstyled">
+                  <li class="specialization text-center" v-for="specialty in doctor.specialties">{{ specialty }}</li>
+                </ul>
+                <p class="card-text">⭐ {{ doctor.averageVote }}</p>
+                <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <footer>
-    <!-- FAQ -->
-    <div class="container">
-      <div class="titleFaq text-center mt-4 mb-4">
-        <h2>F.A.Q.</h2>
-      </div>
-      <div class="accordion mt-4 mb-4" id="accordionExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Come posso prenotare una visita con un dottore?
-            </button>
-          </h2>
-          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              Puoi prenotare una visita con un dottore utilizzando il nostro sistema di prenotazione online o chiamando
-              il nostro numero di telefono. Basta selezionare il dottore che desideri visitare e scegliere una data e un
-              orario disponibili.
-            </div>
-          </div>
+    <footer>
+      <!-- FAQ -->
+      <div class="container">
+        <div class="titleFaq text-center mt-4 mb-4">
+          <h2>F.A.Q.</h2>
         </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Quali sono i metodi di pagamento accettati?
-            </button>
-          </h2>
-          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              Accettiamo pagamenti tramite carta di credito, bonifico bancario e contanti. Si prega di notare che alcuni
-              dottori potrebbero avere metodi di pagamento preferiti, quindi si consiglia di verificare con loro prima
-              della visita.
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              Cosa devo portare con me alla visita?
-            </button>
-          </h2>
-          <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              Si consiglia di portare con sé la tessera sanitaria, eventuali documenti medici rilevanti e una lista dei
-              farmaci che si stanno assumendo. Inoltre, potrebbe essere utile portare una lista di domande o
-              preoccupazioni da discutere con il dottore durante la visita.
+        <div class="accordion mt-4 mb-4" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Come posso prenotare una visita con un dottore?
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Puoi prenotare una visita con un dottore utilizzando il nostro sistema di prenotazione online o chiamando
+                il nostro numero di telefono. Basta selezionare il dottore che desideri visitare e scegliere una data e un
+                orario disponibili.
+              </div>
             </div>
           </div>
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                Come posso annullare o modificare un appuntamento?
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Quali sono i metodi di pagamento accettati?
               </button>
             </h2>
-            <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                Puoi annullare o modificare un appuntamento utilizzando il nostro sistema di prenotazione online o
-                chiamando il nostro numero di telefono. Si prega di notare che potrebbero essere applicate delle penali
-                per le cancellazioni effettuate con meno di 24 ore di preavviso.
+                Accettiamo pagamenti tramite carta di credito, bonifico bancario e contanti. Si prega di notare che alcuni
+                dottori potrebbero avere metodi di pagamento preferiti, quindi si consiglia di verificare con loro prima
+                della visita.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Cosa devo portare con me alla visita?
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Si consiglia di portare con sé la tessera sanitaria, eventuali documenti medici rilevanti e una lista dei
+                farmaci che si stanno assumendo. Inoltre, potrebbe essere utile portare una lista di domande o
+                preoccupazioni da discutere con il dottore durante la visita.
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                  Come posso annullare o modificare un appuntamento?
+                </button>
+              </h2>
+              <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  Puoi annullare o modificare un appuntamento utilizzando il nostro sistema di prenotazione online o
+                  chiamando il nostro numero di telefono. Si prega di notare che potrebbero essere applicate delle penali
+                  per le cancellazioni effettuate con meno di 24 ore di preavviso.
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-  </footer>
+    </footer>
+  </div>
 </template>
 
 <style scopded lang="scss">
@@ -206,14 +240,25 @@ export default {
 
 }
 
+#loopSpecialty {
+  font-weight: 600;
+}
+
 .text-blu {
   color: #0b6091;
 }
 
-.loading {
+.modalLoading {
   font-size: 6rem;
-  opacity: 0.9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 999;
 }
+
 
 .card {
   position: relative;
