@@ -100,16 +100,18 @@ export default {
                                 :src="doctor.image" :alt="doctor.name">
                         </router-link>
                         <div class="content">
-                            <h5 class="card-title"><router-link :to="`/doctorpage/${doctor.id}`">{{ doctor.name
+                            <h5 class="card-title fw-bold"><router-link :to="`/doctorpage/${doctor.id}`">{{ doctor.name
                             }}</router-link>
                             </h5>
                             <span>Specializzato in:</span>
                             <ul class="list-unstyled">
-                                <li class="specialization text-center" v-for="specialty in doctor.specialties">{{
+                                <li class="specialization text-center text-black" v-for="specialty in doctor.specialties">{{
                                     specialty }}</li>
                             </ul>
-                            <p class="card-text">⭐ {{ doctor.averageVote }}</p>
-                            <p class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
+                            <p v-if="doctor.averageVote > 0" class="card-text">⭐ {{ doctor.averageVote }}</p>
+                            <p v-else>Nessun voto</p>
+                            <p v-if="doctor.numberOfReviews > 0" class="card-text">Numero recensioni: {{ doctor.numberOfReviews }}</p>
+                            <p v-else>Nessuna recensione</p>
                         </div>
                     </div>
                 </div>
