@@ -71,7 +71,7 @@ export default {
 }
 </script>
 <template>
-  <div v-if="store.loading" class="text-center modalLoading">
+  <div v-if="store.loading" class="modalLoading d-flex align-items-center justify-content-center">
     <i class="fa-solid fa-spinner fa-spin"></i>
   </div>
   <div id="allContent" v-else>
@@ -80,11 +80,10 @@ export default {
       <div class="background">
         <!-- FORM RICERCA -->
         <div class="container" style="padding-top: 80px; margin-top: -105px;">
-          <div class="titleDoctor d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5 row">
+          <div class="d-flex flex-column justify-content-around w-75 m-auto align-items-start pt-5 row">
             <h2 style="font-weight: 700;">Cerca il tuo dottore!</h2>
-            <div v-if="!store.loading" class="d-flex align-items-center">
+            <div v-if="!store.loading" class="d-none d-md-block align-items-center">
               <h4>Cerca tra 100 000 Medici specializzati in <span id="loopSpecialty"> {{ currentSpecialty }}</span></h4>
-              <!-- <h4 id="loopSpecialty"> {{ currentSpecialty }}</h4> -->
             </div>
           </div>
 
@@ -122,7 +121,7 @@ export default {
             v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
             <div class="card cardPremium">
               <router-link :to="`/doctorpage/${doctor.id}`">
-                <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;" :src="doctor.image"
+                <img class="card-img-top heading mb-2 rounded-2" style="height: 200px; object-fit: contain;" :src="doctor.image"
                   :alt="doctor.name">
               </router-link>
               <div class="content">

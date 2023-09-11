@@ -162,7 +162,7 @@ export default {
 
         </div>
         <div v-if="store.loading" class="text-center loading mt-4">
-            <i class=" loading fa-solid fa-spinner fa-spin"></i>
+            <i class="fa-solid fa-spinner fa-spin"></i>
         </div>
         <div v-else class="container">
             <div class="row">
@@ -179,14 +179,17 @@ export default {
 
                         <div class="rating d-flex align-items-center">
                             <span class="rating-label fs-3">⭐</span>
-                            <span>{{ doctor.averageVote }}</span>
+                            <span class="fw-bold">{{ doctor.averageVote }}</span>
                         </div>
 
-                        <div class="rating d-flex flex-column align-items-center">
-                            <span class="rating-label"><strong>Numero di recensioni:</strong>
-                            </span>
+                        <div v-if="doctorReviews.length !=0" class="rating d-flex flex-column align-items-center">
+                            <!-- <span  class="rating-label"><strong>Numero di recensioni:</strong></span> -->
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewsModal">{{
-                                doctor.numberOfReviews }} recensioni</button>
+                                doctor.numberOfReviews }} <span v-if="doctorReviews.length == 1 && doctorReviews.length !=0"> recensione</span> <span v-if="doctorReviews.length > 1"> recensioni</span></button>
+                        </div>
+
+                        <div v-else>
+                            <span class="rating-label fw-bold">Nessuna recensione</span>
                         </div>
 
                         <div class="modal fade" id="reviewsModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -475,7 +478,7 @@ h1 {
     height: 100px;
     background-image: url(../img/Dottori4.jpg);
     background-size: cover;
-    background-position: bottom;
+    background-position: center;
     margin-top: -100px;
 
 }

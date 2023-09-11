@@ -18,7 +18,7 @@ export default {
             <h2 style="font-weight: 700;">INFO</h2>
         </div>
         <div class="row justify-content-center">
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-2">
                 <div class="card custom-card justify-content-start ">
                     <div class=" mb-2 mb-sm-0 media d-flex justify-content-between flex-column mt-0">
                         <div class="pr-1 text-center">
@@ -42,7 +42,7 @@ export default {
                 </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-2">
                 <div class="card custom-card justify-content-start">
                     <div class=" mb-2 mb-sm-0 media d-flex justify-content-between flex-column mt-0">
                         <div class="pr-1 text-center">
@@ -69,7 +69,7 @@ export default {
                 </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-2">
                 <div class="card custom-card justify-content-start">
                     <div class=" mb-2 mb-sm-0 media d-flex justify-content-between flex-column mt-0">
                         <div class="pr-1 text-center">
@@ -96,7 +96,7 @@ export default {
                 </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-2">
                 <div class="card custom-card justify-content-start">
                     <div class=" mb-2 mb-sm-0 media d-flex justify-content-between flex-column  mt-0">
                         <div class="pr-1 text-center">

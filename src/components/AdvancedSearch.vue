@@ -60,7 +60,7 @@ export default {
                     </select>
                 </div>
                 <div class="form-col col me-3">
-                    <label for="minNumOfReviews">Numero minimo di recensioni</label>
+                    <label for="minNumOfReviews">Recensioni minime</label>
                     <select v-model="store.minNumOfReviews" class="form-control p-2" name="minNumOfReviews"
                         id="minNumOfReviews">
                         <option value="0">Nessun minimo</option>
@@ -76,26 +76,27 @@ export default {
                     </select>
                 </div>
                 <button @click="search(store.specialtyID, store.minAvgVote, store.minNumOfReviews)"
-                    class="button text-center mt-4">Cerca</button>
+                    class="button text-center mt-3 p-2">Cerca</button>
             </div>
         </div>
     </div>
 
+    <!-- RISULTATO DELLA RICERCA -->
     <main>
         <div v-if="store.loading" class="text-center loading mt-4">
-            <i class=" loading fa-solid fa-spinner fa-spin"></i>
+            <i class="fa-solid fa-spinner fa-spin"></i>
         </div>
         <div v-else class="container m-auto">
             <div class="row justify-content-center">
                 <div class="col-12 text-center mt-4 mb-4">
-                    <h2 v-if="store.doctors.length > 0">Specializzazione selezionata: {{ store.searchedSpecialty }}</h2>
+                    <h2 v-if="store.doctors.length > 0">Risultati per: {{ store.searchedSpecialty }}</h2>
                     <h2 v-else>Nessun risultato trovato</h2>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-2" v-for="doctor in store.doctors"
                     :key="doctor.id">
                     <div class="card" :class="doctor.sponsorCheck ? 'cardPremium' : ''">
                         <router-link :to="`/doctorpage/${doctor.id}`">
-                            <img class="card-img-top heading pb-2" style="height: 200px; object-fit: contain;"
+                            <img class="card-img-top heading mb-2 rounded-2" style="height: 200px; object-fit: contain;"
                                 :src="doctor.image" :alt="doctor.name">
                         </router-link>
                         <div class="content">
@@ -134,6 +135,7 @@ export default {
         width: 100%;
     }
 }
+
 
 select {
     cursor: pointer;
@@ -220,6 +222,10 @@ select {
 
 .titleDoctor {
     height: 180px;
+    
+    h2{
+        padding-top: 3rem;
+    }
 }
 
 .form-row {

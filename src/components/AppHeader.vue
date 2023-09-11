@@ -23,14 +23,8 @@ export default {
                 <a href="/" class="navbar-brand textColorDark fw-bold p-0 h-100">
                     <img id="navbarIcon" class="h-100" src="../img/logoNoBackground.png" alt="site icon">
                 </a>
-                <!-- <button class="d-none navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#sectionNavBar" aria-controls="sectionNavBar" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button> -->
-                <!-- ******************************* -->
                 <button class=" d-sm-none btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-                    aria-controls="offcanvasRight"><i class="fa-solid fa-chevron-down"></i></button>
+                    aria-controls="offcanvasRight"><i class="menu-icon fa-solid fa-bars"></i></button>
 
                 <div class="d-sm-none offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
                     aria-labelledby="offcanvasRightLabel">
@@ -116,6 +110,10 @@ header {
 
 header {
     background: transparent;
+}
+
+.menu-icon{
+    font-size: 2rem;
 }
 
 #offcanvasRight {
