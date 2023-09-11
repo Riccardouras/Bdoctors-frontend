@@ -299,7 +299,7 @@ export default {
                                 </span>
                             </div>
                             <template v-if="voteErrors.doctor_id || voteErrors.vote_id">
-                                <p class="text-danger">Ops qualcosa è andato storto</p>
+                                <p class="text-danger text-center">Ops qualcosa è andato storto</p>
                             </template>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary mt-3 mb-4">Invia Voto</button>
