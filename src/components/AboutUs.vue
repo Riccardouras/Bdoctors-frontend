@@ -26,7 +26,7 @@ export default {
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-lg-4 col-md-12 d-flex justify-content-center">
-                <div class="card custom-card">
+                <div class="card mb-2 custom-card">
                     <div class="card-body">
                         <h5 class="card-title"><strong>Il nostro Telefono</strong></h5>
                         <p class="card-text">+39 2223456345</p>
@@ -34,15 +34,15 @@ export default {
                 </div>
             </div>
             <div class="col-lg-4 col-md-12 d-flex justify-content-center">
-                <div class="card custom-card">
+                <div class="card mb-2 custom-card">
                     <div class="card-body">
-                        <h5 class="card-title"><strong>La nostra Via</strong></h5>
+                        <h5 class="card-title"><strong>Il nostro Indirizzo</strong></h5>
                         <p class="card-text">Via Garibaldi, Milano</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12 d-flex justify-content-center">
-                <div class="card custom-card">
+                <div class="card mb-2 custom-card">
                     <div class="card-body">
                         <h5 class="card-title"><strong>La nostra Email</strong></h5>
                         <p class="card-text">boolean@project.com</p>

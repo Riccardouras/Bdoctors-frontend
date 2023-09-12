@@ -182,10 +182,11 @@ export default {
                             <span class="fw-bold">{{ doctor.averageVote }}</span>
                         </div>
 
-                        <div v-if="doctorReviews.length !=0" class="rating d-flex flex-column align-items-center">
-                            <!-- <span  class="rating-label"><strong>Numero di recensioni:</strong></span> -->
+                        <div v-if="doctorReviews.length != 0" class="rating d-flex flex-column align-items-center">
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewsModal">{{
-                                doctor.numberOfReviews }} <span v-if="doctorReviews.length == 1 && doctorReviews.length !=0"> recensione</span> <span v-if="doctorReviews.length > 1"> recensioni</span></button>
+                                doctor.numberOfReviews }} <span
+                                    v-if="doctorReviews.length == 1 && doctorReviews.length != 0"> recensione</span> <span
+                                    v-if="doctorReviews.length > 1"> recensioni</span></button>
                         </div>
 
                         <div v-else>
