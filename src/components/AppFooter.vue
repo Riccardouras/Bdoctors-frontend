@@ -29,14 +29,15 @@ export default {
                                             d="M14 9.5a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0Zm-.665 5.249a6.5 6.5 0 1 1 1.414-1.414l4.958 4.958a1 1 0 0 1-1.414 1.414l-4.958-4.958Z">
                                         </path>
                                     </svg></i>
-                                <h3 class="h4 ml-1 mb-0 mr-1 ps-2 text-center">Trova un dottore nella tua città</h3>
+                                <h3 class="h4 ml-1 mb-0 mr-1 ps-2 text-center">Cerca il tuo medico!
+                                </h3>
                             </div>
                         </div>
                         <div class="media-body">
                             <p class="text-muted mt-1 mb-3 m-0 mb-sm-3 text-center">Scegli tra oltre 100&nbsp;000 medici di
                                 medicina
                                 generale e
-                                specialisti. Leggi le recensioni di altri pazienti.</p>
+                                specialisti.</p>
                         </div>
                     </div>
                 </div>
@@ -54,15 +55,15 @@ export default {
                                         </path>
                                     </svg></i>
 
-                                <h3 class="h4 ml-1 mb-0 mr-1  text-center">Prenota una visita: è facile e gratuito!</h3>
+                                <h3 class="h4 ml-1 mb-0 mr-1  text-center">Contatta un medico: è facile e gratuito!</h3>
                             </div>
                         </div>
                         <div class="media-body">
-                            <p class="text-muted mt-1 mb-3 m-0 mb-sm-3 text-center">Scegli la data che preferisci, inserisci
+                            <p class="text-muted mt-1 mb-3 m-0 mb-sm-3 text-center">Inserisci
                                 i
                                 tuoi
-                                dati e
-                                conferma…
+                                dati ed invia il tuo messaggio.
+
                             </p>
                         </div>
                     </div>
@@ -81,16 +82,13 @@ export default {
                                         </path>
                                     </svg></i>
 
-                                <h3 class="h4 ml-1 mb-0 mr-1 ps-2 text-center">Richiedi prescrizioni</h3>
+                                <h3 class="h4 ml-1 mb-0 mr-1 ps-2 text-center">Invia una recensione!</h3>
                             </div>
                         </div>
 
                         <div class="media-body">
-                            <p class="text-muted mt-1 mb-3 m-0 mb-sm-3 text-center">Richiedi prescrizioni e condividi i
-                                risultati di
-                                test
-                                ed analisi
-                                con il tuo medico di medicina generale.</p>
+                            <p class="text-muted mt-1 mb-3 m-0 mb-sm-3 text-center">Lascia un commento e racconta la tua
+                                esperienza.</p>
                         </div>
                     </div>
                 </div>
@@ -108,16 +106,15 @@ export default {
                                         </path>
                                     </svg></i>
 
-                                <h3 class="h4 ml-1 mb-0 mr-1 ps-2 text-center">Promemoria via mail e SMS</h3>
+                                <h3 class="h4 ml-1 mb-0 mr-1 ps-2 text-center">Sei un medico?</h3>
                             </div>
                         </div>
 
                         <div class="media-body">
-                            <p class="text-muted mt-1 mb-3 m-0 mb-sm-3 text-center">Ricorderai sempre le tue visite future!
-                                Ti
-                                ricorderemo
-                                della tua
-                                visita tramite email e sms.</p>
+                            <p class="text-muted mt-1 mb-3 m-0 mb-sm-3 text-center">
+                                Registrati ed accedi alla tua area riservata dove potrai visualizzare e modificare il tuo
+                                profilo.
+                            </p>
                         </div>
                     </div>
                 </div>

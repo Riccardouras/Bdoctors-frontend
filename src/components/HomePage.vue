@@ -121,8 +121,8 @@ export default {
             v-for="doctor in store.sponsoredDoctors" :key="doctor.id">
             <div class="card cardPremium">
               <router-link :to="`/doctorpage/${doctor.id}`">
-                <img class="card-img-top heading mb-2 rounded-2" style="height: 200px; object-fit: contain;" :src="doctor.image"
-                  :alt="doctor.name">
+                <img class="card-img-top heading mb-2 rounded-2" style="height: 200px; object-fit: contain;"
+                  :src="doctor.image" :alt="doctor.name">
               </router-link>
               <div class="content">
                 <h5 class="card-title"><router-link :to="`/doctorpage/${doctor.id}`">{{ doctor.name }}</router-link></h5>
@@ -155,9 +155,10 @@ export default {
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                Puoi prenotare una visita con un dottore utilizzando il nostro sistema di prenotazione online o chiamando
-                il nostro numero di telefono. Basta selezionare il dottore che desideri visitare e scegliere una data e un
-                orario disponibili.
+                Puoi prenotare una visita con un dottore contattandolo attraverso la sezione messaggi nella pagina
+                dedicata, oppure attraverso
+                il nostro numero di telefono. Basta selezionare il dottore che desideri contattare per visualizzarne i
+                dettagli.
               </div>
             </div>
           </div>
